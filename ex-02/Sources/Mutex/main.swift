@@ -26,8 +26,6 @@ private func post(p: Place, t: Transition) -> Nat {
   }
 }
 
-
-
 func initialMarking(_ place: Place) -> Nat {
   switch place {
   case Place("s0"): return 1
