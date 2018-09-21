@@ -18,7 +18,7 @@ You are free to choose another operating system, but note that
 **you won't receive support from the course's assistant for any system-related issue**
 if you chose to do so.
 
-### Setup your SSH keys on GitLab
+### Setup your SSH keys on GitHub
 
 So as to be able to clone, pull and push updates to GitLab repositories,
 you'll need GitLab to know your identity.
@@ -52,7 +52,7 @@ In order to do so,
 un the following command in your local repository (the one you cloned from your fork):
 
 ```bash
-git pull https://github.com/cui-unige/outils-formels-modelisation.git master
+git pull https://github.com/cui-unige/outils-formels-modelisation-2018.git master
 ```
 
 **Never ever** copy the new or update files from the base repository manually into your own!
