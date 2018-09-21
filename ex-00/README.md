@@ -1,3 +1,3 @@
-# HelloKitty
+# Hello
 
 A dummy package.
