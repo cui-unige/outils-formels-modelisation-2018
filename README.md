@@ -98,7 +98,7 @@ Your branch is up to date with 'origin/master'.
 Changes to be committed:
   (use "git reset HEAD <file>..." to unstage)
 
-	modified:   SomeUpdatedFile.swift
+  modified:   SomeUpdatedFile.swift
   removed:    SomeRemovedFile.swift
   renamed:    OldName.swift -> NewName.swift
 
@@ -111,7 +111,7 @@ Changes not staged for commit:
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
 
-	UntrackedFile.md
+  UntrackedFile.md
 ```
 
 When you're satisfied with your changes, you can commit them with the command `git commit`.
