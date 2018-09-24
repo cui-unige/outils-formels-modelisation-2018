@@ -1,1 +1,1 @@
-print("Hello, Guerre et Paix!")
+print("Hello, War and Peace")
