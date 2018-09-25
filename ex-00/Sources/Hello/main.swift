@@ -1,1 +1,1 @@
-print("Pikachu, attaque éclair !!!")
+print("Pikachu, attaque éclair !")
