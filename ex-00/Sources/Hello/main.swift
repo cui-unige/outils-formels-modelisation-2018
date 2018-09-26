@@ -1,1 +1,2 @@
-print("Hello, Tokio 1!")
+var pays = "Tokio"
+print("Hello \(pays)!")
