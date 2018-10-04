@@ -1,1 +1,1 @@
-print("Hello, world!")
+print("Objectif Nippon")
