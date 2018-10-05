@@ -30,7 +30,11 @@ public struct PetriNet {
   /// A method that returns whether a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
     // Write your code here.
-    return false
+    // return {
+    //   return marking($0) >=  pre($0, transition) ? true : false
+    // }
+
+    return marking($1) == marking($0) ? true : false
   }
 
   /// A method that fires a transition from a given marking.
@@ -39,7 +43,14 @@ public struct PetriNet {
   /// otherwise it returns the new marking.
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
     // Write your code here.
+    // if isFireable(transition, marking) == 0 {
+    //   return nil
+    // }
+    // else {
+    //   return marking($0) + 1
+    // }
     return nil
+
   }
 
   /// A helper function to print markings.
