@@ -9,6 +9,8 @@ enum Place: CaseIterable {
 }
 
 // Declare the structure of the Petri net.
+
+//Les .p1 sont une simplification de Place.p1 à cause de l'énumeration
 let a = PTTransition<Place>(
   named         : "a",
   preconditions : [PTArc(place: .p1, label: 1)],
@@ -24,7 +26,7 @@ let c = PTTransition<Place>(
 let pn = PTNet(transitions: [a, b, c])
 
 // Declare the initial marking.
-let m0: Marking<Place, UInt> = [.p1: 1, .p2: 0, .p3: 0]
+let m0: Marking<Place, UInt> = [.p1: 2, .p2: 0, .p3: 0]
 
 // Fire the transition `a` from the initial marking.
 guard let m1 = a.fire(from: m0) else {

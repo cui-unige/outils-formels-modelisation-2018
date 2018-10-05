@@ -45,7 +45,7 @@ let model = PetriNet(
 
 
 let c  = model.incidenceMatrix
-let s  = model.characteristicVector(of: [Transition("t1"), Transition("t2"), Transition("t1")])
+let s  = model.characteristicVector(of: [Transition("t0"), Transition("t3")])
 let m0 = model.markingVector(initialMarking)
 let m1 = m0 + c * s
 
