@@ -22,8 +22,7 @@ if you chose to do so.
 
 So as to be able to clone, pull and push updates to GitLab repositories,
 you'll need GitLab to know your identity.
-The best way to do so is to [register your SSH keys]
-(https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
+The best way to do so is to [register your SSH keys](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
 
 1. Generate a new SSH key
 2. Add your SSH key to the ssh-agent
@@ -98,7 +97,7 @@ Your branch is up to date with 'origin/master'.
 Changes to be committed:
   (use "git reset HEAD <file>..." to unstage)
 
-	modified:   SomeUpdatedFile.swift
+  modified:   SomeUpdatedFile.swift
   removed:    SomeRemovedFile.swift
   renamed:    OldName.swift -> NewName.swift
 
@@ -111,7 +110,7 @@ Changes not staged for commit:
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
 
-	UntrackedFile.md
+  UntrackedFile.md
 ```
 
 When you're satisfied with your changes, you can commit them with the command `git commit`.
@@ -166,7 +165,7 @@ each one accounting for 1 point.
 An additional half point can be added or subtracted from your score,
 depending on the quality of your code.
 
-You may run the tests yourself with the command `swift run`.
+You may run the tests yourself with the command `swift test`.
 This system means you can accurately estimate your grade yourself!
 
 You are free and even encouraged to work in group.
