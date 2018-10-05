@@ -36,6 +36,7 @@ let model = PetriNet(
   pre        : pre,
   post       : post)
 
+print(initialMarking(Place("p2")))
 
 let c  = model.incidenceMatrix
 let s  = model.characteristicVector(of: [Transition("t1"), Transition("t2"), Transition("t1")])
