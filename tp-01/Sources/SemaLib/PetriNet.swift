@@ -30,7 +30,19 @@ public struct PetriNet {
   /// A method that returns whether a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
     // Write your code here.
-    return false
+    var reslutIntermediaire = false
+    for p in places {
+    var x = pre(p, transition)
+    switch x {
+    case let m where m < marking(p):
+          reslutIntermediaire = true
+    case let m where m == marking(p):
+    reslutIntermediaire = true
+
+    default: break
+    }
+  }
+    return reslutIntermediaire
   }
 
   /// A method that fires a transition from a given marking.
@@ -39,7 +51,21 @@ public struct PetriNet {
   /// otherwise it returns the new marking.
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
     // Write your code here.
-    return nil
+  if case  let x = isFireable(transition,  marking), x == true {
+    var MarkingInter = type(of: marking)
+     // on utilise le marquage initial
+    for p in places { // on créer une boucle pour récupérer les valeur  des places pour chaque place
+      var x = pre(p , transition) // on récupére le nombre de jeton pour la transition en sortie
+      var y = post(p, transition) // on récupére le nombre de jeton pour la transition en entrée
+      var z = y - x // on soustrait les jeton de sortie avec avec les jeton d'entrée
+      MarkingInter(p) = marking(p) + z // on adition les jeton d'incidence avec les jeton préexistant
+
+    let result = MarkingInter
+    return MarkingInter
+    }
+
+   return nil
+   }
   }
 
   /// A helper function to print markings.
