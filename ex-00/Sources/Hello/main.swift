@@ -1,1 +1,1 @@
-print("Maman ! Et 6 oulet qu'y vont bien!")
+print("Maman ! Et 6 poulet qu'y vont bien!")
