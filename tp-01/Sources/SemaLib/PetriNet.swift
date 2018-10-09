@@ -30,6 +30,13 @@ public struct PetriNet {
   /// A method that returns whether a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
     // Write your code here.
+    // si M(p) > entre(p,t) on retourne true avec M le marquage intinal, et p qui prends les valeur de toute les places
+    for p in self.places {
+        if marking(p) > self.pre(p, transition){
+          return true
+        }
+    }
+    //Sinon on retourne niel
     return false
   }
 
