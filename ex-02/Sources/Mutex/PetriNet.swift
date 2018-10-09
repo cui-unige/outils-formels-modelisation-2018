@@ -1,4 +1,4 @@
-/// A natural number.
+/// A natural number. Réseaux de Petri p.19 Fichier Formalisme
 public typealias Nat = UInt
 /// A marking.
 public typealias Marking = (Place) -> Nat
@@ -19,11 +19,11 @@ public struct PetriNet {
   }
 
   /// A finite set of places.
-  public let places: Set<Place>
+  public let places: Set<Place> ///Ensemble de places
   /// A finite set of transitions.
   public let transitions: Set<Transition>
   /// A function that describes the preconditions of the Petri net.
-  public let pre: (Place, Transition) -> Nat
+  public let pre: (Place, Transition) -> Nat //Places trnasition vers naturels.
   /// A function that describes the postconditions of the Petri net.
   public let post: (Place, Transition) -> Nat
 
@@ -54,7 +54,7 @@ public struct PetriNet {
     let index: [Transition: Int] = Dictionary(
       uniqueKeysWithValues: transitions.sorted().enumerated().map({ ($1, $0) }))
     var result: [Int] = Array(repeating: 0, count: transitions.count)
-
+/////////////////////=====================
     for transition in sequence {
       result[index[transition]!] += 1
     }
@@ -63,7 +63,7 @@ public struct PetriNet {
   }
 
   /// Returns a marking as a vector.
-  func markingVector(_ marking: Marking) -> [Int] {
+  func markingVector(_ marking: Marking) -> [Int] { // Permet de transfomrer un marquage en notation matricielle.
     return places.sorted().map { Int(marking($0)) }
   }
 
@@ -103,7 +103,7 @@ func + (lhs: [Int], rhs: [Int]) -> [Int] {
   return zip(lhs, rhs).map { $0 + $1 }
 }
 
-func * (lhs: [[Int]], rhs: [Int]) -> [Int]{
+func * (lhs: [[Int]], rhs: [Int]) -> [Int]{ //multiplication de matrices ==> Retrourne un nouveau vecteru==> Pas pour tp1
   var result = Array(repeating: 0, count: lhs.count)
   for p in 0 ..< lhs.count {
     for t in 0 ..< lhs[p].count {
