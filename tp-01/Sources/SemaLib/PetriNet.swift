@@ -32,12 +32,11 @@ public struct PetriNet {
     // Write your code here.
     // si M(p) > entre(p,t) on retourne true avec M le marquage intinal, et p qui prends les valeur de toute les places
     for p in self.places {
-        if marking(p) > self.pre(p, transition){
-          return true
+        if marking(p) < self.pre(p, transition){
+          return false
         }
     }
-    //Sinon on retourne niel
-    return false
+    return true
   }
 
   /// A method that fires a transition from a given marking.
@@ -46,7 +45,15 @@ public struct PetriNet {
   /// otherwise it returns the new marking.
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
     // Write your code here.
-    return nil
+    // si la transion est tirable on calcule le resultat sinon on renvoie niel
+    if isFireable(transition, from: marking){
+        let marquageRetour: Marking = {place in
+          return marking(place) - self.pre(place, transition) + self.post(place, transition)
+        }
+        return marquageRetour
+    }else{
+        return nil
+    }
   }
 
   /// A helper function to print markings.
