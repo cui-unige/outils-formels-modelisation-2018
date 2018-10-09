@@ -51,7 +51,6 @@ if let m2 = petrinet.fire(Transition("t1"), from: initialMarking) {
   let Δ = Int(m2(Place("p2"))) - Int(initialMarking(Place("p2")))
   print("Place 'p2' \(Δ < 0 ? "lost" : "got") \(Δ) token(s).")
 }
-
 do {
   let model = PetriNet(
     places     : [Place("p1")],       // `P = { p1 }`
