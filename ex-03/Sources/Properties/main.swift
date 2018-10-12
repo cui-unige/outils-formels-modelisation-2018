@@ -24,7 +24,21 @@ let c = PTTransition<Place>(
 let pn = PTNet(transitions: [a, b, c])
 
 // Declare the initial marking.
-let m0: Marking<Place, UInt> = [.p1: 1, .p2: 0, .p3: 0]
+let m0: Marking<Place, UInt> = [.p1: 3, .p2: 0, .p3: 0]
+
+do {
+  let m0: Marking<Place, UInt> = [.p1: 15, .p2: 0, .p3: 0]
+  if let states = computeGraph(of: pn, from: m0) {
+    print("There are \(Array(states).count) states")
+
+    let nonEmptyP2AndP3 = states.filter { state in
+        state.marking[.p2] > 0 && state.marking[.p3] > 0
+    }
+    for state in nonEmptyP2AndP3 {
+      print(state.marking)
+    }
+  }
+}
 
 // Fire the transition `a` from the initial marking.
 guard let m1 = a.fire(from: m0) else {
