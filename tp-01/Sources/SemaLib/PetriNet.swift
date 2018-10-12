@@ -28,9 +28,19 @@ public struct PetriNet {
   public let post: (Place, Transition) -> Nat
 
   /// A method that returns whether a transition is fireable from a given marking.
-  public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
-    // Write your code here.
-    return false
+  public func isFireable(_ transition: Transition, from marking: @escaping Marking) -> Bool {
+    // we wanna evaluate M'(p) = M(p) - E(p,t) > 0, ∀p ∈ P ?
+
+    // M'(p) = M(p) - E(p,t)
+    let potential_mark_next = {
+      (place: Place) -> Int in
+      return Int(marking(place)) - Int(self.pre(place, transition))
+    }
+
+    // M'(p) > 0, ∀p ∈ P ?
+    return places
+      .map( potential_mark_next )
+      .reduce( true, { ( result: Bool, element: Int ) -> Bool in return result && (element >= 0) } )
   }
 
   /// A method that fires a transition from a given marking.
@@ -38,8 +48,18 @@ public struct PetriNet {
   /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
   /// otherwise it returns the new marking.
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
-    // Write your code here.
-    return nil
+    if self.isFireable(transition, from: marking ) {
+
+      let mark_next: Marking = {
+        (place: Place) -> Nat in
+        return Nat(Int(marking(place)) - Int(self.pre(place, transition)) + Int(self.post(place, transition)))
+      }
+
+      // M'(p) = M(p) + (- E(p,t) + S(p,t))
+      return mark_next
+    } else {
+      return nil
+    }
   }
 
   /// A helper function to print markings.
