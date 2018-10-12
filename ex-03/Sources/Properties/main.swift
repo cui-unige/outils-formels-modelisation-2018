@@ -63,13 +63,22 @@ let pn2 = PTNet(transitions: [a2, b, c])
 if computeGraph(of: pn2, from: [.p1: 1, .p2: 0, .p3: 0]) == nil {
   print("The petri net is unbounded")
 }
+
 //slide 18/31 cours RDP vivacité
 do  {
-  
+
 le m0: Marking<Place, UInt> = [.p1: 15, .p2:0,.p3:0]
 if let states = computeGraph(of: pn, from:m0) {
   print("There are \\(Array(states).count) states")
+
+let nonEmptyP2AndP3 = states.filter {state in
+    state.marking[.p2] > 0 && state.marking[.p3] == 0 && state.marking[.p1] == 0
+
+}
+for state in nonEmptyP2AndP3{
+  print(state.marking)
 }
 
+}
 
 }
