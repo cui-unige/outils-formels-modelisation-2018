@@ -38,9 +38,7 @@ func computeGraph<Net>(of petrinet: Net, from initialMarking: Net.MarkingType) -
     for transition in petrinet.transitions {
       guard let nextMarking = transition.fire(from: node.marking)
         else { continue }
-      if let successor = created.first(where : { other in
-        Net.Place.allCases.allSatisfy { place in other.marking[place] == nextMarking[place] }
-      }) {
+      if let successor = created.first(where : { other in other.marking == nextMarking }) {
         node.successors[transition] = successor
       } else if created.contains(where: { other in nextMarking > other.marking }) {
         return nil
