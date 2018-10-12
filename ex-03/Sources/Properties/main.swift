@@ -24,12 +24,36 @@ let c = PTTransition<Place>(
 let pn = PTNet(transitions: [a, b, c])
 
 // Declare the initial marking.
-let m0: Marking<Place, UInt> = [.p1: 1, .p2: 0, .p3: 0]
+let m0: Marking<Place, UInt> = [.p1: 0, .p2: 0, .p3: 0]
 
+
+do{
+  if let states = computeGraph(of:pn,from:m0){
+    print ("tenemos \(Array(states).count) estados")
+
+    let respuesta = states.contains{state in
+      for transition in pn.transitions {
+        if transition.isFireable(from: state.marking){
+          return false
+        }
+      }
+      return true
+    }
+
+    print(respuesta)
+  }
+}
+
+
+
+
+
+/*
 // Fire the transition `a` from the initial marking.
 guard let m1 = a.fire(from: m0) else {
   fatalError("'a' was not fireable from \(m0)")
 }
+
 
 // Build the state space of the petri net.
 if let states = computeGraph(of: pn, from: m0) {
@@ -63,3 +87,4 @@ let pn2 = PTNet(transitions: [a2, b, c])
 if computeGraph(of: pn2, from: [.p1: 1, .p2: 0, .p3: 0]) == nil {
   print("The petri net is unbounded")
 }
+*/

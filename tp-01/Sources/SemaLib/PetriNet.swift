@@ -69,7 +69,7 @@ public struct PetriNet {
         let tempToken = pre(placeX, transition)
 
         if tempToken > 0 { // je vois si cette place fait partie de l'ensemble des places de pretconditions
-          newMarking[Place(placeX.name)] = Nat(newMarking[Place(placeX.name)]!) - tempToken
+          newMarking[Place(placeX.name)] = newMarking[Place(placeX.name)]! - tempToken
         }
       }
 
