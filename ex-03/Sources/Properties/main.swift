@@ -33,6 +33,7 @@ do {
 
     let nonEmptyP2AndP3 = states.filter { state in
         state.marking[.p2] > 0 && state.marking[.p3] > 0
+        //a.isFirable(from: state.marking)
     }
     for state in nonEmptyP2AndP3 {
       print(state.marking)
