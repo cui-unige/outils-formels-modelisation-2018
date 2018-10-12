@@ -24,7 +24,8 @@ let c = PTTransition<Place>(
 let pn = PTNet(transitions: [a, b, c])
 
 // Declare the initial marking.
-let m0: Marking<Place, UInt> = [.p1: 1, .p2: 0, .p3: 0]
+let m0: Marking<Place, UInt> = [.p1: 15, .p2: 0, .p3: 0]
+
 
 // Fire the transition `a` from the initial marking.
 guard let m1 = a.fire(from: m0) else {
@@ -46,10 +47,28 @@ if let states = computeGraph(of: pn, from: m0) {
   for state in haveOneTokenInP2 {
     print(state.marking)
   }
-  print()
-} else {
-  print("The petri net is unbounded")
+  //let NonEmptyP2AndP3 = states.filter { state in
+  //state.marking[.p2] > 0 && state.marking[.p3] > 0
+//}
+  //for state in NonEmptyP2AndP3 {
+    //print(state.marking)
+  //}
+  //print()
+//} else {
+  //print("The petri net is unbounded")
+//}
+
+
+let NonEmptyP2AndP3 = states.filter { state in
+state.marking[.p2] > 0 && state.marking[.p3] > 0
 }
+for state in NonEmptyP2AndP3 {
+  print(state.marking)
+}
+
+
+
+
 
 // Note that if the network is unbounded, then `computeGraph(of:from:)` returns nil. For instance,
 // if we change the Petri net so that transition `a` puts a token back into `p1`, the model becomes
