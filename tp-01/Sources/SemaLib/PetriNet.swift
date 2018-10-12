@@ -44,7 +44,14 @@ public struct PetriNet {
   /// otherwise it returns the new marking.
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
     // Write your code here.
-    return nil
+    if self.isFireable(transition, from: marking){
+      return{
+        (place) -> Nat in
+      return marking(place) - self.pre(place,transition) + self.post(place,transition)}
+      }
+    else{
+      return nil
+    }
   }
 
   /// A helper function to print markings.
