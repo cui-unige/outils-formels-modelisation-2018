@@ -69,11 +69,10 @@ do  {
 
 le m0: Marking<Place, UInt> = [.p1: 15, .p2:0,.p3:0]
 if let states = computeGraph(of: pn, from:m0) {
-  print("There are \\(Array(states).count) states")
+  print("There are \(Array(states).count) states")
 
-let nonEmptyP2AndP3 = states.filter {state in
-    state.marking[.p2] > 0 && state.marking[.p3] == 0 && state.marking[.p1] == 0
-
+let nonEmptyP2AndP3 = states.filter { state in //Un prédicat est une fonct le co-domaine est un booleen , en entrée un élément de la collection states et on return booean
+    a.isFireable( from: state.marking)  //retourne un boolean 
 }
 for state in nonEmptyP2AndP3{
   print(state.marking)
