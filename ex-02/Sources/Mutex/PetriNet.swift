@@ -1,5 +1,5 @@
 /// A natural number.
-public typealias Nat = UInt // Unsigned 32-bit integer
+public typealias Nat = UInt
 /// A marking.
 public typealias Marking = (Place) -> Nat
 
@@ -10,7 +10,6 @@ public struct PetriNet {
     places: Set<Place>,
     transitions: Set<Transition>,
     pre: @escaping (Place, Transition) -> Nat,
-		// If the result is only sometimes used, it is the function responsibility to discard it. The function must be decorated with @discardableResult:
     post: @escaping (Place, Transition) -> Nat)
   {
     self.places = places
@@ -28,30 +27,6 @@ public struct PetriNet {
   /// A function that describes the postconditions of the Petri net.
   public let post: (Place, Transition) -> Nat
 
-  /// A method that returns whether a transition is fireable from a given marking.
-  public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
-    for p in self.places {
-			if marking(p) < self.pre(p,transition) {
-				return false
-			}
-		}
-		return true
-	}
-
-
-  /// A method that fires a transition from a given marking.
-  ///
-  /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
-  /// otherwise it returns the new marking.
-  public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
-		if self.isFireable(transition, from: marking) { // from obligatoire, self pas obligatoire
-				return {
-					marking($0) + self.post($0,transition) - self.pre($0,transition)
-				}
-		}
-		return nil
-}
-
   /// A helper function to print markings.
   public func print(marking: Marking) {
     for place in places.sorted() {
@@ -59,7 +34,40 @@ public struct PetriNet {
     }
   }
 
-} // FIN STRUCT PetriNet
+  /// The incidence matrix of the Petri net.
+  public var incidenceMatrix: [[Int]] {
+    var matrix: [[Int]] = Array(
+      repeating: Array(repeating: 0, count: transitions.count),
+      count: places.count)
+
+    for (p, place) in places.sorted().enumerated() {
+      for (t, transition) in transitions.sorted().enumerated() {
+        matrix[p][t] = Int(post(place, transition)) - Int(pre(place, transition))
+      }
+    }
+
+    return matrix
+  }
+
+  /// Returns the characteristic vector of a transition sequence.
+  func characteristicVector<S>(of sequence: S) -> [Int] where S: Sequence, S.Element == Transition {
+    let index: [Transition: Int] = Dictionary(
+      uniqueKeysWithValues: transitions.sorted().enumerated().map({ ($1, $0) }))
+    var result: [Int] = Array(repeating: 0, count: transitions.count)
+
+    for transition in sequence {
+      result[index[transition]!] += 1
+    }
+
+    return result
+  }
+
+  /// Returns a marking as a vector.
+  func markingVector(_ marking: Marking) -> [Int] {
+    return places.sorted().map { Int(marking($0)) }
+  }
+
+}
 
 /// A place.
 public struct Place: Comparable, Hashable {
@@ -89,4 +97,18 @@ public struct Transition: Comparable, Hashable {
     return lhs.name < rhs.name
   }
 
+}
+
+func + (lhs: [Int], rhs: [Int]) -> [Int] {
+  return zip(lhs, rhs).map { $0 + $1 }
+}
+
+func * (lhs: [[Int]], rhs: [Int]) -> [Int]{
+  var result = Array(repeating: 0, count: lhs.count)
+  for p in 0 ..< lhs.count {
+    for t in 0 ..< lhs[p].count {
+      result[p] += lhs[p][t] * rhs[t]
+    }
+  }
+  return result
 }

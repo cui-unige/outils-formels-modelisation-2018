@@ -3,7 +3,7 @@
 In this homework, you implement the firing semantics of Petri nets in Swift,
 and design a small model to test it.
 
-The submission deadline is set on October the 16th, at 23:59 Geneva local time.
+The submission deadline is set on October the 15th, at 23:59 Geneva local time.
 
 ## Firing semantics
 
@@ -42,7 +42,7 @@ print(model.isFireable(Transition("t1"), from: m1))
 ### `fire(_:from:)`
 
 This method computes the new marking obtained by firing a transition in a given marking,
-if such transition is fireable.
+if such transition is fireable. 
 If the transition isn't fireable from the given marking, the method returns `nil`.
 Here's a usage example:
 

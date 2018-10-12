@@ -1,0 +1,5 @@
+func next(_ marking: @escaping (Place) -> Nat) -> (Place) -> Nat {
+	return { // closure
+		return marking($0) + 1 // retourne fonction // dans closure on a fonction, on retourne ce que retourne la fonction
+		}
+}
