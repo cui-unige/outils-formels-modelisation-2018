@@ -1,6 +1,6 @@
 /// This function creates the model of a binary counter on three bits.
 public func createCounterModel() -> PetriNet {
-  // Write your code here
+  // Write your code here 
 
 
   func pre(p: Place, t: Transition) -> Nat {
