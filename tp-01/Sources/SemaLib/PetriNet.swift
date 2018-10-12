@@ -42,9 +42,13 @@ public struct PetriNet {
   /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
   /// otherwise it returns the new marking.
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
-    // Write your code here.
+    if self.isFireable(transition,from: marking){
+        return{
+          marking($0) + self.post($0,transition) - self.pre($0,transition)
+        }
+    }
     return nil
-  }
+}
 
   /// A helper function to print markings.
   public func print(marking: Marking) {
@@ -82,5 +86,4 @@ public struct Transition: Comparable, Hashable {
   public static func < (lhs: Transition, rhs: Transition) -> Bool {
     return lhs.name < rhs.name
   }
-
 }
