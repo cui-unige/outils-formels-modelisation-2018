@@ -7,9 +7,9 @@ public typealias Marking = (Place) -> Nat
 public struct PetriNet {
 
   public init(
-    places: Set<Place>,
+    places: Set<Place>,  /// declaration de places, transitions, ensembles
     transitions: Set<Transition>,
-    pre: @escaping (Place, Transition) -> Nat,
+    pre: @escaping (Place, Transition) -> Nat, /// sont des fonctions
     post: @escaping (Place, Transition) -> Nat)
   {
     self.places = places
@@ -103,7 +103,7 @@ func + (lhs: [Int], rhs: [Int]) -> [Int] {
   return zip(lhs, rhs).map { $0 + $1 }
 }
 
-func * (lhs: [[Int]], rhs: [Int]) -> [Int]{
+func * (lhs: [[Int]], rhs: [Int]) -> [Int]{  /// multiplication matricielle
   var result = Array(repeating: 0, count: lhs.count)
   for p in 0 ..< lhs.count {
     for t in 0 ..< lhs[p].count {
