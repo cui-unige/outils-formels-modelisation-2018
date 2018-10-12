@@ -74,3 +74,26 @@ do {
     print("The transition was not fireable.")
   }
 }
+
+print("-----------")
+
+let initialMarking = createCounterInitialMarking()
+print(initialMarking(Place("b2")))  // Prints "0"
+print(initialMarking(Place("b1")))  // Prints "0"
+print(initialMarking(Place("b0")))  // Prints "0"
+print(initialMarking(Place("!b2")))  // Prints "1"
+print(initialMarking(Place("!b1")))  // Prints "1"
+print(initialMarking(Place("!b0")))  // Prints "1"
+
+let counter = createCounterModel()
+
+var nextMarking: Marking = createCounterInitialMarking();
+nextMarking = counter.fire( Transition("0→1"), from: nextMarking )!
+nextMarking = counter.fire( Transition("1→2"), from: nextMarking )!
+nextMarking = counter.fire( Transition("2→3"), from: nextMarking )!
+nextMarking = counter.fire( Transition("3→4"), from: nextMarking )!
+nextMarking = counter.fire( Transition("4→5"), from: nextMarking )!
+nextMarking = counter.fire( Transition("5→6"), from: nextMarking )!
+nextMarking = counter.fire( Transition("6→7"), from: nextMarking )!
+nextMarking = counter.fire( Transition("7→0"), from: nextMarking )!
+counter.print(marking: nextMarking)
