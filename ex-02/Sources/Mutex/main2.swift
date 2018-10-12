@@ -53,14 +53,3 @@ let m0 = model.markingVector(initialMarking)
 let m1 = m0 + c * s
 
 print(m0, m1)
-
-
-/*func next(_ fn; @escaping (Place) -> Nat) -> (Place) -> Nat {
-  return {
-    return marking($0)
-  }
-}
-
-let mk = next(initialMarking)
-print(initialMarking(Place"b")),mk(Place("b"))
-*/
