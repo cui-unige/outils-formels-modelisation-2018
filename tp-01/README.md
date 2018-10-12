@@ -3,7 +3,7 @@
 In this homework, you implement the firing semantics of Petri nets in Swift,
 and design a small model to test it.
 
-The submission deadline is set on October the 15th, at 23:59 Geneva local time.
+The submission deadline is set on October the 16th, at 23:59 Geneva local time.
 
 ## Firing semantics
 
