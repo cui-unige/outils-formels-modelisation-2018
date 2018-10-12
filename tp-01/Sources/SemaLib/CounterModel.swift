@@ -1,6 +1,6 @@
 /// This function creates the model of a binary counter on three bits.
 public func createCounterModel() -> PetriNet {
-  func pre(p: Place, t: Transition) -> Nat { /// défini les pré-conditions
+  func pre(p: Place, t: Transition) -> Nat { // défini les pré-conditions
     switch (p, t) {
     case (Place("p1"), Transition("t0")): return 1
     case (Place("b0"), Transition("t1")): return 1
@@ -15,7 +15,7 @@ public func createCounterModel() -> PetriNet {
     }
   }
 
-  func post(p: Place, t: Transition) -> Nat { ///défini les post-conditions
+  func post(p: Place, t: Transition) -> Nat { //défini les post-conditions
     switch (p, t) {
     case (Place("b0"), Transition("t0")): return 1
     case (Place("b1"), Transition("t1")): return 1
@@ -30,12 +30,13 @@ public func createCounterModel() -> PetriNet {
     }
   }
   return PetriNet(places: [Place("b0"), Place("b1"),Place("b2"),Place("p1"),Place("p2"),Place("p3")], transitions: [Transition("t0"), Transition("t1"), Transition("t2"), Transition("t3")], pre: pre, post: post)
+  // On ressort le modèle de Pétrie
 }
 
 /// This function returns the initial marking corresponding to the model of your binary counter.
 public func createCounterInitialMarking() -> Marking {
   func initialMarking(_ place: Place) -> Nat {
-    switch place {
+    switch place { // On initialise les les jetons des places
     case Place("p1"): return 1
     case Place("p3"): return 1
     case Place("p2"): return 1
