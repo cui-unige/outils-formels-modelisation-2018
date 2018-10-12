@@ -42,7 +42,6 @@ public func createCounterModel() -> PetriNet {
     transitions : [Transition("t1"), Transition("t2"), Transition("t3"), Transition("t4")],
     pre         : pre,
     post        : post)
-
 }
 
 /// This function returns the initial marking corresponding to the model of your binary counter.

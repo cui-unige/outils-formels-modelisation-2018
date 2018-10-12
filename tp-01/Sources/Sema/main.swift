@@ -1,4 +1,6 @@
+
   import SemaLib
+
 
 // Define the preconditions of a simple Petri net.
 private func pre(p: Place, t: Transition) -> Nat {
