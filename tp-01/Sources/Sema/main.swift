@@ -74,3 +74,49 @@ do {
     print("The transition was not fireable.")
   }
 }
+
+do{
+let model2 = createCounterModel()
+print("list of transitions")
+for transition in model2.transitions.sorted(){
+        print(transition.name)
+
+
+}
+
+let initialMarking2 = createCounterInitialMarking()
+var i = 0
+print("places")
+print(initialMarking2(Place("b2")))
+print(initialMarking2(Place("b1")))
+print(initialMarking2(Place("b0")))
+print(initialMarking2(Place("lim3")))
+print(initialMarking2(Place("lim5")))
+print(initialMarking2(Place("zero")))
+print("----------------------")
+
+func m0(_ place: Place) -> Nat {
+  return place == Place("b0") ? 1 : 0
+}
+var s = initialMarking2
+
+while(i < 70){
+
+        for transition in model2.transitions.sorted(){
+                if model2.fire(transition,from: s) != nil{
+                  s = model2.fire(transition,from: s)!
+                  print(transition.name)
+                  print(  s(Place("b0"))  , s(Place("b1")) , s(Place("b2"))  )
+
+                  }
+
+
+  }
+
+
+  i = i + 1
+
+}
+
+
+}
