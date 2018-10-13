@@ -29,6 +29,7 @@ public struct PetriNet {
 
   /// A method that returns whether a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
+      //For Every place if the transition is bigger than the marking it return false
       for p in places{
           if(marking(p) < pre(p, transition)){
               return false
@@ -59,6 +60,7 @@ public struct PetriNet {
   }
 
 }
+
 
 /// A place.
 public struct Place: Comparable, Hashable {

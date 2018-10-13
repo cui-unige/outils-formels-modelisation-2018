@@ -1,5 +1,6 @@
 /// This function creates the model of a binary counter on three bits.
 public func createCounterModel() -> PetriNet {
+    //This is a PetriNet wich is a counter on 3 bits and it's bounded because of the t3 transition
     func pre(p: Place,t: Transition) -> Nat{
         switch(p,t){
         case(Place("b0"), Transition("t0")): return 1
@@ -18,6 +19,7 @@ public func createCounterModel() -> PetriNet {
         default : return 0
         }
     }
+
 
     func post(p: Place,t: Transition) -> Nat{
         switch(p,t){
@@ -43,6 +45,7 @@ public func createCounterModel() -> PetriNet {
 
 /// This function returns the initial marking corresponding to the model of your binary counter.
 public func createCounterInitialMarking() -> Marking {
+    //This is the initial Marking for the 3 bits counter to work
     func initialMarking(_ place: Place) -> Nat {
         switch place {
         case Place("p0"): return 1
