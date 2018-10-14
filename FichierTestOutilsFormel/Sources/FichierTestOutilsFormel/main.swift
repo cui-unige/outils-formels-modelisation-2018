@@ -1,4 +1,7 @@
 
+
+
+/*
 //variable
 var pokemonLevel = 1
 pokemonLevel = 2
@@ -570,3 +573,18 @@ case let pokemon where pokemon.species.name == "Bulbasaur":
 default:
   break
 }
+*/
+//********************************************************************
+//TEST D'INSTRUCTION POUR TP
+//public typealias Nat = UInt
+
+//public typealias Marking = (Place) -> Nat
+let transition: Set[Int] = (1 ,2 ,3 ,4 ,5 )
+
+let index: [transition: Int] = dictionnaire(key: transition.enum.sorted() {
+    
+})
+
+index.update( "ciao": 2)
+index.update("bedu": 1)
+print("\(index["ciao"]!)and\(index["bedu"]!)")// transition est un set on trie les transition est on les map pour le dictionnaire
