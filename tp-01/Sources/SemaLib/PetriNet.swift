@@ -46,7 +46,7 @@ public struct PetriNet {
     // Write your code here.
     if self.isFireable(transition, from: marking){
       return{
-        (place) in
+        place in
         return marking(place) - self.pre(place,transition) + self.post(place,transition)}
       }
     else{
