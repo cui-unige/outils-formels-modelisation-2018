@@ -74,3 +74,12 @@ do {
     print("The transition was not fireable.")
   }
 }
+
+
+/* Test CounterModel
+let petri=createCounterModel()
+Swift.print("Dans CounterModel !!!!!!!")
+Swift.print("\(petri.pre(Place("b0"), Transition("t2")))")
+var initialMarking=createCounterInitialMarking()
+print(initialMarking(Place("b2")),initialMarking(Place("b1")),initialMarking(Place("b0")))
+petri.print(marking:initialMarking)*/
