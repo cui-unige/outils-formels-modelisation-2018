@@ -19,6 +19,7 @@ public func createCounterModel() -> PetriNet {
     case (Place("b0"), Transition("t1")): return 1
     case (Place("d0"), Transition("t2")): return 1
     case (Place("s2"), Transition("t2")): return 1
+    case (Place("b0"), Transition("t2")): return 1
     case (Place("b1"), Transition("t2")): return 1
     case (Place("b0"), Transition("tf")): return 1
     case (Place("b1"), Transition("tf")): return 1
@@ -32,8 +33,11 @@ public func createCounterModel() -> PetriNet {
     switch (p, t) {
     case (Place("b0"), Transition("t0")): return 1
     case (Place("b1"), Transition("t1")): return 1
+    case (Place("s0"), Transition("t1")): return 1
     case (Place("b2"), Transition("t2")): return 1
-    case (Place("d0"), Transition("tf")): return 1
+    case (Place("s0"), Transition("t2")): return 1
+    case (Place("s1"), Transition("t2")): return 1
+    case (Place("d0"), Transition("tf")): return 7
     case (Place("s0"), Transition("tf")): return 1
     case (Place("s1"), Transition("tf")): return 1
     case (Place("s2"), Transition("tf")): return 1
@@ -46,7 +50,7 @@ public func createCounterModel() -> PetriNet {
     transitions: [Transition("t0"), Transition("t1"), Transition("t2"), Transition("tf")],
     pre        : pre,
     post       : post)
-  
+
 
   return model
   //return PetriNet(places: [], transitions: [], pre: { _, _ in 0 }, post: { _, _ in 0 })
@@ -60,6 +64,9 @@ public func createCounterInitialMarking() -> Marking {
   func initialMarking(_ place: Place) -> Nat {
     switch place {
     case Place("d0"): return 7
+    case Place("b0"): return 0
+    case Place("b1"): return 0
+    case Place("b2"): return 0
     case Place("s0"): return 1
     case Place("s1"): return 1
     case Place("s2"): return 1
