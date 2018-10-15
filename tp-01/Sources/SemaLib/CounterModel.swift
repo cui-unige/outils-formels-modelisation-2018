@@ -31,13 +31,13 @@ public func createCounterModel() -> PetriNet {
         default: return 0
         }
     }
-    //Le résseau
+    //Le réseau
    let CounterModel = PetriNet(
-    places: [Place("b0"), Place("b1"),Place("b2"),Place("p1"),Place("p2"),Place("p3")],
+    places: [Place("b0"), Place("b1"),Place("b2"),Place("p0"),Place("p1"),Place("p2")],
     transitions: [Transition("t0"), Transition("t1"), Transition("t2"), Transition("t3")],
     pre: pre,
     post: post)
-    
+
     return CounterModel
 }
 
@@ -51,4 +51,5 @@ public func createCounterInitialMarking() -> Marking {
         default: return 0
         }
 }
-    return Initial_Marking}
+    return Initial_Marking
+}
