@@ -32,6 +32,7 @@ public func createCounterModel() -> PetriNet {
         }
     }
 
+
   return PetriNet(places: [Place("P1"),Place("P2"),Place("P3"),Place("Cp1"),Place("CP2")], transitions: [Transition("T1"), Transition("T2"), Transition("T3"),Transition("T001"), Transition("T000")], pre: pre, post: post)
 }
 
