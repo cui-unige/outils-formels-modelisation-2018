@@ -36,7 +36,7 @@ public struct PetriNet {
 
       for p in places{ // Pour toutes les places du réseau de Pétri
 
-          if(marking(p) < pre(p, transition)){ // i M(p)<Entree(p,t)
+          if(marking(p) < pre(p, transition)){ // si M(p)<Entree(p,t)
               return false
           }
       }
