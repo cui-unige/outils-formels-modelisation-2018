@@ -28,10 +28,15 @@ public struct PetriNet {
   public let post: (Place, Transition) -> Nat
 
   /// A method that returns whether a transition is fireable from a given marking.
-  public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
 
-      for p in places{
-          if(marking(p) < pre(p, transition)){
+  // Méthode définit si une transition est Tirable/franchissable
+
+  public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
+      //For Every place if the transition is bigger than the marking it return false
+
+      for p in places{ // Pour toutes les places du réseau de Pétri
+
+          if(marking(p) < pre(p, transition)){ // i M(p)<Entree(p,t)
               return false
           }
       }
@@ -39,17 +44,19 @@ public struct PetriNet {
   }
 
   /// A method that fires a transition from a given marking.
-  ///
   /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
   /// otherwise it returns the new marking.
+
+  // Méthode qui donne la valeur du nouveau marquage après une transition
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
-    if(!(isFireable(transition, from : marking))){
+
+    if(!(isFireable(transition, from : marking))){ //Réutilise fct précédente, Test si la transition est tirable
         return nil
     }
-    func marking2(_ p: Place) -> Nat{
-        return marking(p) - pre(p,transition) + post(p,transition)
+    func markingAfterFire(_ p: Place) -> Nat{
+        return marking(p) - pre(p,transition) + post(p,transition) // M(p)-entree(p,t)+sortie(p,t)
     }
-    return marking2
+    return markingAfterFire
   }
 
   /// A helper function to print markings.

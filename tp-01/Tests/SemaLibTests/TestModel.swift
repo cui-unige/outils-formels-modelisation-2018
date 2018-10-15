@@ -31,4 +31,3 @@ private func post(p: Place, t: Transition) -> Nat {
   default: return 0
   }
 }
-
