@@ -48,11 +48,11 @@ public func createCounterInitialMarking() -> Marking {
   func initialMarking(_ place: Place) -> Nat {
   switch place{
     case Place("b0"): return 0
-    case Place("p0"): return 1
+    case Place("c0"): return 1
     case Place("b1"): return 0
-    case Place("p1"): return 1
+    case Place("c1"): return 1
     case Place("b2"): return 0
-    case Place("p2"): return 1
+    case Place("c2"): return 1
     default : return 0
     }
   }
