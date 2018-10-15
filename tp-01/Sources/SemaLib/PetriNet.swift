@@ -48,8 +48,10 @@ public struct PetriNet {
     // Write your code here.
     if(self.isFireable(transition, from :marking))
     {
-      return{
-        return marking($0) - self.pre($0, transition) + self.post($0, transition)
+      return
+      {
+        (place) -> Nat in
+        return marking(place) - self.pre(place, transition) + self.post(place, transition)
       }
     }
     else{
