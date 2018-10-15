@@ -3,7 +3,7 @@ public typealias Nat = UInt
 /// A marking.
 public typealias Marking = (Place) -> Nat
 
-/// A Petri net structure.
+/// A Petri net structure
 public struct PetriNet {
 
   public init(
