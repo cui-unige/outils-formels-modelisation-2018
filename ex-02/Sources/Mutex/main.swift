@@ -41,5 +41,6 @@ let c  = model.incidenceMatrix
 let s  = model.characteristicVector(of: [Transition("t1"), Transition("t2"), Transition("t1")])
 let m0 = model.markingVector(initialMarking)
 let m1 = m0 + c * s
-
+//print(type(of: m0))
+//print(type(of: m1))
 print(m0, m1)
