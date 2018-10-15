@@ -24,42 +24,60 @@ let c = PTTransition<Place>(
 let pn = PTNet(transitions: [a, b, c])
 
 // Declare the initial marking.
-let m0: Marking<Place, UInt> = [.p1: 1, .p2: 0, .p3: 0]
+//let m0: Marking<Place, UInt> = [.p1: 1, .p2: 0, .p3: 0]
 
 // Fire the transition `a` from the initial marking.
-guard let m1 = a.fire(from: m0) else {
-  fatalError("'a' was not fireable from \(m0)")
-}
+//guard let m1 = a.fire(from: m0) else {
+//  fatalError("'a' was not fireable from \(m0)")
+//}
 
 // Build the state space of the petri net.
-if let states = computeGraph(of: pn, from: m0) {
+//if let states = computeGraph(of: pn, from: m0) {
   // Print all the reachable states.
-  print("The following markings are accessible:")
-  for state in states {
-    print(state.marking)
-  }
-  print()
+  //print("The following markings are accessible:")
+//  for state in states {
+  //  print(state.marking)
+//}
+//  print()
 
   // Now that we collected all states, we can search for those that match a particular criterion.
-  let haveOneTokenInP2 = states.filter { state in state.marking[.p2] == 1 }
-  print("The following markings have 1 token in 'p2':")
-  for state in haveOneTokenInP2 {
-    print(state.marking)
-  }
-  print()
-} else {
-  print("The petri net is unbounded")
-}
+//  let haveOneTokenInP2 = states.filter { state in state.marking[.p2] == 1 }
+//  print("The following markings have 1 token in 'p2':")
+//  for state in haveOneTokenInP2 {
+//    print(state.marking)
+//  }
+//  print()
+//} else {
+//  print("The petri net is unbounded")
+//}
 
 // Note that if the network is unbounded, then `computeGraph(of:from:)` returns nil. For instance,
 // if we change the Petri net so that transition `a` puts a token back into `p1`, the model becomes
 // unbounded.
 
-let a2 = PTTransition<Place>(
-  named         : "a2",
-  preconditions : [PTArc(place: .p1, label: 1)],
-  postconditions: [PTArc(place: .p1, label: 1), PTArc(place: .p2, label: 1)])
-let pn2 = PTNet(transitions: [a2, b, c])
-if computeGraph(of: pn2, from: [.p1: 1, .p2: 0, .p3: 0]) == nil {
-  print("The petri net is unbounded")
+//let a2 = PTTransition<Place>(
+//  named         : "a2",
+//  preconditions : [PTArc(place: .p1, label: 1)],
+//  postconditions: [PTArc(place: .p1, label: 1), PTArc(place: .p2, label: 1)])
+//let pn2 = PTNet(transitions: [a2, b, c])
+//if computeGraph(of: pn2, from: [.p1: 1, .p2: 0, .p3: 0]) == nil {
+//  print("The petri net is unbounded")
+//}
+
+//slide 18/31 cours RDP vivacité
+do  {
+
+le m0: Marking<Place, UInt> = [.p1: 15, .p2:0,.p3:0]
+if let states = computeGraph(of: pn, from:m0) {
+  print("There are \(Array(states).count) states")
+
+let nonEmptyP2AndP3 = states.filter { state in //Un prédicat est une fonct le co-domaine est un booleen , en entrée un élément de la collection states et on return booean
+    a.isFireable( from: state.marking)  //retourne un boolean
+}
+for state in nonEmptyP2AndP3{
+  print(state.marking)
+}
+
+}
+
 }
