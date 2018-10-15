@@ -24,15 +24,17 @@ private func post(p: Place, t: Transition) -> Nat {
 
 func initialMarking(_ place: Place) -> Nat {
   switch place {
-  case Place("p1"): return 2
-  case Place("p2"): return 3
+  case Place("s0"): return 1
+  case Place("s2"): return 1
+    case Place("s4"): return 1
+    case Place("c"): return 3
   default: return 0
   }
 }
 
 let model = PetriNet(
-  places     : [Place("p1"), Place("p2")],
-  transitions: [Transition("t1"), Transition("t2"), Transition("t3")],
+  places     : [Place("s0"), Place("s1"), Place("s2"), Place("s3"), Place("s4"), Place("c"), Place("b")],
+  transitions: [Transition("t0"),Transition("t1"), Transition("t2"), Transition("t3")],
   pre        : pre,
   post       : post)
 

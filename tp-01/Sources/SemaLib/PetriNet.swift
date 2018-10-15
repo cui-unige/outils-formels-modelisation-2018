@@ -4,7 +4,7 @@ public typealias Nat = UInt
 public typealias Marking = (Place) -> Nat
 
 /// A Petri net structure.
-public struct PetriNet {
+public struct PetriNet{
 
   public init(
     places: Set<Place>,
@@ -29,7 +29,12 @@ public struct PetriNet {
 
   /// A method that returns whether a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
-    // Write your code here.
+    //Si la transition est tirable (si le marking des précondition est bon) on return true
+    for p in self.places{
+        if marking(p)>self.pre(p, transition){
+            return true
+        }
+    }
     return false
   }
 
@@ -38,9 +43,17 @@ public struct PetriNet {
   /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
   /// otherwise it returns the new marking.
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
-    // Write your code here.
-    return nil
-  }
+    if isFireable(transition, from: marking){
+        let marquageRetour: Marking = {place in
+            return marking(place) - self.pre(place, transition) + self.post(place, transition)
+        }
+        return marquageRetour
+    }
+    else
+    {
+        return nil
+    }
+}
 
   /// A helper function to print markings.
   public func print(marking: Marking) {
