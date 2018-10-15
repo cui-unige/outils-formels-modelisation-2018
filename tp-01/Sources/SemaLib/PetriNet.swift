@@ -30,12 +30,17 @@ public struct PetriNet {
   /// A method that returns whether a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
     // Write your code here.
-    // On utilisant le cours : tirable ssi M(p) >= Entree(p,t)
-    var test = false
-    for p in places.sorted() {
-      test = marking(p) >= self.pre(p, transition) ? true : false
+    // On utilise le cours : tirable ssi M(p) >= Entree(p,t)
+    var test = true                                       // On initialise une variable à true
+    for place in places.sorted() {                        // On parcourt les places du réseau de Petri
+      if (marking(place) < pre(place, transition)) {      // Si le marquage à la place i est strictement plus petit que l'entrée à la place i et à la transition donnée
+        test = false                                      // On modifie test à false
+      }
     }
-    return test
+    if test == true {                                     // Si test vaut true
+      return true                                         // On retourne true, la transition est tirable
+    }
+    return false                                          // Sinon on retourne false, la transition n'est pas tirable
   }
 
   /// A method that fires a transition from a given marking.
@@ -45,15 +50,17 @@ public struct PetriNet {
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
     // Write your code here.
     // On utilisant le cours : M'(p) = M(p)-Entree(p,t)+Sortie(p,t)
-    if (self.isFireable(transition, from: marking)) {
-      return {
-        marking($0) - self.pre($0, transition) + self.post($0, transition)
+    if (isFireable(transition, from: marking) == false) {  // Si la transition n'est pas tirable
+      return nil                                           // On retourne nil
+    }
+
+    func markingPrime(_ placeprime: Place) -> Nat {        // On définit la nouvelle fonction markingPrime selon la formule donnée en cours
+      if ((marking(placeprime) - pre(placeprime, transition) + post(placeprime,transition)) > 0) {  // Si la valeur de la formule donnée en cours
+        return (marking(placeprime) - pre(placeprime, transition) + post(placeprime,transition))    // On la retourne
       }
+      return 0                                             // Sinon on retourne 0 car on ne veut pas de marquage négatif
     }
-    else {
-      return nil
-    }
-    //return nil
+    return markingPrime                                    // On retourne la fonction markingPrime
   }
 
   /// A helper function to print markings.
