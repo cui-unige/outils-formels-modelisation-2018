@@ -30,36 +30,27 @@ public struct PetriNet {
   /// A method that returns whether a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
 
-
-        for p in self.places{
-        if marking(p) < self.pre(p,transition){
-            return false
-        }
-    }
-        return true
-    }
-
-
-
-
+      for p in places{
+          if(marking(p) < pre(p, transition)){
+              return false
+          }
+      }
+      return true
+  }
 
   /// A method that fires a transition from a given marking.
   ///
   /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
   /// otherwise it returns the new marking.
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
-    if !isFireable(transition,marking){
+    if(!(isFireable(transition, from : marking))){
         return nil
     }
-    func marking2(_place:Place)->Nat{
-
-      return marking(place) - self.pre(place, transition) + self.post(place,transition)
-
+    func marking2(_ p: Place) -> Nat{
+        return marking(p) - pre(p,transition) + post(p,transition)
     }
-    return making2
-
-}
-  
+    return marking2
+  }
 
   /// A helper function to print markings.
   public func print(marking: Marking) {
@@ -69,6 +60,7 @@ public struct PetriNet {
   }
 
 }
+
 
 /// A place.
 public struct Place: Comparable, Hashable {
