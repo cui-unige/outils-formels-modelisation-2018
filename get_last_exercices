@@ -1,0 +1,3 @@
+#/bin/sh
+
+git pull https://github.com/cui-unige/outils-formels-modelisation-2018.git master
