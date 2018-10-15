@@ -54,7 +54,7 @@ func initialMarking(_ place: Place) -> Nat {
     }
 }
 
-/// This function creates the model of a binary counter on 3 bits.
+/// This function creates the model of a binary counter on three bits.
 public func createCounterModel() -> PetriNet {
     return PetriNet(places: [p0,p1,p2,b0,b1,b2], transitions: [t0,t1,t2,t3], pre: pre, post: post)
 }

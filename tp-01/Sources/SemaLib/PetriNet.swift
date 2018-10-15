@@ -38,9 +38,6 @@ public struct PetriNet {
     }
 
     /// A method that fires a transition from a given marking.
-    ///
-    /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
-    /// otherwise it returns the new marking.
     public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
         if(self.isFireable(transition, from: marking)){
             return {(place) -> Nat in
