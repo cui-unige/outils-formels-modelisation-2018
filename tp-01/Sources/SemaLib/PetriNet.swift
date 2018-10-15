@@ -29,7 +29,7 @@ public struct PetriNet {
 
   /// The function returns if a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
-      // Write your code here.
+      // Write your code here./
       for place in places.sorted() { //We sort places in order.
         if pre(place, transition)>marking(place){ //If a place does not have enough tokens to pass the arcs.
           return false //Then we consider that the transition is not fireable.
