@@ -1,5 +1,5 @@
 
-//Les places
+//Création des places
 let p0 = Place("p0")
 let p1 = Place("p1")
 let p2 = Place("p2")
