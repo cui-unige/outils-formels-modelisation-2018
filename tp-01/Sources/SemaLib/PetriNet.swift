@@ -37,7 +37,7 @@ public struct PetriNet {
       }
       return true //If there is no place that can not cross their arc, then the transition is fireable.
     }
-
+/
   /// A method that fires a transition from a given marking.
   ///
   /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
