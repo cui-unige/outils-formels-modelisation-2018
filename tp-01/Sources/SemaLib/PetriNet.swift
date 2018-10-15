@@ -30,7 +30,18 @@ public struct PetriNet {
   /// A method that returns whether a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
     // Write your code here.
-    return false
+    // on fait une boucle qui parcours toutes les places
+    for place in places {
+    // si il y a pas assez de boules dans la place pour franchir l'etape , si il y en a pas assez on arrête le programme et on renvoie false
+    // si au contraire il y en a assez on continue jusqu'a voir si la transition est franchissable et et quand la fonction sort de la boucle
+    // alors touts les marquages ont assez de balles pour franchir la transition et la fonction renvoie true
+    if marking(place) < pre(place , transition){
+        return false}
+    else {
+        continue
+    }
+    }
+    return true
   }
 
   /// A method that fires a transition from a given marking.
@@ -38,16 +49,28 @@ public struct PetriNet {
   /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
   /// otherwise it returns the new marking.
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
-    // Write your code here.
+// la fonction sert à franchir la transition si elle est franchissable et dans le cas contraire retourne rien
+// d'abord on fait appelle a la fonction isFireable et si elle est fausse on retourne rien , mais si elle est vraie
+// on retourne le marking de tout les points - les preconditions(ceux qu'on a retirer apres avoir franchis la transition)  + les post transitions(ceux qu'on ajoute après avoir franchis la trnasition)
+  if (!isFireable(transition, from: marking) )
+  {
     return nil
   }
 
-  /// A helper function to print markings.
-  public func print(marking: Marking) {
-    for place in places.sorted() {
-      Swift.print("\(place.name) → \(marking(place))")
-    }
+  else
+  {
+    return {marking($0) - self.pre($0, transition) + self.post($0, transition)}
+}
+
+}
+
+   /// A helper function to print markings.
+   public func print(marking: Marking) {
+     for place in places.sorted() {
+       Swift.print("\(place.name) → \(marking(place))")
+ }
   }
+
 
 }
 
