@@ -29,8 +29,14 @@ public struct PetriNet {
 
   /// A method that returns whether a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
-    // Write your code here.
-    return false
+    /// Une transition t est tirable si et seulement si :
+    /// Pour tout p appartenant à l'ensemble des places P , M(p) >= Entrée(p,t)
+    for Place in self.places {
+      if marking(Place) < self.pre(Place, transition) {
+        return false
+      }
+    }
+    return true
   }
 
   /// A method that fires a transition from a given marking.
@@ -38,8 +44,18 @@ public struct PetriNet {
   /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
   /// otherwise it returns the new marking.
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
-    // Write your code here.
-    return nil
+    // D'après le cours : le nouveau marquage M' est donné par :
+    // Si t est franchissable depuis M :
+    // Pour tout place P, M'(p) = M(p) - Entrée(p,t) + Sortie(p,t)
+    if self.isFireable(transition, from: marking) { // Vérifie que t est franchissable
+      // On va maintenant utiliser une closure pour retourner une fonction Marking :
+      let markingFinal : Marking = {place in
+      return marking(place) - self.pre(place, transition) + self.post(place, transition)
+    }
+      return markingFinal
+    } else {
+      return nil
+    }
   }
 
   /// A helper function to print markings.
@@ -48,7 +64,6 @@ public struct PetriNet {
       Swift.print("\(place.name) → \(marking(place))")
     }
   }
-
 }
 
 /// A place.
