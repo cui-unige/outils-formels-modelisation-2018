@@ -5,5 +5,6 @@ let package = Package(
   name: "Mutex",
   dependencies: [],
   targets: [
-    .target(name: "Mutex", dependencies: []),
+    .target(name: "Mutex", dependencies: ["Koala"]),
+    .target(name: "Koala", dependencies: []),
   ])
