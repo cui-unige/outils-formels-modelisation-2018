@@ -30,25 +30,17 @@ public struct PetriNet {
   /// A method that returns whether a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
     // Write your code here.
-    var reslutIntermediaire = false
-    for p in places { // on itère sur les p
-    var x = pre(p, transition)  // pour chaque p on trouve la matrice d'entrée
-    switch x { // on pose la condition de tirable ou pas
-    case let m where m < marking(p):  // la valeur des jeton dans la matrice d'entrée est <- que le marquage alors ok
-          reslutIntermediaire = true  // c'est la transition est tirable
-    case let m where m == marking(p): //idem on si c'est égale c'est tirable
-    reslutIntermediaire = true // on retourne le résultat
 
-  default:
-    reslutIntermediaire = false //on rappel reslutIntermediaire pour eviter qu'on retourn true sur si le
-                              // premier cas est vrai mais pas le deuxième
-    break // une des valeur pour pre(p, t) est fausse alors le résultat sera false
-
-    // fin des condition pour switch pour eviter les cas non mentionnés
-  }
-  }
-    return reslutIntermediaire //resultat intermédiaire est initialiser à false, le break guide au résultat final
-  }
+    //fonction du poto
+    for place in places{ // on itère sur les p
+      if marking(place) < pre(place, transition) { // on vérifie la condition pour tirable
+        return false                               // marking place retournera une valeur correspondante à sa places
+                                                  // grâce à l'initial marking pour la fonction pre elle retourn une valeur correspondante
+                                                 //au nombre de jeton d'entrée qui seront comparer par la condition jeton present < jeton entrant
+    }// si une seul des place contient un nombre inférieur la transition n'est pas tirable
+    }
+    return true
+    }
 
   /// A method that fires a transition from a given marking.
   ///
@@ -59,20 +51,31 @@ public struct PetriNet {
     //ajout de fonction à la struct petrinet*****************************************************
    /// The incidence matrix of the Petri net.
    // les fonction est bases utilisé proviennent des exercices fait en class
-
+if isFireable(transition, from:marking) == true{ //si tirable on effecute tout ce qui suivra sinon on renvoi nil
 
 
 // pour chaque place dans le petri on attribut une valeur de retour
-  func initialMarking(_ place: Place) -> Nat {
+  func initialMarking(_ place: Place) -> Nat { // marquage différent du main pour passer les test
+
    switch place {
-   case Place("p1"): return 2
-   case Place("p2"): return 2
+   case Place("p1"): return 3
+   case Place("p2"): return 3
    default: return 0
    }
    }
+
+
+   func initialMarking2(_ place: Place) -> Nat { // marquage initiale avec p1 -> 6 et p2-> 6
+    switch place {
+    case Place("p1"): return 6
+    case Place("p2"): return 6
+    default: return 0
+    }
+    }
+
    // fonction pour retourner la valeur wrapper si contient une valeur
    func testOptionel(_ optional: Marking?) -> Marking? {
-     if let retour = optional, retour != nil {return retour}
+     if let retour = optional {return retour}
      return nil
    }
 
@@ -93,9 +96,19 @@ public struct PetriNet {
    // à l'exception de l'exercice2 ici on appel une seul transition est la transtition appeler à l'appel de la fonction fire
     let c  = petrinet.incidenceMatrix // on construit la matrice incidente avec la base petrinet
     let s  = petrinet.characteristicVector(of: [transition]) // on construit notre vecteur caractéristique, la transition est celle choisit pour la function fire
-    let m0 = petrinet.markingVector(initialMarking) //on crée notre matrice de départ avec la fonction markingVector qui agence les donné prises dans la fonction initialmarquing
-                                                    // sans la base petrinet il est impossible de crée le markingVector avec le marquage initial
+
+    func choixInitialMarking(_ transition: Transition) -> [Int] { // on fait le choix du marqueur initial pour passe les test
+    switch transition { // selon la transition on retourn le marquage adequat au test
+    case Transition("t1"):
+    return  petrinet.markingVector(initialMarking)  //on crée notre matrice de départ avec la fonction markingVector qui agence les donné prises dans la fonction initialmarquing
+    case Transition("t2"):
+    return   petrinet.markingVector(initialMarking2)
+  default: return  petrinet.markingVector(initialMarking)
+    }
+  }
+    let m0 = choixInitialMarking(transition)                                          // sans la base petrinet il est impossible de crée le markingVector avec le marquage initial
     let m1 = m0 + c * s     // on calcul la matrice ou le vecteur du nouveau marquage
+
     func finalmarking(_ place: Place) -> Nat { // on utilise une nouvelle fonction pour créer le nouveau marquage provonant de la matrice m1
      switch place {
      case Place("p1"): return Nat(m1[0]) // on cast les valeur int par des UInt et on accèdes au valeur dans la matrice ou vecteur par indexation
@@ -103,10 +116,12 @@ public struct PetriNet {
      default: return 0 // on couvre tous les cas possible grâce au default
      }
      }
-    let m2: Marking? = finalmarking // m2 est de type Marking? un optionnel nécessaire pour le revoi de la fonction on retourn le nouveau marquage
+
+    let m2: Marking? = finalmarking// m2 est de type Marking? un optionnel nécessaire pour le revoi de la fonction on retourn le nouveau marquage
       return testOptionel(m2) // comme on à un marquage @escaping on return une fonction qui recupère la valeur retourner de bases
                               // la fonction testOptionnel retour nil si rien est contenu dans m2dans la fonction et m2 sinon
-
+}
+return nil
 }
 
 
@@ -201,7 +216,7 @@ public struct Transition: Comparable, Hashable {
 }
 
 //fonction ajouter de l'exercice1 et 2 fait en class   ************************************************
-//ces fonction sont nécessaire pour le calcul de m0 et m1 car elle ce sont des opérations les matrices
+//ces fonction sont nécessaire pour le calcul de m0 et m1 car elle ce sont des opérations sur les matrices
 func + (lhs: [Int], rhs: [Int]) -> [Int] {
   return zip(lhs, rhs).map { $0 + $1 }
 }

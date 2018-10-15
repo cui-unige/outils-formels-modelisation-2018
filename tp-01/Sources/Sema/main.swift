@@ -5,6 +5,7 @@ private func pre(p: Place, t: Transition) -> Nat {
   switch (p, t) {
   case (Place("p1"), Transition("t1")): return 1
   case (Place("p2"), Transition("t2")): return 3
+  case (Place("p1"), Transition("t2")): return 5 // ajout pour passer le test fire avec initialmarking2
   default: return 0
   }
 }

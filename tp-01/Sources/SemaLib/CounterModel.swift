@@ -2,7 +2,7 @@
 public func createCounterModel() -> PetriNet {
   // Write your code here.
   // Define the preconditions of a simple Petri net.
-  func pre(p: Place, t: Transition) -> Nat {
+ func pre(p: Place, t: Transition) -> Nat {
     switch (p, t) {
       // pour les p
     case (Place("p1"), Transition("t1")): return 1
@@ -75,8 +75,7 @@ public func createCounterModel() -> PetriNet {
     pre         : pre,
     post        : post)
 
-  return PetriNet(places: [], transitions: [], pre: { _, _ in 0 }, post: { _, _ in 0 })
-
+  return petrinet
 
 
 
@@ -85,11 +84,9 @@ public func createCounterModel() -> PetriNet {
 /// This function returns the initial marking corresponding to the model of your binary counter.
 public func createCounterInitialMarking() -> Marking {
   // Write your code here.
-
-  // Define the initial marking of a simple Petri net.
-   func initialMarking(_ place: Place) -> Nat {
-    switch place {  // on était pas obliger de toutes les écrire car le default retour 0 au pire
-                    // mais j'ai commencer de cette manière donc j'ai continué
+  return // Define the initial marking of a simple Petri net.
+    { switch ($0) {  // on était pas obliger de toutes les écrire car le default retour 0 au pire
+                    // mais j'ai commencer de cette manière donc j'ai continué on fait donc une closure pour récupérer la place de marking
     case Place("p1"): return 1
     case Place("p2"): return 0
     case Place("p3"): return 0
@@ -103,6 +100,4 @@ public func createCounterInitialMarking() -> Marking {
     default: return 0
     }
 }
-
-  return { _ in 0 }
 }

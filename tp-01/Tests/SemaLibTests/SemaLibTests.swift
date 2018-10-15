@@ -112,7 +112,7 @@ final class SemaLibTests: XCTestCase {
     ("testCounterStructure", testCounterStructure),
     ("testCounterInitialMarking", testCounterInitialMarking),
     ("testCounterReachability", testCounterReachability),
-    ("testCounterExtraStates", testCounterExtraStates),
+    //("testCounterExtraStates", testCounterExtraStates),
   ]
 
 }
