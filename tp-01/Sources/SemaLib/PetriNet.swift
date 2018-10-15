@@ -27,20 +27,33 @@ public struct PetriNet {
   /// A function that describes the postconditions of the Petri net.
   public let post: (Place, Transition) -> Nat
 
-  /// A method that returns whether a transition is fireable from a given marking.
+  /// The function returns if a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
-    // Write your code here.
-    return false
-  }
+      // Write your code here.
+      for place in places.sorted() { //We sort places in order.
+        if pre(place, transition)>marking(place){ //If a place does not have enough tokens to pass the arcs.
+          return false //Then we consider that the transition is not fireable.
+        }
+      }
+      return true //If there is no place that can not cross their arc, then the transition is fireable.
+    }
 
   /// A method that fires a transition from a given marking.
   ///
   /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
   /// otherwise it returns the new marking.
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
-    // Write your code here.
-    return nil
-  }
+      // Write your code here.
+      if isFireable(transition, from: marking)==false{ // If the transition is not fireable.
+      return nil //If it is false, then it is not fireable, so it returns nothing.
+    }
+        else {//Else it is fireable, so we can return the next transition.
+          func newmark(_ place: Place) -> Nat { //We create an intermediate function that proceeds to the transition.
+            return marking(place)+post(place, transition)-pre(place, transition) //Then we return the transition formula.
+          }
+        return newmark //We return our function that applies to all places.
+      }
+    }
 
   /// A helper function to print markings.
   public func print(marking: Marking) {
