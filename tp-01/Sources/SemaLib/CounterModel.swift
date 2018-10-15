@@ -1,7 +1,7 @@
 //places
 let p0 = Place("p0")
 let p1 = Place("p1")
-let p2 = Place("p2")
+
 let b0 = Place("b0")
 let b1 = Place("b1")
 let b2 = Place("b2")
