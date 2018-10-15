@@ -4,11 +4,10 @@ public func createCounterModel() -> PetriNet {
         switch (p, t) {
         case (Place("p0"), Transition("t0")): return 1
         case (Place("p1"), Transition("t1")): return 1
-        case (Place("p2"), Transition("t2")): return 1
         case (Place("b0"), Transition("t1")): return 1
-        case (Place("b0"), Transition("t3")): return 1
-        case (Place("b0"), Transition("t2")): return 1
+        case (Place("p2"), Transition("t2")): return 1
         case (Place("b1"), Transition("t2")): return 1
+        case (Place("b0"), Transition("t3")): return 1
         case (Place("b1"), Transition("t3")): return 1
         case (Place("b2"), Transition("t3")): return 1
         default: return 0
@@ -29,11 +28,13 @@ public func createCounterModel() -> PetriNet {
         }
     }
     
-    return PetriNet(
-        places      : [Place("p1"), Place("p2"), Place("p3"), Place("b0"), Place("b1"), Place("b2")],
+    let Compteur_Binaire = PetriNet(
+        places      : [Place("p0"), Place("p1"), Place("p2"), Place("b0"), Place("b1"), Place("b2")],
         transitions : [Transition("t0"),Transition("t1"), Transition("t2"), Transition("t3")],
         pre         : pre,
         post        : post)
+    
+    return Compteur_Binaire
 }
 
 

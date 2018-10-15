@@ -31,11 +31,11 @@ public struct PetriNet{
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
     //Si la transition est tirable (si le marking des précondition est bon) on return true
     for p in self.places{
-        if marking(p)>self.pre(p, transition){
-            return true
+        if marking(p)<self.pre(p, transition){
+            return false
         }
     }
-    return false
+    return true
   }
 
   /// A method that fires a transition from a given marking.
