@@ -1,5 +1,5 @@
 
-//places
+//Les places
 let p0 = Place("p0")
 let p1 = Place("p1")
 let p2 = Place("p2")
@@ -7,14 +7,14 @@ let b0 = Place("b0")
 let b1 = Place("b1")
 let b2 = Place("b2")
 
-//transitions
+//Les transitions
 let t0 = Transition("t0")
 let t1 = Transition("t1")
 let t2 = Transition("t2")
 let t3 = Transition("t3")
 let t4 = Transition("t4")
 
-// Define the preconditions of a simple Petri net.
+// Préconditions
 func pre(p: Place, t: Transition) -> Nat {
   switch (p, t) {
 
@@ -38,7 +38,7 @@ func pre(p: Place, t: Transition) -> Nat {
   }
 }
 
-// Define the postconditions of a simple Petri net.
+// Postconditions
 func post(p: Place, t: Transition) -> Nat {
   switch (p, t) {
 
@@ -83,5 +83,5 @@ private func initialMarking(_ place: Place) -> Nat {
 /// This function returns the initial marking corresponding to the model of your binary counter.
 public func createCounterInitialMarking() -> Marking {
   return initialMarking
-  
+
 }
