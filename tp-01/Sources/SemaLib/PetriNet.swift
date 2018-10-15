@@ -32,11 +32,11 @@ public struct PetriNet {
     // Write your code here.
     //Vérification transition tirable pour un marquage M si M(p) >= Entrée/pre(p, transition)
     for p in places {
-      if marking(p) >= pre(p, transition) {
-        return true
+      if marking(p) < pre(p, transition) {
+        return false
       }
     }
-    return false
+    return true
   }
 
   /// A method that fires a transition from a given marking.
