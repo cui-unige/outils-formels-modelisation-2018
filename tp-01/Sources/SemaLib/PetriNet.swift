@@ -29,19 +29,31 @@ public struct PetriNet {
 
   /// A method that returns whether a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
-    // Write your code here.
-    return false
+  // Boucle qui itere a travers toutes les places et qui renvoi faux
+  // à partir du moment ou elle trouve un nombre de jetons trop qui est trop petit
+  // pour etre tirer
+    for place in places {
+        if(pre(place, transition) > marking(place)){
+          return false
+        }
+    }
+    return true
   }
-
   /// A method that fires a transition from a given marking.
   ///
   /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
   /// otherwise it returns the new marking.
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
-    // Write your code here.
-    return nil
-  }
-
+      if(isFireable(transition, from: marking) == false){
+      return nil
+      }
+      else{
+        return {
+          (place) -> Nat in
+          return marking(place) - self.pre(place, transition) + self.post(place, transition)
+        }
+      }
+      }
   /// A helper function to print markings.
   public func print(marking: Marking) {
     for place in places.sorted() {
