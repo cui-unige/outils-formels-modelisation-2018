@@ -58,11 +58,11 @@ public struct PetriNet {
     // Write your code here.
     //ajout de fonction à la struct petrinet*****************************************************
    /// The incidence matrix of the Petri net.
+   // les fonction est bases utilisé proviennent des exercices fait en class
 
 
 
-
-
+// pour chaque place dans le petri on attribut une valeur de retour
   func initialMarking(_ place: Place) -> Nat {
    switch place {
    case Place("p1"): return 2
@@ -70,11 +70,14 @@ public struct PetriNet {
    default: return 0
    }
    }
+   // fonction pour retourner la valeur wrapper si contient une valeur
    func testOptionel(_ optional: Marking?) -> Marking? {
      if let retour = optional, retour != nil {return retour}
      return nil
    }
 
+// base essentielle à tous les appel de fonction pour le calcul du nouveau marquage
+// est notre base du petri
    let petrinet = PetriNet(
      places      : [Place("p1"), Place("p2")],
      transitions : [Transition("t1"), Transition("t2")],
@@ -86,59 +89,74 @@ public struct PetriNet {
 
 
    /// Returns a marking as a vector.
-
-    let c  = petrinet.incidenceMatrix
-    let s  = petrinet.characteristicVector(of: [transition]) // peut être a changer
-    let m0 = petrinet.markingVector(initialMarking)
-    //var m1: Marking?  = nil
-    let m1 = m0 + c * s
-    func finalmarking(_ place: Place) -> Nat {
+   // comme pour l'exercice2 on appel nos fonction qui crée les vecteur nécessaire au calcul
+   // à l'exception de l'exercice2 ici on appel une seul transition est la transtition appeler à l'appel de la fonction fire
+    let c  = petrinet.incidenceMatrix // on construit la matrice incidente avec la base petrinet
+    let s  = petrinet.characteristicVector(of: [transition]) // on construit notre vecteur caractéristique, la transition est celle choisit pour la function fire
+    let m0 = petrinet.markingVector(initialMarking) //on crée notre matrice de départ avec la fonction markingVector qui agence les donné prises dans la fonction initialmarquing
+                                                    // sans la base petrinet il est impossible de crée le markingVector avec le marquage initial
+    let m1 = m0 + c * s     // on calcul la matrice ou le vecteur du nouveau marquage
+    func finalmarking(_ place: Place) -> Nat { // on utilise une nouvelle fonction pour créer le nouveau marquage provonant de la matrice m1
      switch place {
-     case Place("p1"): return Nat(m1[0])
+     case Place("p1"): return Nat(m1[0]) // on cast les valeur int par des UInt et on accèdes au valeur dans la matrice ou vecteur par indexation
      case Place("p2"): return Nat(m1[1])
-     default: return 0
+     default: return 0 // on couvre tous les cas possible grâce au default
      }
      }
-    let m2: Marking? = finalmarking
-      return testOptionel(m2)
-
+    let m2: Marking? = finalmarking // m2 est de type Marking? un optionnel nécessaire pour le revoi de la fonction on retourn le nouveau marquage
+      return testOptionel(m2) // comme on à un marquage @escaping on return une fonction qui recupère la valeur retourner de bases
+                              // la fonction testOptionnel retour nil si rien est contenu dans m2dans la fonction et m2 sinon
 
 }
 
 
   /// A helper function to print markings.
+  //fonciton ajouter tiré de l'exercice2
+  // la fonction permet d'afficher les valeur grâce à une boucle qui récupère les places de places.sorted() (trier)
+  // une à une pour les afficher selon leur nom et selon la valeur attribuer sur le marquage public func print(marking: Marking) {
   public func print(marking: Marking) {
-    for place in places.sorted() {
+      for place in places.sorted() {
       Swift.print("\(place.name) → \(marking(place))")
     }
-  }
+}
+  //fonciton markingVector est une fonction tiré de l'exercice2
+  // la fonction permet de crée une Array de Int donc un vecteur int,
+  //elle possède  une closure qui récupère les places
+  //elle trie les places avec sorted() et les map avec .map dans un dictionnaire afin qu'au final l'appel de la valeur de retour avec
+  //le marquage soit dans le vecteur dans l'ordre d'aparition des places.
 
   func markingVector(_ marking: Marking) -> [Int] {
-   return places.sorted().map { Int(marking($0)) }
+   return places.sorted().map { Int(marking($0)) } // ici $0 représente une place
   }
 
-
+// la fonction characteristicVector provient de l'exercie2 elle construit une vecteur à partir des transitions
+// ce qui représente en terme de réseau de petri une séquence de tirage le vecteur caractéristique est utiliser pour extraire une tir particulier ici c'est plusieurs
   func characteristicVector<S>(of sequence: S) -> [Int] where S: Sequence, S.Element == Transition {
-     let index: [Transition: Int] = Dictionary(
+     let index: [Transition: Int] = Dictionary( // cration d'un dicitonnaire ou fonction de hasage avec les transition trié est de manière à les retrouver avec le type enum
      uniqueKeysWithValues: transitions.sorted().enumerated().map({ ($1, $0) })) // transition est un set on trie les transition est on les map pour le dictionnaire
-     var result: [Int] = Array(repeating: 0, count: transitions.count) // on crée une array avec les zéros
+     var result: [Int] = Array(repeating: 0, count: transitions.count) // on crée une array avec les zéros de la taille du nombre de transition
 
      for transition in sequence {
-       result[index[transition]!] += 1 // on ajoute 1 à la place de la transition la valeur de l'index est un optionnel
+       result[index[transition]!] += 1 // on ajoute 1 à la place de la transition la valeur de l'index est un optionnel donc il est déwrapper
+     }                                // le un correspondant coorespond dans la matrice d'incidence à la transition à prendre en compute
+                                      // c'est pourquoi on ajoute un 1 en fonction de la position de la transition qui est en entrée dans le dictionnaire
+                                      // car celles-ci sont numéroté de par exemple t0.... tn
+     return result                    // le résultat est retourner
      }
-     return result
-     }
 
 
 
-
+// Création de la matrice d'incidence toujours pris de l'exercie2
+// même principe que pour le vecteur caractéristique on ajoute des 0 au array crée et on remplace à la position
+// correspondant à la transition et la place la valeur de Sortie(p,t) - Entrée(p, t)
   public var incidenceMatrix: [[Int]] {
        var matrix: [[Int]] = Array(
-       repeating: Array(repeating: 0, count: transitions.count),
-       count: places.count)
+       repeating: Array(repeating: 0, count: transitions.count), //on remplit la matrice de 0 et du nombre de transition existante
+     count: places.count) //on remplit la matrice de ligne correspondant au nombre de places existantes
 
-       for (p, place) in places.sorted().enumerated() {
-       for (t, transition) in transitions.sorted().enumerated() {
+       for (p, place) in places.sorted().enumerated() { // on crée une double boucle pour parcourir les place et les transitions
+                                                        // on les trie et le rend enumérable pour facilité les correspondant dans le calcul des matrices
+       for (t, transition) in transitions.sorted().enumerated() { //idem pour la correspondances
        matrix[p][t] = Int(post(place, transition)) - Int(pre(place, transition))
        }
      }
@@ -150,7 +168,8 @@ public struct PetriNet {
 
 
 
-
+// Sont les types nécessaire à tous le tp : au réseau de petri
+//sans eux on ne peut pas crée de marquage à l'aide de fonction qui marche sur une base créee avec eux
 
 /// A place.
 public struct Place: Comparable, Hashable {
@@ -181,6 +200,8 @@ public struct Transition: Comparable, Hashable {
   }
 }
 
+//fonction ajouter de l'exercice1 et 2 fait en class   ************************************************
+//ces fonction sont nécessaire pour le calcul de m0 et m1 car elle ce sont des opérations les matrices
 func + (lhs: [Int], rhs: [Int]) -> [Int] {
   return zip(lhs, rhs).map { $0 + $1 }
 }

@@ -30,7 +30,7 @@ public func createCounterModel() -> PetriNet {
     case (Place("b1"), Transition("t7")): return 1
     case (Place("b2"), Transition("t7")): return 1
     default: return 0
-      //prcision on a enlever tous les transition qui retournaient 0 elle sont donnée par default
+      //précision, on a enlever tous les transitions qui retournaient 0 elle sont données par default
     }
   }
 
@@ -68,6 +68,7 @@ public func createCounterModel() -> PetriNet {
   }
 
   // Define the structure of a simple Petri net.
+  // on ajoute les place et les transitions de notre réseau de petri avec les entrée sortie données par post et pre
   let petrinet = PetriNet(
     places      : [Place("p1"), Place("p2"), Place("p3"), Place("p4"), Place("p5"), Place("p6"), Place("p7"), Place("b0"), Place("b1"), Place("b2")],
     transitions : [Transition("t1"), Transition("t2"), Transition("t3"), Transition("t4"), Transition("t5"), Transition("t6"), Transition("t7")],
