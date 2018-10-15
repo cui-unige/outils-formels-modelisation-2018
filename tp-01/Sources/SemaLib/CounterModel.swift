@@ -1,4 +1,3 @@
-// Define the preconditions of a simple Petri net.
 private func pre(p: Place, t: Transition) -> Nat {
   switch (p, t) {
   case (Place("a2"), Transition("put1")): return 1
@@ -83,12 +82,22 @@ let myCounter = PetriNet(
 
 /// This function creates the model of a binary counter on three bits.
 public func createCounterModel() -> PetriNet {
+  // The model works as follows:
+  // There are 6 places: (a2, a1, a0) and (b2, b1, b0).
+  // There are 8 transitions: putN, where N is the number to be displayed by the counter.
+  // The b_i places represent the bits of the counter; the a_i places represent their negations.
+  // This means that if b=010, the value of a is 101.
+
+  // When a putN transition is fired, we remove all previous tokens and
+  // add the tokens that correspond to N.
+  // For example, if we want to do 101 -> 110:
+  // b2,b0 and a1 tokens are removed.
+  // New tokens are placed in b2,b1 and a0.
   return myCounter
 }
 
 /// This function returns the initial marking corresponding to the model of your binary counter.
 public func createCounterInitialMarking() -> Marking {
-  // Write your code here.
   let initMarking: Marking = { place in
   switch place {
   case Place("a2"): return 1

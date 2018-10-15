@@ -29,6 +29,9 @@ public struct PetriNet {
 
   /// A method that returns whether a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
+    // If one of the places doesn't have the necessary number of tokens,
+    // the transition won't be fireable. If all of the places have the necessary
+    // number of tokens, the function returns True.
     for place in places {
       if marking(place) < pre(place,transition)
       {
