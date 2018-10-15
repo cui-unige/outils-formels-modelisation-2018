@@ -38,10 +38,10 @@ public struct PetriNet {
       return true //If there is no place that can not cross their arc, then the transition is fireable.
     }
 
-  /// A method that fires a transition from a given marking.
+  /// A method that fires a transition from a given marking./
   ///
   /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
-  /// otherwise it returns the new marking.
+  /// otherwise it returns the new marking./
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
       // Write your code here.
       if isFireable(transition, from: marking)==false{ // If the transition is not fireable.
