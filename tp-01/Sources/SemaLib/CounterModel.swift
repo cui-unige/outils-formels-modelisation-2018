@@ -7,7 +7,7 @@ let b0 = Place("b0")
 let b1 = Place("b1")
 let b2 = Place("b2")
 
-//Les transitions
+//Création des transitions
 let t0 = Transition("t0")
 let t1 = Transition("t1")
 let t2 = Transition("t2")
