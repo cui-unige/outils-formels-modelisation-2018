@@ -30,7 +30,27 @@ public struct PetriNet {
   /// A method that returns whether a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
     // Write your code here.
-    return false
+    Swift.print(transition)
+    for place in places {
+        //for t in transitions {
+        //Swift.print(place)
+        //Swift.print(t)
+        //Swift.print("jetons dans \(place):")
+        //Swift.print(marking(place))
+        //Swift.print("nombre dans arc \(transition):")
+        //Swift.print(pre(place, transition))
+
+        if marking(place) < pre(place, transition){
+            // Swift.print(place)
+            // Swift.print("jetons dans \(place):")
+            // Swift.print(marking(place))
+            //Swift.print("nombre dans arc \(transition):")
+            //Swift.print(pre(place, transition))
+            Swift.print("false")
+            return false
+            }
+    }
+    return true
   }
 
   /// A method that fires a transition from a given marking.
@@ -39,6 +59,35 @@ public struct PetriNet {
   /// otherwise it returns the new marking.
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
     // Write your code here.
+    //var fireable = self.isFireable(Transition(transition.name), from: marking)
+    //Swift.print(fireable)
+    //Swift.print(marking)
+    // for place in places{
+    //     Swift.print(place)
+    //     Swift.print("jetons dans \(place)")
+    //     Swift.print(marking(place))
+    //     var mark = marking(place)
+    //     Swift.print("arc \(transition)")
+    //     Swift.print("nb dans arc pre ")
+    //     Swift.print(pre(place, transition))
+    //     Swift.print("nb dans arc post")
+    //     Swift.print(post(place, transition))
+    //     var fireable = self.isFireable(Transition(transition.name), from: marking)
+    //     Swift.print(fireable)
+    //     if fireable == true {
+    //         Swift.print(marking(place)+post(place, transition))
+    //         Swift.print(marking(place)-pre(place, transition))
+    //     }
+    // }
+    if(self.isFireable(transition, from: marking)){
+        //Swift.print("lalal")
+        //Swift.print(self.isFireable(transition, from: marking))
+      return {(place) -> Nat in
+        return marking(place) - self.pre(place,transition) + self.post(place, transition)
+
+      }
+    }
+
     return nil
   }
 
