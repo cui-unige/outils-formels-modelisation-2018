@@ -18,6 +18,7 @@ public struct PetriNet {
     self.post = post
   }
 
+
   /// A finite set of places.
   public let places: Set<Place>
   /// A finite set of transitions.
@@ -29,19 +30,28 @@ public struct PetriNet {
 
   /// A method that returns whether a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
-    // Write your code here.
+    
+    for place in places.sorted(){
+        if marking(place) >= pre(place,transition){
+            return true
+        }
+    }
     return false
   }
-
   /// A method that fires a transition from a given marking.
   ///
   /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
   /// otherwise it returns the new marking.
-  public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
-    // Write your code here.
-    return nil
-  }
-
+    public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
+        if isFireable(transition, from: marking) == false{ return nil }
+        else{
+            func resultMarking(_ place: Place) -> Nat {
+                return marking(place) - pre(place, transition) + post(place, transition)
+            }
+        return resultMarking
+        }
+    }
+    
   /// A helper function to print markings.
   public func print(marking: Marking) {
     for place in places.sorted() {
@@ -65,7 +75,6 @@ public struct Place: Comparable, Hashable {
   }
 
 }
-
 /// A transition.
 public struct Transition: Comparable, Hashable {
 
