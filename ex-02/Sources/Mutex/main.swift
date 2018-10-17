@@ -2,7 +2,7 @@ private func pre(p: Place, t: Transition) -> Nat {
   switch t {
 case Transition("t0"):
   switch p {
-  case (Place("s0"), Transition("s4"),Transition("c")): return 1
+  case (Place("s0"), Transition("s4"),Transition("c")): return 1 //commentaire
   default:return 0
   }
 case Transition("t1"):

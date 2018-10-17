@@ -1,4 +1,5 @@
 /// Structure that represents a Petri net marking.
+//Trabelsi
 public struct Marking<Place, Value>: Hashable
   where Place: CaseIterable & Hashable,
         Value: Comparable & Hashable
