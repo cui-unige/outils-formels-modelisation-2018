@@ -35,17 +35,23 @@ func analyze<PlaceSet>(
   print("The model is \(bound)-bounded.")
 
   // Is the model L3-live (i.e. "vivant")?
-  let isL3 = false // TODO
+  let isL3 = model.transitions.allSatisfy({ transition in
+    states.allSatisfy({m in m.contains(where: { transition.isFireable(from: $0.marking)})})})
   print("The model is\(!isL3 ? " not" : "") L3-live.")
 
   // Is the model L1-live (i.e. "quasi-vivant")?
-  let isL1 = false // TODO
+  let isL1 = model.transitions.allSatisfy({ transition in
+    states.contains(where: {transition.isFireable(from: $0.marking) })})
   print("The model is\(!isL1 ? " not" : "") L1-live.")
 
   // Is the model dead?
   // successors est un dictionnaire donc on peut mettre .isEmpty
   let isDead = states.contains(where: { state in state.successors.isEmpty })
-  let isDead2 = states.allSatisfy({ state in
-    model.transitions.contains(where: { $0.isFireable(from: state.marking) }) })
+  //let isDead2 = states.allSatisfy({ state in
+  //  model.transitions.contains(where: { $0.isFireable(from: state.marking) }) })
   print("The model is\(!isDead ? " not" : "") dead.")
+
+  // donne l'état "mortuaire (bloqué)"
+  let deadState = states.first(where: { state in state.successors.isEmpty })!
+  print(deadState.marking)
 }
