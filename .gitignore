@@ -1,0 +1,7 @@
+# macOS
+.DS_Store
+
+# Assistant resources
+*.numbers
+script.sh
+tp-**.zip
