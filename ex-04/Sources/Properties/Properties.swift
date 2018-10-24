@@ -34,7 +34,8 @@ func analyze<PlaceSet>(
 
   // Is the model L3-live (i.e. "vivant")?
   // on vérifie la propriété pour chaque successeur.
-  let isL3 = mode.transition.allSatisfy({ transition in state.allSatisfy({ m in m.contains (where :{ transition.isFirable(from: $0.marking)})})
+  let isL3 = model.transitions.allSatisfy({ transition in states.allSatisfy({ m in m.contains (where :{ transition.isFireable(from: $0.marking)})})
+})
   print("The model is\(!isL3 ? " not" : "") L3-live.")
 
 
@@ -42,18 +43,18 @@ func analyze<PlaceSet>(
   // Is the model L1-live (i.e. "quasi-vivant")?
 // au moins un état doit satisfaire la proprietet
 let isL1 = model.transitions.allSatisfy({ transition in
-    states.contains(where: { transition.isFirable((from : $0.marking))})
-
+    states.contains(where: { transition.isFireable(from : $0.marking)})
+})
   print("The model is\(!isL1 ? " not" : "") L1-live.")
   // Is the model dead?
 
   //est vrai si un état n'a pas de successor// successors est un dico
-  let isDead = states.contains(where :  { state in state.successors.isEmpty})// TODO
+  let isDead = states.contains(where :  { state in state.successors.isEmpty} ) //TODO
   // autre méthode mais plus complique on applique l'inverse
   // on regarde qu'il y en a
   //let isDead2 = states.allSatisfy({state in models.transitions.contains(where: { $0.isFirable(from: state.marking) } ) } )
+
   print("The model is\(!isDead ? " not" : "") dead.")
   //
 //print("The model is\(!isDead2 ? " not" : "") dead. autre implementation plus compliquée")
-
 }
