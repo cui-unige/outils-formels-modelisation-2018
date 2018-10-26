@@ -16,8 +16,9 @@ class Node<Net>: Sequence where Net: PetriNet {
     return AnyIterator {
       while let node = unprocessed.popLast() {
         processed.append(node)
+        let created = processed + unprocessed
         unprocessed += node.successors.values.filter { successor in
-          !processed.contains(where: { $0 === successor })
+          !created.contains(where: { $0 === successor })
         }
         return node
       }
@@ -30,22 +31,22 @@ class Node<Net>: Sequence where Net: PetriNet {
 func computeGraph<Net>(of petrinet: Net, from initialMarking: Net.MarkingType) -> Node<Net>?
   where Net: PetriNet, Net.Transition.PlaceContent: Comparable
 {
-  let root        = Node<Net>(marking: initialMarking)
-  var created     = [root]
-  var unprocessed = [root]
+  let root = Node<Net>(marking: initialMarking)
+  var created = [root]
+  var unprocessed: [(Node<Net>, [Node<Net>])] = [(root, [])]
 
-  while let node = unprocessed.popLast() {
+  while let (node, predecessors) = unprocessed.popLast() {
     for transition in petrinet.transitions {
       guard let nextMarking = transition.fire(from: node.marking)
         else { continue }
       if let successor = created.first(where : { other in other.marking == nextMarking }) {
         node.successors[transition] = successor
-      } else if created.contains(where: { other in nextMarking > other.marking }) {
+      } else if predecessors.contains(where: { other in nextMarking > other.marking }) {
         return nil
       } else {
         let successor = Node<Net>(marking: nextMarking)
         created.append(successor)
-        unprocessed.append(successor)
+        unprocessed.append((successor, predecessors + [node]))
         node.successors[transition] = successor
       }
     }
