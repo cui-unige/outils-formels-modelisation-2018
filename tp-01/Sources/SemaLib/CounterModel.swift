@@ -113,6 +113,7 @@ public func createCounterInitialMarking() -> Marking {
 // Define the preconditions of the counter
 private func counter_pre_bug(p: Place, t: Transition) -> Nat {
   switch (p, t) {
+    case (Place("r0"), Transition("t1")): return 1
     case (Place("b0"), Transition("t2_6")): return 1
     case (Place("b1"), Transition("t3_7")): return 1
     case (Place("r0"), Transition("t3_7")): return 1
@@ -139,6 +140,7 @@ private func counter_post_bug(p: Place, t: Transition) -> Nat {
     case (Place("r0"), Transition("t4")): return 1
     case (Place("b0"), Transition("t5")): return 1
     case (Place("b2"), Transition("t5")): return 1
+    case (Place("r0"), Transition("t8")): return 1
     default: return 0
   }
 }

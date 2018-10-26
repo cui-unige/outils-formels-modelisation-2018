@@ -19,14 +19,31 @@ do {
 
 // ... is alive, reversible and deadlock free:
 do {
-  // enum Place: CaseIterable { ...
+  // p1 <-> p2 avec p1 -t1-> p2 et p2 -t2-> p1
+  enum Place: CaseIterable {
+    case p1, p2
+  }
 
-  // let model = ...
-  // let m0: PTNet<Place>.MarkingType = [ ...
+  let model = PTNet<Place>(transitions: [
+    PTTransition(
+      named: "t1",
+      preconditions: [PTArc(place: .p1)],
+      postconditions: [PTArc(place: .p2)]
+    ),
+    PTTransition(
+      named: "t2",
+      preconditions: [PTArc(place: .p2)],
+      postconditions: [PTArc(place: .p1)]
+    )
+  ])
+  let m0: PTNet<Place>.MarkingType = [
+    .p1: 1,
+    .p2: 0
+  ]
 
-  // assert(model.isAlive(withInitialMarking: m0))
-  // assert(model.isReversible(withInitialMarking: m0))
-  // assert(model.isDeadlockFree(withInitialMarking: m0))
+  assert(model.isAlive(withInitialMarking: m0))
+  assert(model.isReversible(withInitialMarking: m0))
+  assert(model.isDeadlockFree(withInitialMarking: m0))
 }
 
 // ... is alive, reversible and NOT deadlock free:
