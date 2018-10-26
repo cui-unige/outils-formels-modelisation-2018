@@ -6,7 +6,9 @@ extension PetriNet {
   /// the root of the marking graph. If the model isunbounded, the function returns nil.
   public func computeMarkingGraph(from initialMarking: Marking<Place, Int>) -> MarkingNode<Place>? {
     // TODO: Replace or modify this code with your own implementation.
-    let root = MarkingNode(marking: initialMarking)
+    let root = MarkingNode<Place>(marking: initialMarking)
+    var created = [root]
+    var unprocessed: [(Marking, [MarkingNode<Place>])] = [(root, [])]
     return root
   }
 
@@ -19,7 +21,9 @@ extension PetriNet {
   {
     // TODO: Replace or modify this code with your own implementation.
     let root = CoverabilityNode(marking: extend(initialMarking))
+    var created
     return root
+
   }
 
   /// Converts a regular marking into a marking with extended integers.
@@ -28,6 +32,34 @@ extension PetriNet {
       uniquePlacesWithValues: marking.map({
         ($0.place, ExtendedInt.concrete($0.value))
       }))
+  }
+
+
+  func computeGraph<Net>(of petrinet: Net, from initialMarking: Net.MarkingType) -> Node<Net>?
+    where Net: PetriNet, Net.Transition.PlaceContent: Comparable
+  {
+    let root = Node<Net>(marking: initialMarking)
+    var created = [root]
+    var unprocessed: [(Node<Net>, [Node<Net>])] = [(root, [])]
+
+    while let (node, predecessors) = unprocessed.popLast() {
+      for transition in petrinet.transitions {
+        guard let nextMarking = transition.fire(from: node.marking)
+          else { continue }
+        if let successor = created.first(where : { other in other.marking == nextMarking }) {
+          node.successors[transition] = successor
+        } else if predecessors.contains(where: { other in nextMarking > other.marking }) {
+          return nil
+        } else {
+          let successor = Node<Net>(marking: nextMarking)
+          created.append(successor)
+          unprocessed.append((successor, predecessors + [node]))
+          node.successors[transition] = successor
+        }
+      }
+    }
+
+    return root
   }
 
 }
