@@ -52,5 +52,7 @@ public func createCounterInitialMarking() -> Marking {
     default: return 0
     }
   }
-  return initialMarking
+  return {
+	return initialMarking($0) }// pareil que juste return initialMarking
+	// on retourne le retour de la fonction, qui passe sur toutes les places (<-> $0)
 }
