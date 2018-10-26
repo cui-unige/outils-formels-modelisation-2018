@@ -7,9 +7,9 @@ final class StateSpaceTests: XCTestCase {
     // Create a bounded model.
     let (model, initialMarking) = boundedModel()
 
-    let exp = expectation(description: "Will compute the marking graph")
+    let exp = createExpectation(description: "Will compute the marking graph")
     var graph: MarkingNode<BoundedPlace>? = nil
-    DispatchQueue.main.async {
+    DispatchQueue.global(qos: .default).async {
       // Compute the marking graph of the model.
       graph = model.computeMarkingGraph(from: initialMarking)
       exp.fulfill()
@@ -32,9 +32,9 @@ final class StateSpaceTests: XCTestCase {
     // Create a bounded model.
     let (model, initialMarking) = boundedModel()
 
-    let exp = expectation(description: "Will compute the marking graph")
+    let exp = createExpectation(description: "Will compute the marking graph")
     var graph: MarkingNode<BoundedPlace>? = nil
-    DispatchQueue.main.async {
+    DispatchQueue.global(qos: .default).async {
       // Compute the marking graph of the model.
       graph = model.computeMarkingGraph(from: initialMarking)
       exp.fulfill()
@@ -91,9 +91,9 @@ final class StateSpaceTests: XCTestCase {
     // Create an unbounded model.
     let (model, initialMarking) = unboundedModel()
 
-    let exp = expectation(description: "Will not compute the marking graph")
+    let exp = createExpectation(description: "Will not compute the marking graph")
     var graph: MarkingNode<UnboundedPlace>? = nil
-    DispatchQueue.main.async {
+    DispatchQueue.global(qos: .default).async {
       // Compute the marking graph of the model.
       graph = model.computeMarkingGraph(from: initialMarking)
       exp.fulfill()
@@ -110,9 +110,9 @@ final class StateSpaceTests: XCTestCase {
     // Create a bounded model.
     let (model, initialMarking) = boundedModel()
 
-    let exp = expectation(description: "Will compute the coverability graph")
+    let exp = createExpectation(description: "Will compute the coverability graph")
     var graph: CoverabilityNode<BoundedPlace>? = nil
-    DispatchQueue.main.async {
+    DispatchQueue.global(qos: .default).async {
       // Compute the coverability graph of the model.
       graph = model.computeCoverabilityGraph(from: initialMarking)
       exp.fulfill()
@@ -129,9 +129,9 @@ final class StateSpaceTests: XCTestCase {
     // Create an unbounded model.
     let (model, initialMarking) = unboundedModel()
 
-    let exp = expectation(description: "Will compute the coverability graph")
+    let exp = createExpectation(description: "Will compute the coverability graph")
     var graph: CoverabilityNode<UnboundedPlace>? = nil
-    DispatchQueue.main.async {
+    DispatchQueue.global(qos: .default).async {
       // Compute the coverability graph of the model.
       graph = model.computeCoverabilityGraph(from: initialMarking)
       exp.fulfill()
@@ -142,18 +142,15 @@ final class StateSpaceTests: XCTestCase {
 
     // Check the number of states in the model.
     XCTAssertEqual(graph!.count, 7)
-    for state in graph! {
-      print(state.marking)
-    }
   }
 
   func testUnboundedCoverabilityReachability() {
     // Create an unbounded model.
     let (model, initialMarking) = unboundedModel()
 
-    let exp = expectation(description: "Will compute the coverability graph")
+    let exp = createExpectation(description: "Will compute the coverability graph")
     var graph: CoverabilityNode<UnboundedPlace>? = nil
-    DispatchQueue.main.async {
+    DispatchQueue.global(qos: .default).async {
       // Compute the coverability graph of the model.
       graph = model.computeCoverabilityGraph(from: initialMarking)
       exp.fulfill()
