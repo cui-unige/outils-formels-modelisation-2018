@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "PetriKit",
+        "repositoryURL": "https://github.com/kyouko-taiga/PetriKit.git",
+        "state": {
+          "branch": null,
+          "revision": "49eefef58d070f17b0c5aeb9fd785a35b7ae97f2",
+          "version": "2.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
