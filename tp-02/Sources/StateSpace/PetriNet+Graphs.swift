@@ -8,26 +8,29 @@ extension PetriNet {
 
     let root = MarkingNode(marking: initialMarking)
 
-    var  rootTable = [root]     //definition of a array with elements of root
-    //from makeIterator(), for access all nodes in the graph
+    var  rootTable = [root]     //definition d'un tableau avec les éléments de root
+    //de makeIterator()
     var unprocessed : [(MarkingNode<Place>,[MarkingNode<Place>])] = [(root,[])]
     //var processed : [(MarkingNode<Place>,[MarkingNode<Place>])] = []
-    //not use in the programm
+    //Pas utilisée dans le programme
 
-    //while there is nodes
-    while let (node, predecessors) = unprocessed.popLast(){
-      for transition in transitions{
+    while let (node, predecessor) = unprocessed.popLast(){ //tant qu'il y a des noeuds
+      for transition in transitions{ //parcours toutes les transitions
           //use guard
-        guard let nextmarking = transition.fire(from : node.marking)
-        else {continue}
-        if let successor = rootTable.first(where: {other in other.marking == nextmarking})  {
+        guard let nextnode = transition.fire(from : node.marking) //si le noeud suivant est égale au tirage de la transition
+        else {
+        continue //si la condition est vrai on continu la boucle
+    }
+        if let successor = rootTable.first(where: {element in element.marking == nextnode})  { //la fonction first retourne le premier element qui est egale a nextnode
           node.successors[transition] = successor
-        }else if predecessors.contains(where : {other in other.marking < nextmarking}) {
+      }
+      else if predecessor.contains(where : {element in element.marking < nextnode}) { //contain retourne la position de l'élément qui est inférieur a nextnode
+            //si ce noeud est borné alors envoyer nul
           return  nil
         }else{
-           let successor = MarkingNode(marking: nextmarking)
-           rootTable.append(successor)
-           unprocessed.append((successor, predecessors + [node]))
+           let successor = MarkingNode(marking: nextnode)
+           rootTable.append(successor) //remplir le taleau avec les noeuds
+           unprocessed.append((successor, predecessor + [node]))
            node.successors[transition] = successor
         }
       }
@@ -42,41 +45,37 @@ extension PetriNet {
   public func computeCoverabilityGraph(from initialMarking: Marking<Place, Int>)
     -> CoverabilityNode<Place>?
   {
-    let root = CoverabilityNode(marking: extend(initialMarking))
-    var created = [root]
+    let root = CoverabilityNode(marking: extend(initialMarking)) //extend permet de rajouter initialMarking a la fin de root
+        //même principe qu'au dessus
+    var rootTable = [root]
 var unprocessed : [(CoverabilityNode<Place>,[CoverabilityNode<Place>])] = [(root,[])]
-while let (node, predecessors) = unprocessed.popLast(){
-  /*
-  print("node");
-  for place in Place.allCases {
-     print(node.marking[place])
- }
- print("-----------")*/
+while let (node, predecessor) = unprocessed.popLast(){
   for transition in transitions{
-  //  print("tran")
-    guard var nextmarking = transition.fire(from : node.marking)
-    else {continue}
-        if let greatSuccessor = predecessors.first(where: {other in other.marking < nextmarking})  {
+    guard var nextnode = transition.fire(from : node.marking)
+    else {
+    continue
+}
+        if let Unbounded = predecessor.first(where: {element in element.marking < nextnode})  {
           for place in Place.allCases {
-            if   greatSuccessor.marking[place] < nextmarking[place]{
-              nextmarking[place] = .omega
+            if   Unbounded.marking[place] < nextnode[place]{
+              nextnode[place] = .omega
               }
             }
         }
-        if node.marking < nextmarking{
+        if node.marking < nextnode{
           for place in Place.allCases {
-            if   node.marking[place] < nextmarking[place]{
-              nextmarking[place] = .omega
+            if   node.marking[place] < nextnode[place]{
+              nextnode[place] = .omega
               }
             }
         }
 
-    if let successor = created.first(where: {other in other.marking == nextmarking})  {
+    if let successor = rootTable.first(where: {element in element.marking == nextnode})  {
       node.successors[transition] = successor
     }else{
-       let successor = CoverabilityNode(marking: nextmarking)
-       created.append(successor)
-       unprocessed.append((successor, predecessors + [node]))
+       let successor = CoverabilityNode(marking: nextnode)
+       rootTable.append(successor)
+       unprocessed.append((successor, predecessor + [node]))
        node.successors[transition] = successor
     }
   }
