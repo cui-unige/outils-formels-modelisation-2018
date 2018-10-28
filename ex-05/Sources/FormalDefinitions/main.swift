@@ -14,15 +14,17 @@ do {
   let m0: PTNet<Place>.MarkingType = [.p1: 42]
 
   // Check the properties we'd like to guarantee.
-  assert(model.bound(withInitialMarking: m0) == 42)
+  assert(model.bound(withInitialMarking: m0) == 42) // modèle sans transition borné a 42
 }
 
 // ... is alive, reversible and deadlock free:
 do {
-  // enum Place: CaseIterable { ...
+   enum Place: CaseIterable {
+   case pulpFiction, reservoirDogs
+   }
 
-  // let model = ...
-  // let m0: PTNet<Place>.MarkingType = [ ...
+   let model = PTNet<Place>(transitions: 
+   let m0: PTNet<Place>.MarkingType = [ ...
 
   // assert(model.isAlive(withInitialMarking: m0))
   // assert(model.isReversible(withInitialMarking: m0))
