@@ -5,6 +5,7 @@ extension PetriNet {
   /// This method computes the marking graph of the Petri net, assuming it is bounded, and returns
   /// the root of the marking graph. If the model isunbounded, the function returns nil.
   public func computeMarkingGraph(from initialMarking: Marking<Place, Int>) -> MarkingNode<Place>? {
+<<<<<<< HEAD
 
       let root = MarkingNode(marking: initialMarking)
       var created = [root]
@@ -26,6 +27,11 @@ extension PetriNet {
           }
       }
       return root
+=======
+    // TODO: Replace or modify this code with your own implementation.
+    let root = MarkingNode(marking: initialMarking)
+    return root
+>>>>>>> parent of bbbea8e... begin tp2
   }
 
   /// Computes the coverability graph of this Petri net, starting from the given marking.
@@ -35,6 +41,7 @@ extension PetriNet {
   public func computeCoverabilityGraph(from initialMarking: Marking<Place, Int>)
     -> CoverabilityNode<Place>?
   {
+<<<<<<< HEAD
       let root = CoverabilityNode(marking: extend(initialMarking))
       var created = [root]
       var unprocessed : [(CoverabilityNode<Place>,[CoverabilityNode<Place>])] = [(root,[])]
@@ -67,6 +74,11 @@ extension PetriNet {
           }
       }
       return root
+=======
+    // TODO: Replace or modify this code with your own implementation.
+    let root = CoverabilityNode(marking: extend(initialMarking))
+    return root
+>>>>>>> parent of bbbea8e... begin tp2
   }
 
   /// Converts a regular marking into a marking with extended integers.
