@@ -1,3 +1,0 @@
-# Hello
-
-A dummy package.
