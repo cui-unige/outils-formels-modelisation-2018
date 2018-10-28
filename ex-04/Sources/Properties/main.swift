@@ -8,7 +8,7 @@ enum Place: String, CaseIterable, CustomStringConvertible {
   case th1Idle
   case th1WaitForLk1
   case th1WaitForLk2
-  case th1Write
+  case th1Write //L'activité qu'ils font pendant qu'ils ont les 2 verrous.
 
   case th2Idle
   case th2WaitForLk1
@@ -37,6 +37,7 @@ let model = PTNet<Place>(
     PTTransition<Place>(named: "th1GetLk1Second", pre: [.th1WaitForLk1, .lk1], post: [.th1Write]),
     // Thread 1 releases both locks.
     PTTransition<Place>(named: "th1Release"     , pre: [.th1Write], post: [.th1Idle, .lk1, .lk2]),
+
     // Thread 2 gets the first lock first.
     PTTransition<Place>(named: "th2GetLk1First" , pre: [.th2Idle, .lk1], post: [.th2WaitForLk2]),
     // Thread 2 gets the second lock after the first one.
@@ -58,7 +59,7 @@ let initialMarking: Marking<Place, UInt> = [
   .th2WaitForLk1: 0,
   .th2WaitForLk2: 0,
   .th2Write     : 0,
-  .lk1          : 1,
+  .lk1          : 1,//2 verrous disponibles.
   .lk2          : 1,
 ]
 
