@@ -46,7 +46,7 @@ func computeGraph<Net>(of petrinet: Net, from initialMarking: Net.MarkingType) -
   while let (node, predecessors) = unprocessed.popLast() {
     for transition in petrinet.transitions {
       guard let nextMarking = transition.fire(from: node.marking)
-        else { continue }
+        else { continue }//incrémenter le for
       if let successor = created.first(where : { other in other.marking == nextMarking }) {
         node.successors[transition] = successor
       } else if predecessors.contains(where: { other in nextMarking > other.marking }) {

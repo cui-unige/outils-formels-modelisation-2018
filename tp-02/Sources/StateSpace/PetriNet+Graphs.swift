@@ -4,9 +4,8 @@ extension PetriNet {
   ///
   /// This method computes the marking graph of the Petri net, assuming it is bounded, and returns
   /// the root of the marking graph. If the model isunbounded, the function returns nil.
-  public func computeMarkingGraph(from initialMarking: Marking<Place, Int>) -> MarkingNode<Place>? {
-      _ model: PTNet<PlaceSet>,
-        withInitialMarking initialMarking: Marking<PlaceSet, UInt>)
+  public func computeMarkingGraph(from initialMarking: Marking<Place, UInt>) -> MarkingNode<Place>? {
+    
     let root = MarkingNode(marking: initialMarking)
     guard let states = computeGraph(of: model, from: initialMarking) else { //calcul ensemble de graphes de marquages
     //print("The model is unbounded") //non borné
