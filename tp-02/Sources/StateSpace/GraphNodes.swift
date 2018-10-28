@@ -11,7 +11,7 @@ public protocol GraphNode: AnyObject, Hashable, Sequence {
 
   /// The marking associated with the node.
   var marking: MarkingType { get }
-  /// The successors of the node.
+  /// The successors of the node..
   var successors: [TransitionType: Self] { get }
 
 }
