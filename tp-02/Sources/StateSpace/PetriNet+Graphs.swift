@@ -4,11 +4,36 @@ extension PetriNet {
   ///
   /// This method computes the marking graph of the Petri net, assuming it is bounded, and returns
   /// the root of the marking graph. If the model isunbounded, the function returns nil.
-  public func computeMarkingGraph(from initialMarking: Marking<Place, Int>) -> MarkingNode<Place>? {
-    // TODO: Replace or modify this code with your own implementation.
-    let root = MarkingNode(marking: initialMarking)
-    return root
-  }
+    public func computeMarkingGraph(from initialMarking: Marking<Place, Int>) -> MarkingNode<Place>? {
+        let root = MarkingNode(marking: initialMarking)
+        var created = [root]
+        var unprocessed : [(MarkingNode<Place>,[MarkingNode<Place>])] = [(root,[])]
+        while let (node, predecessors) = unprocessed.popLast(){
+            for transition in transitions{
+                guard let nextmarking = transition.fire(from : node.marking)
+                    else {continue}
+                if let successor = created.first(where: {other in other.marking == nextmarking})  {
+                    /*
+                     for place in Place.allCases {
+                     print(nextmarking[place])
+                     }
+                     print("-----------")
+                     */
+                    
+                    node.successors[transition] = successor
+                }else if predecessors.contains(where : {other in other.marking < nextmarking}) {
+                    return  nil
+                }else{
+                    let successor = MarkingNode(marking: nextmarking)
+                    created.append(successor)
+                    unprocessed.append((successor, predecessors + [node]))
+                    node.successors[transition] = successor
+                }
+                
+            }
+        }
+        return root
+    }
 
   /// Computes the coverability graph of this Petri net, starting from the given marking.
   ///
