@@ -9,6 +9,8 @@ extension PetriNet {
     // let root = MarkingNode(marking: initialMarking)
     // return root
 
+    // inspiration de Graph.swift dans ex-04 :
+    // Voir aussi l'algorthme dans la theorie (RdPVerifProp.pdf)
     let root = MarkingNode(marking: initialMarking)
     var created = [root]
     var unprocessed: [(MarkingNode<Place>, [MarkingNode<Place>])] = [(root, [])]
@@ -19,11 +21,7 @@ extension PetriNet {
         else { continue }
         if let successor = created.first(where : { other in other.marking == nextMarking }) {
           node.successors[transition] = successor
-
-          for place in Place.allCases {
-          print(nextMarking[place])
-      }
-    } else if predecessors.contains(where: { other in nextMarking > other.marking }) {
+        } else if predecessors.contains(where: { other in nextMarking > other.marking }) {
           return nil
         } else {
           let successor = MarkingNode(marking: nextMarking)
