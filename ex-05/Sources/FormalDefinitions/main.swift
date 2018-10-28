@@ -19,57 +19,38 @@ do {
 
 // ... is alive, reversible and deadlock free:
 do {
-  enum Place: CaseIterable {
-    case pulpFiction, reservoirDogs
-  }
+  // enum Place: CaseIterable { ...
 
-  let model = PTNet<Place>(transitions: [
-      PTTransition(
-          named: "t1",
-          preconditions: [PTArc(place: .pulpFiction)],
-          postcondition: [PTArc(place: .reservoirDogs)]),
-      PTTransition(
-          named: "t1",
-          preconditions: [PTArc(place: .pulpFiction)],
-          postcondition: [PTArc(place: .reservoirDogs)]),
+  // let model = ...
+  // let m0: PTNet<Place>.MarkingType = [ ...
 
-          )
-      )
-  ]
-   let m0: PTNet<Place>.MarkingType = [ .p1 :1, .p2:0]
-
-   assert(model.isAlive(withInitialMarking: m0))
-   assert(model.isReversible(withInitialMarking: m0))
-   assert(model.isDeadlockFree(withInitialMarking: m0))
+  // assert(model.isAlive(withInitialMarking: m0))
+  // assert(model.isReversible(withInitialMarking: m0))
+  // assert(model.isDeadlockFree(withInitialMarking: m0))
 }
 
 // ... is alive, reversible and NOT deadlock free:
 do {
-  enum Place: CaseIterable {
-    case
+  // enum Place: CaseIterable { ...
 
-  let model = ...
-  let m0: PTNet<Place>.MarkingType = [ ...
+  // let model = ...
+  // let m0: PTNet<Place>.MarkingType = [ ...
 
-  assert(model.isAlive(withInitialMarking: m0))
-  assert(model.isReversible(withInitialMarking: m0))
-  assert(!model.isDeadlockFree(withInitialMarking: m0))
+  // assert(model.isAlive(withInitialMarking: m0))
+  // assert(model.isReversible(withInitialMarking: m0))
+  // assert(!model.isDeadlockFree(withInitialMarking: m0))
 }
 
 // ... is alive, NOT reversible and deadlock free:
 do {
-  enum Place: CaseIterable {
-    case p1
-    case p2
+  // enum Place: CaseIterable { ...
 
-  let model = PTNet<Place>(transitions: [
-      PTTransition()
-  ]
-  let m0: PTNet<Place>.MarkingType = [ ...
+  // let model = ...
+  // let m0: PTNet<Place>.MarkingType = [ ...
 
-  assert(model.isAlive(withInitialMarking: m0))
-  assert(!model.isReversible(withInitialMarking: m0))
-  assert(model.isDeadlockFree(withInitialMarking: m0))
+  // assert(model.isAlive(withInitialMarking: m0))
+  // assert(!model.isReversible(withInitialMarking: m0))
+  // assert(model.isDeadlockFree(withInitialMarking: m0))
 }
 
 // ... is alive, NOT reversible and NOT deadlock free:

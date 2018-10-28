@@ -34,7 +34,7 @@ extension PTNet {
   func isDeadlockFree(withInitialMarking initialMarking: MarkingType) -> Bool {
     guard let graph = computeGraph(of: self, from: initialMarking)
       else { preconditionFailure("unbounded model") }
-    return graph.contains { !$0.successors.isEmpty }
+    return graph.contains { $0.successors.isEmpty }
   }
 
   func isReversible(withInitialMarking initialMarking: MarkingType) -> Bool {
