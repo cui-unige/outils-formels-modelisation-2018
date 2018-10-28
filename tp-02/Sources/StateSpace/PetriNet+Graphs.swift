@@ -1,3 +1,5 @@
+// Travail inspiré du code de Dimitri
+
 extension PetriNet {
 
   /// Computes the marking graph of this Petri net, starting from the given marking.
@@ -50,9 +52,9 @@ extension PetriNet {
                 else{continue} // si la transition est tirable on continue
 
         
-            if  let greatSuccessor = predecessors.first(where : {other in other.marking < nextmarking}){ // récupère le premier marquage déjà tiré plus petit que le marquage après le tire
+            if  let predecessor = predecessors.first(where : {other in other.marking < nextmarking}){ // récupère le premier marquage déjà tiré plus petit que le marquage après le tire
                 for place in Place.allCases{ // Itéreation dans la liste de place
-                    if greatSuccessor.marking[place] < nextmarking[place]{ //Vérification de quel place a un marquage non-borné
+                    if predecessor.marking[place] < nextmarking[place]{ //Vérification de quel place a un marquage non-borné
                         nextmarking[place] = .omega // Ajout de Omega au marquage de la place et on n'ajoute pas le marquage suivant a unprocessed car la branche est finie
                     }
                 }
