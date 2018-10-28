@@ -12,7 +12,9 @@ func analyze<PlaceSet>(
   print("There are \(states.count) state(s) accessible from the initial marking.")
 
   // What is the bound of the model?
-  let bound = 0 // TODO
+  let bound = states.map({state in state.marking.map({(_,token) in token}).max()!}).max()! // TODO
+  //print(type(of:bound))
+  print(bound)
   print("The model is \(bound)-bounded.")
 
   // Is the model L3-live (i.e. "vivant")?
@@ -24,6 +26,6 @@ func analyze<PlaceSet>(
   print("The model is\(!isL1 ? " not" : "") L1-live.")
 
   // Is the model dead?
-  let isDead = false // TODO
+  let isDead = states.contains(where: {state in state.successors.isEmpty}) // TODO
   print("The model is\(!isDead ? " not" : "") dead.")
 }

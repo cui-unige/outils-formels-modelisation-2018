@@ -5,15 +5,14 @@ import PetriKit
 enum Place: String, CaseIterable, CustomStringConvertible {
 
   // Thread states
-  case th1Idle
-  case th1WaitForLk1
-  case th1WaitForLk2
-  case th1Write
-
-  case th2Idle
-  case th2WaitForLk1
-  case th2WaitForLk2
-  case th2Write
+  case th1Idle   // atendre
+  case th1WaitForLk1 //
+  case th1WaitForLk2 //
+  case th1Write //
+  case th2Idle //
+  case th2WaitForLk1 //
+  case th2WaitForLk2 //
+  case th2Write //
 
   // Synchronization locks
   case lk1
