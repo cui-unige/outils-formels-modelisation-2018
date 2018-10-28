@@ -11,25 +11,39 @@ do {
 
   // Define the model and its initial marking.
   let model = PTNet<Place>(transitions: [])
-  let m0: PTNet<Place>.MarkingType = [.p1: 42]
+  let m0: PTNet<Place>.MarkingType = [.p1: 42] //le réseau est borné à 42, une simple place avec 42 jetons dedans (pas besoin de transitions) EXEMPLE MINIMUM
 
   // Check the properties we'd like to guarantee.
   assert(model.bound(withInitialMarking: m0) == 42)
 }
 
-// ... is alive, reversible and deadlock free:
+// (1)... is alive, reversible and deadlock free:
 do {
-  // enum Place: CaseIterable { ...
+   enum Place: CaseIterable {
+    case pla1, pla2
+   }
 
-  // let model = ...
-  // let m0: PTNet<Place>.MarkingType = [ ...
+   let model = PTNet<Place>(transitions: [
+     PTTransition(
+       named: "t1",
+       preconditions: [PTArc(place: .pla1)],
+       postconditions: [PTArc(place: .pla2)]),
+     PTTransition(
+       named:"t2",
+       preconditions: [PTArc(place: .pla2)],
+       postconditions: [PTArc(place: .pla1)]),
+   ])
+   let m0: PTNet<Place>.MarkingType = [
+     .pla1: 1,
+     .pla2: 0,
+   ]
 
-  // assert(model.isAlive(withInitialMarking: m0))
-  // assert(model.isReversible(withInitialMarking: m0))
-  // assert(model.isDeadlockFree(withInitialMarking: m0))
+   assert(model.isAlive(withInitialMarking: m0))
+   assert(model.isReversible(withInitialMarking: m0))
+   assert(model.isDeadlockFree(withInitialMarking: m0))
 }
 
-// ... is alive, reversible and NOT deadlock free:
+// (2)... is alive, reversible and NOT deadlock free:
 do {
   // enum Place: CaseIterable { ...
 
@@ -41,7 +55,7 @@ do {
   // assert(!model.isDeadlockFree(withInitialMarking: m0))
 }
 
-// ... is alive, NOT reversible and deadlock free:
+// (3)... is alive, NOT reversible and deadlock free:
 do {
   // enum Place: CaseIterable { ...
 
@@ -53,7 +67,7 @@ do {
   // assert(model.isDeadlockFree(withInitialMarking: m0))
 }
 
-// ... is alive, NOT reversible and NOT deadlock free:
+// (4)... is alive, NOT reversible and NOT deadlock free:
 do {
   // enum Place: CaseIterable { ...
 
@@ -65,7 +79,7 @@ do {
   // assert(!model.isDeadlockFree(withInitialMarking: m0))
 }
 
-// ... is NOT alive, reversible and deadlock free:
+// (5)... is NOT alive, reversible and deadlock free:
 do {
   // enum Place: CaseIterable { ...
 
@@ -77,7 +91,7 @@ do {
   // assert(model.isDeadlockFree(withInitialMarking: m0))
 }
 
-// ... is NOT alive, reversible and NOT deadlock free:
+// (6)... is NOT alive, reversible and NOT deadlock free:
 do {
   // enum Place: CaseIterable { ...
 
@@ -89,7 +103,7 @@ do {
   // assert(!model.isDeadlockFree(withInitialMarking: m0))
 }
 
-// ... is NOT alive, NOT reversible and deadlock free:
+// (7)... is NOT alive, NOT reversible and deadlock free:
 do {
   // enum Place: CaseIterable { ...
 
@@ -101,7 +115,7 @@ do {
   // assert(model.isDeadlockFree(withInitialMarking: m0))
 }
 
-// ... is NOT alive, NOT reversible and NOT deadlock free:
+// (8)... is NOT alive, NOT reversible and NOT deadlock free:
 do {
   // enum Place: CaseIterable { ...
 
