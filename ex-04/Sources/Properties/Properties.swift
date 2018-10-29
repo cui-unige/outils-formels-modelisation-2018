@@ -13,14 +13,14 @@ func analyze<PlaceSet>(
 
   // What is the bound of the model?
   // on le fait de manière fonctionnel en ex
-  // stat sont des noeuds de graphe
-  // marking est un dico // on a une collection dans le marking// on ne veut que les token
+  // state sont des noeuds de graphe
+  // marking est un dico // on a une collection dans le marking// on ne veut que les tokens
 // map n'est pas un dico
 // on utilise map().max retourn le maximum du tableau. max renvoi un optionnel car map peut être utiliser sur un optionnel
 // on sait que notre tableau n'est pas vide on utilise le point "!"
 // on obtient un array de UInt
 // on réutilise un .max()
-  let bound = states.map({state in state.marking.map({ (place, token) in token }).max()! }).max()! // TODO// retourn un tableau de tableau UInt
+  let bound = states.map({state in state.marking.map({ (place, token) in .label }).max()! }).max()! // 
   print("The model is \(bound)-bounded. (methode fonctionnelle)")
 // autre méthode
   var bound2 : UInt = 0
