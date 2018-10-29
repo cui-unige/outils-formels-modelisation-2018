@@ -74,7 +74,6 @@ extension PetriNet {
     return root
   }
 
-
   /// Converts a regular marking into a marking with extended integers.
   private func extend(_ marking: Marking<Place, Int>) -> Marking<Place, ExtendedInt> {
     return Marking(
