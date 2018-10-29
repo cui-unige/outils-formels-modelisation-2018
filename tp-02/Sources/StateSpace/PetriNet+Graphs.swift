@@ -40,7 +40,7 @@ extension PetriNet {
 
           else if predecessors.contains(where : { other in newMarking > other.marking }) { //contains.where retourne true si la un élément des prédecesseurs vérifie la condition
 
-            return nil //  //Si le graphe de marquage est non borné
+            return nil  //Si le graphe de marquage est non borné
 
           }
 
@@ -61,7 +61,7 @@ extension PetriNet {
             }
             }
 
-            return root // retourner le marquage initial avec les successeurs 
+            return root // retourner le marquage initial avec les successeurs
 
   }
 
@@ -73,77 +73,70 @@ extension PetriNet {
     -> CoverabilityNode<Place>?
   {
 
+    // root est déclarée en tant que marquage initial etendu(extended)
+  let root = CoverabilityNode(marking: extend(initialMarking))
+  var created = [root] // va stocker tous les noeuds crées
+  //  unprocessed va stocker tous les noeuds et leur prédecesseurs attention: la racine n'a pas de prédecesseur
+  var unprocessed: [(CoverabilityNode<Place>, [CoverabilityNode<Place>])] = [(root, [])]
 
-    // Basically the same code than the previous method, except that we handle the case of unbounded graph
-    // More precisely, this test : if predecessors.contains(where : { other in newMarking > other.marking })
-    // ExtendedInt contains all natural number + omega
-    // see slide 8 of RdPVerifProp.pdf or ExtendedInt.swift for operations including omega
-    let root = CoverabilityNode(marking: extend(initialMarking)) // root is labelled by the extended initial marking
-    // storing of root == initialMarking
-    var created = [root] // will stores all the created nodes
-    // unprocessed = (node, predecessors) | node and his predecessors
-    var unprocessed: [(CoverabilityNode<Place>, [CoverabilityNode<Place>])] = [(root, [])] // root has no predecessor
-    // loop while there exists node == marking
-    // take the last node of the variable unprocessed
-    while let (node, predecessors) = unprocessed.popLast() {
+    // Fait une boucle qui agit tant que l'on trouve un marquage dans la dernière valeur de la liste unprocessed
+  while let (node, predecessors) = unprocessed.popLast() {
 
-      // loop on every single transition of the Petri network
-      for transition in transitions {
+    for transition in transitions {
 
-        // test if a specified transition is fireable from a a given node == marking
-        // the new marking is obtained by the fire of the transition
-        guard var newMarking = transition.fire(from: node.marking) // create a new marking
-          else { continue } // continue even if the creation of the new marking fails.
+      //  guard teste si chaque transition est tirable depuis chaque marquage que l'on trouve grâce à l'étape précédente (boucle while)
+      // Un nouveau marquage "newMarking" est alors obtenu après avoir tiré la transition
+      guard var newMarking = transition.fire(from: node.marking)
+        else { continue } // continue de travailler même si la création du nouveau marquage n'est pas possible (transition non tirable)
         /*
-        # --------------------------------------------------------------------------
-        # TEST ALL PREVIOUS MARKINGS == PREDECESSORS
-        # --------------------------------------------------------------------------
-        */
-        // test if the new marking is the superior bound of all the previous markings
-        // first(where:) returns the first element that satifsfies a given predicate
-        if let predecessor = predecessors.first(where: {other in other.marking < newMarking})  {
-          // Loop on every single place
-          for place in Place.allCases {
-            // verify for each place of the new marking if it is superior than the one of the previous marking
-            // pseudocode : newMarking > allPreviousMarking for every single place of marking
-            if predecessor.marking[place] < newMarking[place] {
-              newMarking[place] = .omega // affect omega for this specific place
-            }
+           # --------------------------------------------------------------------------
+           # TEST ALL PREVIOUS MARKINGS == PREDECESSORS
+           # --------------------------------------------------------------------------
+           */
+       // On teste si "newMarking" représente la borne supérieure de tous les marquages explorés jusque là (nbr de jetons dans chaque place du marquage
+      if let predecessor = predecessors.first(where: {other in other.marking < newMarking})  {
+
+        for place in Place.allCases {
+          // On vérifie pour chaque place du "newMarking" si il y a un nombre de jetons plus élevé que dans le marquage précédent(predecesseur)
+          if predecessor.marking[place] < newMarking[place] {
+            newMarking[place] = .omega // On attribue la valeur omega à la place qui contenait le plus de jetons(borne)
           }
-        }
-        /*
-        # --------------------------------------------------------------------------
-        # TEST UNPROCESSED CURRENT NODE
-        # --------------------------------------------------------------------------
-        */
-        // test if the new marking is the superior bound of the current node (unprocessed)
-        if node.marking < newMarking {
-          // Loop on every single place
-          for place in Place.allCases {
-            // verify for each place of the new marking if it is superior than the one of the current node (unprocessed)
-            if node.marking[place] < newMarking[place] {
-              newMarking[place] = .omega // affect omega for this specific place
-            }
-          }
-        }
-        // check if the new marking has already been created
-        // first(where:) returns the first element that satifsfies a given predicate
-        if let successor = created.first(where : { other in other.marking == newMarking }) {
-          // add the corresponding marking to the current node's successors list
-          node.successors[transition] = successor
-        } else {
-          //  create new successor node from the new marking
-          let successor = CoverabilityNode(marking: newMarking)
-          created.append(successor) // stick the new node to the list of nodes
-          // add the new node and his predecessors to the unprocessed variable
-          unprocessed.append((successor, predecessors + [node]))
-          // add the corresponding marking to the current node's successors list
-          node.successors[transition] = successor
         }
       }
-    }
+      /*
+      # --------------------------------------------------------------------------
+      # TEST UNPROCESSED CURRENT NODE
+      # --------------------------------------------------------------------------
+      */
+        // On teste si "newMarking" représente la borne supérieure du marquage
+      if node.marking < newMarking {
 
-return root // initial marking with successors
+        for place in Place.allCases {
+          // On vérifie s'il y a un nbr supérieur de jetons dans chaque place place du "newMarking" par rapport à notre marquage
+          if node.marking[place] < newMarking[place] {
+            newMarking[place] = .omega // On attribue la valeur omega à la place qui contenait le plus de jetons(borne)
+          }
+        }
+      }
+
+      // Recherche si "newMarking" a déjà été créé au préalable
+      if let successor = created.first(where : { other in other.marking == newMarking }) {
+        //  On ajoute "newMarking" à la liste des successeurs du marquage
+        node.successors[transition] = successor
+      } else {
+        // On crée "successor" utilisant la valeur de newMarking en tant que successeur du marquage
+        let successor = CoverabilityNode(marking: newMarking)
+        // On ajoute "successor" à la liste de noeuds crées
+        created.append(successor)
+         // On ajoute "successor" ainsi que ses predecesseurs à la liste de noeuds(unprocessed)
+        unprocessed.append((successor, predecessors + [node]))
+         // On ajoute "successor" à la liste de successeurs du marquage
+        node.successors[transition] = successor
+      }
+    }
+  }
+
+  return root // Marquage initial avec racine et successeurs
 
   }
 
