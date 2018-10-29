@@ -103,6 +103,7 @@ var created = [root]
       }))
   }
 }
+// autre méthode mais qui ne passe pas les 6 tests
 // on ajoute cette fonction dans PetriNet après fire
   /*
   public func creatNewMarking(from marking: Marking<Place, ExtendedInt>, _ otherMarking: Marking<Place, ExtendedInt>) -> Marking<Place, ExtendedInt>? {
