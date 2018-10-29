@@ -7,6 +7,25 @@ extension PetriNet {
   public func computeMarkingGraph(from initialMarking: Marking<Place, Int>) -> MarkingNode<Place>? {
     // TODO: Replace or modify this code with your own implementation.
     let root = MarkingNode(marking: initialMarking)
+    var created:  [MarkingNode<Place>] = [root]
+    var unprocessed: [(MarkingNode<Place>, [MarkingNode<Place>])] = [(root, [])]
+
+    while let (node, predecessors) = unprocessed.popLast() {
+      for transition in transitions {
+        guard let nextMarking = transition.fire(from: node.marking)
+          else {continue}
+        if let successor = created.first(where : { other in other.marking == nextMarking }) {
+          node.successors[transition] = successor
+        } else if predecessors.contains(where: { other in other.marking < nextMarking }) {
+          return nil
+        } else {
+          let successor = MarkingNode(marking: nextMarking)
+          created.append(successor)
+          unprocessed.append((successor, predecessors + [node]))
+          node.successors[transition] = successor
+        }
+      }
+    }
     return root
   }
 
@@ -19,6 +38,7 @@ extension PetriNet {
   {
     // TODO: Replace or modify this code with your own implementation.
     let root = CoverabilityNode(marking: extend(initialMarking))
+
     return root
   }
 
