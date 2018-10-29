@@ -6,22 +6,8 @@ extension PetriNet {
   /// the root of the marking graph. If the model isunbounded, the function returns nil.
   public func computeMarkingGraph(from initialMarking: Marking<Place, Int>) -> MarkingNode<Place>? {
     // TODO: Replace or modify this code with your own implementation.
-    //let root = MarkingNode(marking: initialMarking)
     let root = MarkingNode(marking: initialMarking)
-    //Extended int is for Coverability Graph, to be able to represent the Omega
-
-    //Marking is defined in MarkingNode
-      //a Marking is a dictionary of the current # of Tokens in each Place in the Petri Net
-      //
-
-    //Transition is defined in PetriNet
-      //pre and post conditions are held in Set<Arc<Place>>,
-      //where Arc stores the value of each arc to each position
-
-    // MarkingNode is defined in GraphNodes
-      //is a Node in a Graph, where each branch represents a transition firing
-
-    var rootGraph = [root]
+    var created = [root]
     var unprocessed: [(MarkingNode<Place>, [MarkingNode<Place>])] = [(root, [])] // les visités
 
     while let (node, predecessors) = unprocessed.popLast() // on sort le visité pour l'analyser
@@ -31,7 +17,7 @@ extension PetriNet {
         if let nextMarking = transition.fire(from: node.marking) // on regarde si un maquage depuis le visité existe
         {
           // on prend le premier de liste créé on le compare entre le marquage initiale et le nouveau
-          if let successor = rootGraph.first(where : { other in other.marking == nextMarking })
+          if let successor = created.first(where : {element in element.marking == nextMarking})
           {
             // si oui on a trouver un successeur  sinon ce n'est pas un successeur,
             // si oui on l'ajoute à la liste des successeurs
@@ -40,7 +26,7 @@ extension PetriNet {
 
           // si le nouveou marquage est plus grand que l'encien d'un appartenant
           //à la liste de prédecesseur alors on l'ajoute pas
-          else if predecessors.contains(where: { other in nextMarking > other.marking })
+          else if predecessors.contains(where: {element in nextMarking > element.marking})
           {
             return nil // pas plus grand qu'un predecessors alors on l'ajoute pas
           }
@@ -52,7 +38,7 @@ extension PetriNet {
             let successor = MarkingNode<Place>(marking: nextMarking)
 
             // on ajoute notre nouveau graphe au graphe successor
-            rootGraph.append(successor)
+            created.append(successor)
 
             // on ajoute notre successor au noeud visité pour le prochain pas
             unprocessed.append((successor, predecessors + [node]))
@@ -63,7 +49,6 @@ extension PetriNet {
         }
       }
     }
-
     return root
   }
 
@@ -75,46 +60,45 @@ extension PetriNet {
   {
     // TODO: Replace or modify this code with your own implementation.
     let root = CoverabilityNode(marking: extend(initialMarking))
-    var rootGraph = [root]
-
+    var created = [root]
     var unprocessed : [(CoverabilityNode<Place>, [CoverabilityNode<Place>])] = [(root, [])]
 
     while let (node, predecessor) = unprocessed.popLast()
     {
-      for transition in transitions
+      for transition in self.transitions
       {
-        if var nextnode = transition.fire (from: node.marking)
+        if var nextMarking = transition.fire (from: node.marking)
         {
-          if let undounded = predecessor.first(where: {element in element.marking < nextnode})
+          if let unbounded = predecessor.first(where: {element in element.marking < nextMarking})
           {
             for place in Place.allCases
             {
-              if undounded.marking[place] < nextnode[place]
+              if unbounded.marking[place] < nextMarking[place]
               {
-                nextnode[place] = .omega
+                nextMarking[place] = .omega
               }
             }
           }
 
-          if node.marking < nextnode
+          if node.marking < nextMarking
           {
             for place in Place.allCases
             {
-              if (node.marking[place] < nextnode[place])
+              if (node.marking[place] < nextMarking[place])
               {
-                nextnode[place] = .omega
+                nextMarking[place] = .omega
               }
             }
           }
 
-          if let successor = rootGraph.first(where: {element in element.marking == nextnode})
+          if let successor = created.first(where: {element in element.marking == nextMarking})
           {
             node.successors[transition] = successor
           }
           else
           {
-            let successor = CoverabilityNode(marking: nextnode)
-            rootGraph.append(successor)
+            let successor = CoverabilityNode(marking: nextMarking)
+            created.append(successor)
             unprocessed.append((successor, predecessor + [node]))
             node.successors[transition] = successor
           }
@@ -122,47 +106,6 @@ extension PetriNet {
       }
     }
     return root
-    //original
-    /*
-    let root = CoverabilityNode(marking: extend(initialMarking))
-
-    var rootGraph = [root]
-    var unprocessed: [(CoverabilityNode<Place>, [CoverabilityNode<Place>])] = [(root, [])]
-
-    while let (node, predecessors) = unprocessed.popLast()
-    {
-      for transition in transitions
-      {
-        if var nextmarking = transition.fire(from: node.marking)
-        {
-          if let omegaSuccessor = predecessors.first(where: {other in other.marking < nextmarking})
-          {
-            for place in Place.allCases
-            {
-              if (omegaSuccessor.marking[place] < nextmarking[place])
-              {
-                nextmarking[place] = .omega
-              }
-            }
-          }
-
-          if let successor = rootGraph.first(where: {other in other.marking == nextmarking})
-          {
-            node.successors[transition] = successor
-          }
-
-          else
-          {
-            let successor = CoverabilityNode(marking: nextmarking)
-            rootGraph.append(successor)
-            unprocessed.append((successor, predecessors + [node]))
-            node.successors[transition] = successor
-          }
-        }
-      }
-    }
-    return root
-    */
   }
 
   /// Converts a regular marking into a marking with extended integers.
