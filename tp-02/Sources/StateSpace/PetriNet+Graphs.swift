@@ -46,13 +46,18 @@ extension PetriNet {
       for transition in transitions {
         guard var nextMarking = transition.fire(from: node.marking)
         else {continue}
-          if let successor = predecessors.first(where: { other in other.marking < nextMarking}) { //vérifier s'il existe un marquage strictement plus petit parmi les prédecesseurs
+          if let successor = predecessors.first(where: { other in other.marking < nextMarking}) {
+
+            //vérifier s'il existe un marquage strictement plus petit parmi les prédecesseurs
             for place in Place.allCases {
               if successor.marking[place] < nextMarking[place] {
                 nextMarking[place] = .omega // si effectivement place est est plus petit alors, non borné
               }
             }
-          }//ici, même chose mais avec noeud courant
+          }
+
+
+          //ici, même chose mais avec noeud courant
           if node.marking < nextMarking {
             for place in Place.allCases {
               if node.marking[place] < nextMarking[place] {
