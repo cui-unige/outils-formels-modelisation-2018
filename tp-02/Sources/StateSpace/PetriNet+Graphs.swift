@@ -6,28 +6,29 @@ extension PetriNet {
   /// the root of the marking graph. If the model isunbounded, the function returns nil.
   public func computeMarkingGraph(from initialMarking: Marking<Place, Int>) -> MarkingNode<Place>? {
     // TODO: Replace or modify this code with your own implementation.
-    let root       = MarkingNode(marking: initialMarking)
-    var to_explore = [root]
-    var node_list  = [root]
+    let root: MarkingNode<Place> = MarkingNode(marking: initialMarking)
+    var to_explore: [MarkingNode<Place>] = [root]
+    var node_list: [MarkingNode<Place>] = [root]
     var place_list: [Place] = []
 
-    for (place, value) in initialMarking
+    for (place, _) in initialMarking
     {
       place_list.append(place)
     }
 
     while !to_explore.isEmpty
     {
-      let current_node    = to_explore.popLast()
-      let current_marking = (current_node!).marking
+      let current_node: MarkingNode<Place> = to_explore.popLast()!
+      let current_marking: Marking<Place, Int> = current_node.marking
 
       for transition in self.transitions
       {
         if !transition.isFireable(from: current_marking) { continue }
-        let next_marking = transition.fire(from: current_marking)!
+        let next_marking: Marking<Place, Int> = transition.fire(from: current_marking)!
 
         if node_list.contains(where: { other in
-          greater(next_marking, than: other.marking, places: place_list)
+          //greater(next_marking, than: other.marking, places: place_list)
+          next_marking > other.marking
         })
         {
           return nil
@@ -36,14 +37,14 @@ extension PetriNet {
           place_list.allSatisfy { other.marking[$0] == next_marking[$0] }
         })
         {
-          current_node.successors[transition] = (next_node?)!
+          current_node.successors[transition] = next_node
         }
         else
         {
-          let next_node = MarkingNode(marking: next_marking)
+          let next_node: MarkingNode<Place> = MarkingNode(marking: next_marking)
           node_list.append(next_node)
           to_explore.append(next_node)
-          current_node.successors[transition] = (next_node?)!
+          current_node.successors[transition] = next_node
         }
       }
     }
