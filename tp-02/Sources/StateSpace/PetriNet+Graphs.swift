@@ -8,13 +8,13 @@ extension PetriNet {
     // TODO: Replace or modify this code with your own implementation.
     let root = MarkingNode(marking: initialMarking)
     var created = [root]
-    var unprocessed: [(MarkingNode<Place>, [MarkingNode<Place>])] = [(root, [])] // les visités
+    var unprocessed: [(MarkingNode<Place>, [MarkingNode<Place>])] = [(root, [])]
 
     while let (node, predecessors) = unprocessed.popLast() // on sort le visité pour l'analyser
     {
-      for transition in self.transitions // on regarde les transitions du visité
+      for transition in self.transitions
       {
-        if let nextMarking = transition.fire(from: node.marking) // on regarde si un maquage depuis le visité existe
+        if let nextMarking = transition.fire(from: node.marking)
         {
           // on prend le premier de liste créé on le compare entre le marquage initiale et le nouveau
           if let successor = created.first(where : {element in element.marking == nextMarking})
