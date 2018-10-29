@@ -37,18 +37,20 @@ extension PetriNet {
     // TODO: Replace or modify this code with your own implementation.
     let root = CoverabilityNode(marking: extend(initialMarking))
     var created = [root]
-    var unprocessed : [(CoverabilityNode<Place>,[CoverabilityNode<Place>])] = [(root,[])]
-    while let (node, predecessors) = unprocessed.popLast(){
-      for transition in transitions{
+    var unprocessed : [(CoverabilityNode<Place>,[CoverabilityNode<Place>])] = [(root,[])] // garder ceux à visiter
+    while let (node, predecessors) = unprocessed.popLast(){ // on prend un noeud à visiter
+      for transition in transitions{ // s'occupe des transitions tirables
         guard var nextmarking = transition.fire(from : node.marking)
         else {continue}
-            if let greatSuccessor = predecessors.first(where: {other in other.marking < nextmarking})  {
-              for place in Place.allCases {
+					// pt1 : on va regarder si la place est bornée
+            if let greatSuccessor = predecessors.first(where: {other in other.marking < nextmarking})  { // on regarde si dans ses prédecesseurs il y a un marquage plus petit
+              for place in Place.allCases {// (si oui) on itère sur les places pour voir si plus petite -> non borné
                 if   greatSuccessor.marking[place] < nextmarking[place]{
-                  nextmarking[place] = .omega
+                  nextmarking[place] = .omega // si place plus petit -> non borné !
                   }
                 }
             }
+						// pt2 : la même q'au dessus mais avec le noeud (car pas compris dans sucesseurs)
             if node.marking < nextmarking{
               for place in Place.allCases {
                 if   node.marking[place] < nextmarking[place]{
@@ -56,13 +58,14 @@ extension PetriNet {
                   }
                 }
             }
-        if let successor = created.first(where: {other in other.marking == nextmarking})  {
-          node.successors[transition] = successor
+						// pt3 : savoir si noeud reste à visiter
+        if let successor = created.first(where: {other in other.marking == nextmarking})  { // vérifie si marquage déjà existant : on sort le premier  maraquge égal dans created
+          node.successors[transition] = successor // pas besoin d'en faire un CoverabilityNode vu que passé à la ligne au-dessus
         }else{
-           let successor = CoverabilityNode(marking: nextmarking)
-           created.append(successor)
-           unprocessed.append((successor, predecessors + [node]))
-           node.successors[transition] = successor
+           let successor = CoverabilityNode(marking: nextmarking) // creer le successeur
+           created.append(successor) // ajoute aux existants (permettre comparaison)
+           unprocessed.append((successor, predecessors + [node])) // ajoute aux noeuds à visiter
+           node.successors[transition] = successor // l'entre en tant que successeur du noeud
         }
       }
     }
