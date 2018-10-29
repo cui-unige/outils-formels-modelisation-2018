@@ -5,7 +5,7 @@ import PetriKit
 enum Place: String, CaseIterable, CustomStringConvertible {
 
   // Thread states
-  case th1Idle
+case th1Idle // en attente
   case th1WaitForLk1
   case th1WaitForLk2
   case th1Write
@@ -24,7 +24,7 @@ enum Place: String, CaseIterable, CustomStringConvertible {
   }
 
 }
-
+// expliication des transitions
 let model = PTNet<Place>(
   transitions: [
     // Thread 1 gets the first lock first.
@@ -58,8 +58,10 @@ let initialMarking: Marking<Place, UInt> = [
   .th2WaitForLk1: 0,
   .th2WaitForLk2: 0,
   .th2Write     : 0,
+  // 2 verroux dispo
   .lk1          : 1,
   .lk2          : 1,
 ]
-
+//analysa le modele
+// il y a bp ds ce reseau interblocafe
 analyze(model, withInitialMarking: initialMarking)
