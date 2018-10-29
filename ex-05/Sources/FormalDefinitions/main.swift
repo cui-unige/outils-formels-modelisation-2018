@@ -48,6 +48,7 @@ do {
 
 // ... is alive, reversible and NOT deadlock free:
 do {
+  // Impossible ?
   // enum Place: CaseIterable { ...
 
   // let model = ...

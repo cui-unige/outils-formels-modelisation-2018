@@ -20,7 +20,7 @@ final class StateSpaceTests: XCTestCase {
 
     // Since the model's bounded, the marking graph shouldn't be nil.
     guard graph != nil else {
-      XCTFail("couldn't compte the marking graph of a bounded model")
+      XCTFail("couldn't compute the marking graph of a bounded model")
       return
     }
 
