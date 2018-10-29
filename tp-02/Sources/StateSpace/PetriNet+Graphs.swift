@@ -6,7 +6,7 @@ extension PetriNet {
   /// the root of the marking graph. If the model isunbounded, the function returns nil.
   public func computeMarkingGraph(from initialMarking: Marking<Place, Int>) -> MarkingNode<Place>? {
     let root = MarkingNode(marking: initialMarking) //Racine
-    var created = [root] //Array des noeuds créés, parcourus
+    var created = [root] //Array des noeuds parcourus
     var unprocessed : [(MarkingNode<Place>,[MarkingNode<Place>])] = [(root,[])] // Array de tuples contenant le noeud à partir duquel on va calculer les marquages suivants, et ses noeuds parents
 
     while let (node, predecessors) = unprocessed.popLast(){
@@ -51,21 +51,21 @@ extension PetriNet {
         else {
           continue
         }
-        if let greatSuccessor = predecessors.first(where: {$0.marking < nextmarking}) {
+        if let predecessor = predecessors.first(where: {$0.marking < nextmarking}) {
           for place in Place.allCases {
-            if greatSuccessor.marking[place] < nextmarking[place] {
-                  nextmarking[place] = .omega
+            if predecessor.marking[place] < nextmarking[place] {
+                  nextmarking[place] = .omega //Si il existe un marquage qui est plus petit que nextMarking dans les prédecesseurs du noeud node, alors pour la place du marquage nextMarking où le nombre de jetons est supérieur à celui de la place du marquagetrouvé, on remplace sa valeur par omega (nextMarking).
             }
           }
         }
-            if node.marking < nextmarking {
-              for place in Place.allCases {
-                if   node.marking[place] < nextmarking[place]{
-                  nextmarking[place] = .omega
-                  }
-              }
+        if node.marking < nextmarking {
+          for place in Place.allCases {
+            if node.marking[place] < nextmarking[place]{
+              nextmarking[place] = .omega //Si il existe un marquage qui est plus petit que nextMarking, alors pour la place du marquage nextMarking où le nombre de jetons est supérieur à celui de la place du marquagetrouvé, on remplace sa valeur par omega (nextMarking).
             }
-          if let successor = created.first(where: {other in other.marking == nextmarking}) {
+          }
+        }
+        if let successor = created.first(where: {$0.marking == nextmarking}) {
           node.successors[transition] = successor
         }
         else {
