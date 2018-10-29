@@ -54,11 +54,12 @@ extension Marking: Collection {
 
 extension Marking: Comparable {
 
-  public static func < (lhs: Marking, rhs: Marking) -> Bool {
+  public static func < (lhs: Marking, rhs: Marking) -> Bool { // prend 2 marking
     var existsSmaller = false
-    for place in Place.allCases {
-      existsSmaller = existsSmaller || (lhs[place] < rhs[place])
-      guard lhs[place] <= rhs[place]
+    for place in Place.allCases { // pour toutes les places
+      existsSmaller = existsSmaller || (lhs[place] < rhs[place])  // dès que 1 fois existsSmaller devient Structure
+      // devient true jus'qua la fin
+      guard lhs[place] <= rhs[place] // dès que une place contient moins de jeton à gauche que a droite
         else { return false }
     }
     return existsSmaller
