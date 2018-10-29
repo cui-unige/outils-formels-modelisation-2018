@@ -102,7 +102,7 @@ extension PetriNet {
               }
             }
           }
-          
+
           //si le prochain marquage figure déjà dans les noeuds créés
           if let successeur = crees.first(where: {$0.marking == marquageSuivant}){
 
@@ -119,7 +119,7 @@ extension PetriNet {
             //on l'ajoute aux noeuds à visiter ce dernier ainsi que ses précédents noeuds
             aVisiter.append((successeur, precedents + [noeud]))
 
-            //on crée la transition entre le noeud courant et le nouveau noeud
+            //on crée la transition entre le noeud courant et le nouveau noeud.
             noeud.successors[transition] = successeur
           }
         }
