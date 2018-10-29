@@ -10,13 +10,13 @@ extension PetriNet {
         var currentgraph : [(MarkingNode<Place>,[MarkingNode<Place>])] = [(root,[])]
         while let (node, predecessors) = currentgraph.popLast(){
             for t in transitions{
-                if let nextmarquage = t.fire(from : node.marking){ //pour chaque transition nextmarking correspond au tirage de cette transition
-                    if predecessors.contains(where : {other in other.marking < nextmarquage}) {
+                if let nextmarking = t.fire(from : node.marking){ //pour chaque transition nextmarking correspond au tirage de cette transition
+                    if predecessors.contains(where : {other in other.marking < nextmarking}) {
                         return  nil // envoie nil si c'est pas bornée
-                    }else if let successor = created.first(where: {other in other.marking == nextmarquage})  {
+                    }else if let successor = created.first(where: {other in other.marking == nextmarking})  {
                         node.successors[t] = successor
                     }else{ //les autres marquages
-                        let successor = MarkingNode(marking: nextmarquage)
+                        let successor = MarkingNode(marking: nextmarking)
                         created.append(successor)
                         currentgraph.append((successor, predecessors + [node]))
                         node.successors[t] = successor
