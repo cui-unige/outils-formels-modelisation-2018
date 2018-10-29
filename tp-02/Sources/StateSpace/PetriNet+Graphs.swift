@@ -19,7 +19,7 @@ extension PetriNet {
         } else if predecessors.contains(where: { other in nextMarking > other.marking }) { //vérifier si ne sera pas borné
           return nil
         } else {
-          //actualise le noeud courant
+          //actualise le noeud courant.
           let successor = MarkingNode(marking: nextMarking)
           created.append(successor)
           unprocessed.append((successor, predecessors + [node]))
