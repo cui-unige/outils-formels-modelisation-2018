@@ -3,18 +3,18 @@ import SemaLib
 // Define the preconditions of a simple Petri net.
 private func pre(p: Place, t: Transition) -> Nat {
   switch (p, t) {
-  case (Place("p1"), Transition("t1")): return 1
-  case (Place("p2"), Transition("t2")): return 3
-  default: return 0
+    case (Place("p1"), Transition("t1")): return 1
+    case (Place("p2"), Transition("t2")): return 3
+    default: return 0
   }
 }
 
 // Define the postconditions of a simple Petri net.
 private func post(p: Place, t: Transition) -> Nat {
   switch (p, t) {
-  case (Place("p2"), Transition("t1")): return 2
-  case (Place("p1"), Transition("t2")): return 4
-  default: return 0
+    case (Place("p2"), Transition("t1")): return 2
+    case (Place("p1"), Transition("t2")): return 4
+    default: return 0
   }
 }
 
