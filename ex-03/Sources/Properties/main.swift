@@ -11,8 +11,8 @@ enum Place: CaseIterable {
 // Declare the structure of the Petri net.
 let a = PTTransition<Place>(
   named         : "a",
-  preconditions : [PTArc(place: .p1, label: 1)],
-  postconditions: [PTArc(place: .p2, label: 1)])
+  preconditions : [PTArc(place: .p1, label: 1)], // arcs entrants
+  postconditions: [PTArc(place: .p2, label: 1)]) // arcs entrants
 let b = PTTransition<Place>(
   named         : "b",
   preconditions : [PTArc(place: .p3, label: 1)],
