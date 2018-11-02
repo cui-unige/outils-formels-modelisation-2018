@@ -19,26 +19,57 @@ do {
 
 // ... is alive, reversible and deadlock free:
 do {
-  // enum Place: CaseIterable { ...
+   enum Place: CaseIterable {
+   case p0
+   case p1
 
-  // let model = ...
-  // let m0: PTNet<Place>.MarkingType = [ ...
+   }
 
-  // assert(model.isAlive(withInitialMarking: m0))
-  // assert(model.isReversible(withInitialMarking: m0))
-  // assert(model.isDeadlockFree(withInitialMarking: m0))
+   let model = PTNet<Place>(transitions: [
+     PTTransition(
+       named: "t1",
+     preconditions:[PTArc(place: .p0)],
+     postconditions:[PTArc(place: .p1)]),
+
+   PTTransition(
+     named :"t2",
+   preconditions:[PTArc(place: .p1)],
+   postconditions:[PTArc(place: .p0)]),
+   ])
+
+
+   let m0: PTNet<Place>.MarkingType = [.p0: 1, .p1:0]
+
+   assert(model.isAlive(withInitialMarking: m0))
+   assert(model.isReversible(withInitialMarking: m0))
+   assert(model.isDeadlockFree(withInitialMarking: m0))
 }
 
 // ... is alive, reversible and NOT deadlock free:
 do {
-  // enum Place: CaseIterable { ...
+  enum Place: CaseIterable {
+  case p0
+  case p1
+  case p2
 
-  // let model = ...
-  // let m0: PTNet<Place>.MarkingType = [ ...
+  }
 
-  // assert(model.isAlive(withInitialMarking: m0))
-  // assert(model.isReversible(withInitialMarking: m0))
-  // assert(!model.isDeadlockFree(withInitialMarking: m0))
+  let model = PTNet<Place>(transitions: [
+    PTTransition(
+      named: "t1",
+    preconditions:[PTArc(place: .p0)],
+    postconditions:[PTArc(place: .p1)]),
+
+  PTTransition(
+    named :"t2",
+  preconditions:[PTArc(place: .p1)],
+  postconditions:[PTArc(place: .p0)]),
+  ])
+
+
+   assert(model.isAlive(withInitialMarking: m0))
+   assert(model.isReversible(withInitialMarking: m0))
+   assert(!model.isDeadlockFree(withInitialMarking: m0))
 }
 
 // ... is alive, NOT reversible and deadlock free:
