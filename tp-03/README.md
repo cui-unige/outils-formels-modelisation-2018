@@ -3,6 +3,27 @@
 In this homework, you implement the firing semantics of Petri nets extended with inhibitor arcs,
 and design a small model to test it.
 
+The submission deadline is set on November the 19th, at 23:59 Geneva local time.
+
+**Important note about submissions**
+
+As written in the course's README,
+submissions must be made by pull request, **on the branch named after your GitHub username**.
+If such branch does not exists,
+email the course's assistant ([Dimitri Racordon](mailto:dimitri.racordon@unige.ch))
+with your last name, first name and GitHub username **immediately**.
+
+As a reminder, the submission process is described below:
+1. Test your code!
+2. Make sure to commit all your files on your GitHub repository.
+   You will be evaluated on the last commit you've made before the deadline of the homework!
+3. On GitHub, click on the New pull request button.
+   This will lead you to a page where you can review your changes.
+4. Be sure to select `cui-unige/outils-formels-modelisation-2018`
+   and the `<your-github-username>` as the branch.
+   Your homework will not be considered submitted if you submit a pull request to another base!
+5. If everything looks good, click on the Create pull request button.
+
 ## Firing semantics
 
 The firing semantics of Petri nets extended with inhibitor arcs is described in your lecture notes.
