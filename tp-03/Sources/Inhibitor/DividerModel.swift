@@ -4,8 +4,9 @@ public func createDividerModel() -> InhibitorNet<DividerPlaceSet> {
   return InhibitorNet(places: [], transitions: [])
 }
 
-/// This function returns the initial marking corresponding to the model of your divider.
-public func createDividerInitialMarking() -> [DividerPlaceSet: Int] {
+/// This function returns the initial marking corresponding to the model of your divider, for two
+/// operands `lhs` and `rhs` such that the model will compute `lhs / rhs`.
+public func createDividerInitialMarking(opa: Int, opb: Int) -> [DividerPlaceSet: Int] {
   // Write your code here.
   return [:]
 }
