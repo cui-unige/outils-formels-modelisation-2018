@@ -8,7 +8,7 @@ import Inhibitor
 /// The first operand.
 let a = 6
 /// The second operand.
-let b = 7
+let b = 3
 
 /// The set of places in the model.
 enum PlaceSet: CaseIterable, Hashable {
@@ -32,16 +32,16 @@ let net = InhibitorNet(
   transitions: [
     // Add tokens in `res` as long as there are some to consume in `opa` and `opb`.
     InhibitorNet.Transition(
-      name: "add", pre: [.opa: 1, .opb: 1, .ena: .inhibitor], post: [.opb: 1, .sto: 1, .res: 1]),
+      name: "add", pre: [.opa: 1, .opb: 1, .ena: .inhibitor], post: [.sto: 1]),
     // Refills the tokens of `opa`.
     InhibitorNet.Transition(
-      name: "rfl", pre: [.ena: 1, .sto: 1], post: [.ena: 1, .opa: 1]),
+      name: "rfl", pre: [.ena: 1, .sto: 1], post: [.ena: 1, .opb: 1]),
     // Activates the refilling of `opa`.
     InhibitorNet.Transition(
-      name: "ch1", pre: [.opb: 1, .opa: .inhibitor, .ena: .inhibitor], post: [.ena: 1]),
+      name: "ch1", pre: [.opb: .inhibitor, .ena: .inhibitor], post: [.ena: 1]),
     // Deactivates the refilling of `opa`.
     InhibitorNet.Transition(
-      name: "ch2", pre: [.ena: 1, .sto: .inhibitor], post: [:]),
+      name: "ch2", pre: [.ena: 1, .sto: .inhibitor], post: [.res: 1]),
   ])
 
 /// The initial marking of the model.
@@ -64,4 +64,4 @@ if let m1 = add.fire(from: initialMarking) {
 let states = net.computeMarkingGraph(from: initialMarking)
 let sinks = states.filter { $0.successors.isEmpty }
 assert(sinks.count == 1)
-print("\(a) x \(b) = \(sinks.first!.marking[.res]!) (\(states.count) states)")
+print("\(a) / \(b) = \(sinks.first!.marking[.res]!) (\(states.count) states)")

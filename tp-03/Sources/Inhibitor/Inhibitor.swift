@@ -1,3 +1,5 @@
+// Made by Paul Lucas and Marc Heimendinger
+
 public struct InhibitorNet<Place> where Place: Hashable {
 
   /// Struct that represents an transition of a Petri net extended with inhibitor arcs.
@@ -21,7 +23,19 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// A method that returns whether a transition is fireable from a given marking.
     public func isFireable(from marking: [Place: Int]) -> Bool {
       // Write your code here.
-      return false
+      for place in preconditions {
+        switch preconditions[place.key]! {
+          case .regular(let value):
+            if marking[place.key]! < value {
+              return false
+            }
+          case .inhibitor:
+            if marking[place.key] != 0 {
+              return false
+            }
+        }
+      }
+      return true
     }
 
     /// A method that fires a transition from a given marking.
@@ -30,6 +44,26 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// otherwise it returns the new marking.
     public func fire(from marking: [Place: Int]) -> [Place: Int]? {
       // Write your code here.
+      if isFireable(from: marking) {
+        var newMarking = marking
+        for (place, _) in preconditions {
+          switch preconditions[place]! {
+            case .regular(let value):
+              newMarking[place]! -= value
+            case .inhibitor:
+              break
+          }
+        }
+        for (place, _) in postconditions {
+          switch postconditions[place]! {
+            case .regular(let value):
+              newMarking[place]! += value
+            case .inhibitor:
+              break
+          }
+        }
+        return newMarking
+      }
       return nil
     }
 
