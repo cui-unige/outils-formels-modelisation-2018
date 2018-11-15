@@ -13,7 +13,7 @@ public func createDividerModel() -> InhibitorNet<DividerPlaceSet> {
 				// Activates the refilling of `opa`.
       InhibitorNet.Transition(
         name: "ch1", pre: [.opb: .inhibitor, .ena: .inhibitor], post: [.ena: 1]), // (ne change pas)
-				// élément neutre (<-> final) de la division = 1
+				//
       InhibitorNet.Transition(
         name: "ch2", pre: [.ena: 1, .sto: .inhibitor], post: [.res: 1]),
     ])
