@@ -1,3 +1,5 @@
+// Made by Paul Lucas & Marc Heimendinger
+
 /// This function creates the model of a binary counter on three bits.
 public func createCounterModel() -> PetriNet {
   // Write your code here.

@@ -1,4 +1,4 @@
-# Homework \#2
+ # Homework \#2
 
 In this homework, you implement the marking and coverability graph algorithms.
 

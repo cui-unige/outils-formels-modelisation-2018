@@ -39,6 +39,10 @@ let fireable = petrinet.isFireable(Transition("t1"), from: initialMarking)
 print("Transition t1 is \(fireable ? "" : "not ")fireable from the initial marking.")
 print()
 
+let fireable2 = petrinet.isFireable(Transition("t2"), from: initialMarking)
+print("Transition t2 is \(fireable2 ? "" : "not ")fireable from the initial marking.")
+print()
+
 // Obtain the marking `m2` by firing `t1` from the initial marking.
 if let m2 = petrinet.fire(Transition("t1"), from: initialMarking) {
   // Note the use of a optional binding (`if let ...`), which means `m2` can't be `nil` here.
@@ -50,6 +54,7 @@ if let m2 = petrinet.fire(Transition("t1"), from: initialMarking) {
   // Print token difference in `p2` between `m2` and the initial marking.
   let Δ = Int(m2(Place("p2"))) - Int(initialMarking(Place("p2")))
   print("Place 'p2' \(Δ < 0 ? "lost" : "got") \(Δ) token(s).")
+
 }
 
 do {

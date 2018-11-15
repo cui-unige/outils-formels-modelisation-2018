@@ -17,8 +17,31 @@ do {
   assert(model.bound(withInitialMarking: m0) == 42)
 }
 
-// ... is alive, reversible and deadlock free:
+// ...,
+is alive, reversible and deadlock free:
 do {
+  enum Place: CaseIterable{
+  case pulpFiction, reservoirDogs
+  }
+
+  let model = PTNet<Place>(transitions:[
+    PTTransition(
+      named: "t1",
+    preconditions: [PTArc(place: .pulpFiction)],
+    postconditions: [PTArc(place: .reservoirDogs)]),
+    PTTransition(
+      named: "t2",
+    preconditions: [PTArc(place: .reservoirDogs)],
+    postconditions: [PTArc(place: .pulpFiction)]),
+  ])
+let m0: PTNet<Place>.MarkingType = [
+  .pulpFiction:1,
+  .reservoirDogs:0,
+]
+
+assert(model.isAlive(withInitialMarking: m0))
+assert(model.isReversible(withInitialMarking: m0))
+assert(model.isDeadlockFree(withInitialMarking: m0))
   // enum Place: CaseIterable { ...
 
   // let model = ...
