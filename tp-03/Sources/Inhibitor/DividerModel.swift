@@ -1,3 +1,4 @@
+// Made by Paul Lucas & Marc Heimendinger
 /// This function creates the model of a natural divider.
 public func createDividerModel() -> InhibitorNet<DividerPlaceSet> {
   // Write your code here.
