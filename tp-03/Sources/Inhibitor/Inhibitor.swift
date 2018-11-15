@@ -21,7 +21,24 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// A method that returns whether a transition is fireable from a given marking.
     public func isFireable(from marking: [Place: Int]) -> Bool {
       // Write your code here.
-      return false
+      // Iterate on preconditions. See https://docs.swift.org/swift-book/LanguageGuide/Enumerations.html
+      for (place,arc) in self.preconditions
+      {
+        switch arc
+        {
+        case .inhibitor: // the place needs to have zero tokens
+          if (marking[place] != 0)
+          {
+            return false
+          }
+        case .regular(let cond): // normal case
+          if (marking[place]! < cond)
+          {
+            return false
+          }
+        }
+      }
+      return true
     }
 
     /// A method that fires a transition from a given marking.
@@ -30,7 +47,42 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// otherwise it returns the new marking.
     public func fire(from marking: [Place: Int]) -> [Place: Int]? {
       // Write your code here.
-      return nil
+      if self.isFireable(from: marking)
+      {
+        var newMarking: [Place: Int] = marking
+        // iterate on preconditions
+        for (place,arc) in self.preconditions
+        {
+          switch arc
+          {
+          case .inhibitor:
+            continue
+          case .regular(let value):
+            newMarking[place]! = newMarking[place]! - value
+          }
+        }
+
+        // iterate on postconditions
+        for (place,arc) in self.postconditions
+        {
+          switch arc
+          {
+          case .inhibitor:
+            continue
+          case .regular(let value):
+            newMarking[place]! = newMarking[place]! + value
+          }
+        }
+
+        return newMarking
+
+      }
+
+
+      else
+      {
+        return nil
+      }
     }
 
   }
