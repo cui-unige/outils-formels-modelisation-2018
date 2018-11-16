@@ -40,7 +40,7 @@ that is the file named `Sources/structext/main.swift`.
 You will design the model of an natural divider,
 able to divide any natural (i.e. positive integer) *m* by another *n*.
 In the file `Sources/Inhibitor/Divider.swift`,
-fill out the missing implementation for the functions `createDividerModel()` and `createDividerInitialMarking()`.
+fill out the missing implementation for the functions `createDividerModel()` and `createDividerInitialMarking(opa:opb:)`.
 
 ### `createDividerModel()`
 
@@ -56,6 +56,11 @@ encoded as the number of token in `res`.
 The computation is expected to be completed when there are no more transition to fire.
 This means your model **must** be blocked after some finite number of transition firings.
 Places `opa`, `opb` and `res` may have any number of token during all the intermediary steps.
+
+### `createDividerInitialMarking(opa:opb:)`
+
+This function returns the initial marking corresponding to the model of your divider,
+for two operands `opa` and `opb` such that the model will compute `opa / opb`.
 
 You can take inspiration from the model of a multiplier
 created in the file `Sources/structext/main.swift`.
