@@ -20,8 +20,20 @@ public struct InhibitorNet<Place> where Place: Hashable {
 
     /// A method that returns whether a transition is fireable from a given marking.
     public func isFireable(from marking: [Place: Int]) -> Bool {
-      // Write your code here.
-      return false
+
+      for place in preconditions{ //On boucle sur les arcs
+          switch preconditions[place.key]! { //On boucle sur les préconditions des arcs
+          case .regular(let value): //Si c'est un arc normal, on récupère la valeur de l'arc
+              if marking[place.key]! < value { //Si la précondition (valeur de l'arc) est plus grande que le nombre de jetons dans la place c'est non tirable
+                return false
+              }
+            case .inhibitor: //Si c'est un inhibiteur
+              if marking[place.key] != 0 { //Si une place est non vide, ce n'est pas tirable
+                return false
+              }
+          }
+        }
+      return true
     }
 
     /// A method that fires a transition from a given marking.
@@ -29,9 +41,31 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
     /// otherwise it returns the new marking.
     public func fire(from marking: [Place: Int]) -> [Place: Int]? {
-      // Write your code here.
-      return nil
+      if isFireable(from: marking){ //Si c'est tirable
+        var newMarking = marking //On met le marquage reçu dans newmarking
+        //precondition
+        for place in preconditions { //On itère sur les arcs préconditions
+          switch preconditions[place.key]! { //!Pour pouvoir avoir la valeur nulle
+          case .regular(let value): //Si c'est un arc régulier (une précondition)
+            newMarking[place.key]! -= value //On enlève au marking, pour la place définie la valeur de la précondition
+          case .inhibitor: //On ne change pas la place quand c'est un arc inhibiteur
+              break
+          }
+        }
+          //postcondition
+        for place in postconditions{ //On itère sur les arcs postconditions
+          switch postconditions[place.key]! { //!Pour pouvoir avoir la valeur nulle
+            case .regular(let value):
+            newMarking[place.key]! += value //On ajoute au marking, pour la place définie la valeur de la postcondition
+          case .inhibitor: //On ne change pas la place quand c'est un arc inhibiteur
+              break
+          }
+        }
+         return newMarking
+      }
+      return nil //si ce n'est pas tirable on retourne nil
     }
+
 
   }
 
