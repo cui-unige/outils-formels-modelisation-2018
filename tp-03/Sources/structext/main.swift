@@ -6,9 +6,9 @@ import Inhibitor
 // the place `res` once the model is blocked (i.e. no other transition is fireable).
 
 /// The first operand.
-let a = 6
+let a = 19 //6
 /// The second operand.
-let b = 7
+let b = 5 //7
 
 /// The set of places in the model.
 enum PlaceSet: CaseIterable, Hashable {
@@ -27,23 +27,22 @@ enum PlaceSet: CaseIterable, Hashable {
 }
 
 /// The structure of the model.
-let net = InhibitorNet(
-  places: Set(PlaceSet.allCases),
-  transitions: [
-    // Add tokens in `res` as long as there are some to consume in `opa` and `opb`.
-    InhibitorNet.Transition(
-      name: "add", pre: [.opa: 1, .opb: 1, .ena: .inhibitor], post: [.opb: 1, .sto: 1, .res: 1]),
-    // Refills the tokens of `opa`.
-    InhibitorNet.Transition(
-      name: "rfl", pre: [.ena: 1, .sto: 1], post: [.ena: 1, .opa: 1]),
-    // Activates the refilling of `opa`.
-    InhibitorNet.Transition(
-      name: "ch1", pre: [.opb: 1, .opa: .inhibitor, .ena: .inhibitor], post: [.ena: 1]),
-    // Deactivates the refilling of `opa`.
-    InhibitorNet.Transition(
-      name: "ch2", pre: [.ena: 1, .sto: .inhibitor], post: [:]),
-  ])
-
+  let net = InhibitorNet(
+    places: Set(PlaceSet.allCases),
+    transitions: [
+      // Add tokens in `res` as long as there are some to consume in `opa` and `opb`.
+      InhibitorNet.Transition(
+        name: "add", pre: [.opa: 1, .opb: 1, .ena: .inhibitor], post: [.opb: 1, .sto: 1, .res: 1]),
+      // Refills the tokens of `opa`.
+      InhibitorNet.Transition(
+        name: "rfl", pre: [.ena: 1, .sto: 1], post: [.ena: 1, .opa: 1]),
+      // Activates the refilling of `opa`.
+      InhibitorNet.Transition(
+        name: "ch1", pre: [.opb: 1, .opa: .inhibitor, .ena: .inhibitor], post: [.ena: 1]),
+      // Deactivates the refilling of `opa`.
+      InhibitorNet.Transition(
+        name: "ch2", pre: [.ena: 1, .sto: .inhibitor], post: [:]),
+    ])
 /// The initial marking of the model.
 let initialMarking: [PlaceSet: Int] = [.opa: a, .opb: b, .res: 0, .ena: 0, .sto: 0]
 
