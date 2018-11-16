@@ -1,33 +1,79 @@
 import PhilosophersLib
 
+// Fibonacci :
+// idée : 2 positions fn et fn-1 et
+// 1 transitions avec :
+// pre prend x de fn et y de fn-1
+// post envoie x à fn-1 et x+y à fn
+
+// idée 2 : 1 positions avec 01 dedans
+// 1 trabnsition avec :
+// pre x,y
+// post x+y,max(x,y)
+
+
+
+// RdPExtIntro.pdf slide 35 :
+enum Term {
+  case a, b
+
+}
+
+let t1 = PredicateTransition<Term> (
+  preconditions: [
+    PredicateArc(place: "p1", label: [.variable("x"), .variable("y")])
+  ],
+  postconditions : [
+    PredicateArc(place: "p2", label: [.variable("x"), .variable("y")])
+  ]
+)
+
+let t2 = PredicateTransition<Term> (
+  preconditions: [
+    PredicateArc(place: "p2", label: [.variable("x")])
+  ],
+  postconditions : [
+    PredicateArc(place: "p1", label: [.variable("x")])
+  ]
+)
+
+let m0: PredicateNet<Term>.MarkingType = ["p1": [.a,.b], "p2": []]
+if let m1 = t1.fire(from: m0, with: ["x": .a, "y": .b]) {
+  if let m2 = t2.fire(from: m1, with: ["x": .a]) {
+    print(m2)
+  }
+}
+
+
+/*
 do {
   enum C: CustomStringConvertible {
 
-    case b, v, o
+  case a, b
 
     var description: String {
       switch self {
+      case .a: return "a"
       case .b: return "b"
-      case .v: return "v"
-      case .o: return "o"
       }
     }
   }
 
   func g(binding: PredicateTransition<C>.Binding) -> C {
     switch binding["x"]! {
-    case .b: return .v
-    case .v: return .b
-    case .o: return .o
+    case .a: return .a
+    case .b: return .b
     }
   }
 
   let t1 = PredicateTransition<C>(
     preconditions: [
       PredicateArc(place: "p1", label: [.variable("x")]),
+      PredicateArc(place: "p1", label: [.variable("y")]),
     ],
     postconditions: [
-      PredicateArc(place: "p2", label: [.function(g)]),
+      PredicateArc(place: "p2", label: [.variable("x")]),
+      PredicateArc(place: "p2", label: [.variable("y")]),
     ])
 
   let m0: PredicateNet<C>.MarkingType = ["p1": [.b, .b, .v, .v, .b, .o], "p2": []]
@@ -57,3 +103,4 @@ do {
     print(g.count)
   }
 }
+*/
