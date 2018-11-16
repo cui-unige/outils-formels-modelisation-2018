@@ -24,13 +24,20 @@ public struct PetriNet {
   public let transitions: Set<Transition>
   /// A function that describes the preconditions of the Petri net.
   public let pre: (Place, Transition) -> Nat
-  /// A function that describes the postconditions of the Petri net.
+  /// A function that des(_ transition: Transition, from marking: Marking) -> Boolcribes the postconditions of the Petri net.
   public let post: (Place, Transition) -> Nat
 
   /// A method that returns whether a transition is fireable from a given marking.
   public func isFireable(_ transition: Transition, from marking: Marking) -> Bool {
     // Write your code here.
-    return false
+
+    for place in places {
+      if marking(place) < pre(place, transition){
+        return false
+      }
+    }
+
+    return true
   }
 
   /// A method that fires a transition from a given marking.
@@ -39,7 +46,14 @@ public struct PetriNet {
   /// otherwise it returns the new marking.
   public func fire(_ transition: Transition, from marking: @escaping Marking) -> Marking? {
     // Write your code here.
-    return nil
+    if self.isFireable(transition, from: marking){
+      return{
+        place in
+        return marking(place) - self.pre(place,transition) + self.post(place,transition)}
+      }
+    else{
+      return nil
+    }
   }
 
   /// A helper function to print markings.
