@@ -142,4 +142,6 @@ public func lockablePhilosophers(n: Int = 3) -> PredicateNet<PhiloType> {
     places        : ["thinking", "waiting", "eating", "forks"],
     transitions   : [takeLeftFork, takeRightFork, stopEating],
     initialMarking: initialMarking)
+
+
 }
