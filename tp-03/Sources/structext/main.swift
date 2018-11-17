@@ -6,7 +6,7 @@ import Inhibitor
 // the place `res` once the model is blocked (i.e. no other transition is fireable).
 
 /// The first operand.
-let a = 6
+let a = 14
 /// The second operand.
 let b = 7
 
@@ -53,6 +53,16 @@ let initialMarking: [PlaceSet: Int] = [.opa: a, .opb: b, .res: 0, .ena: 0, .sto:
 
 // Asks whether the transition `add' is fireable from the initial marking.
 let add = net.transitions.first { $0.name == "add" }!
+//let rfl = net.transitions.first { $0.name == "rfl" }!
+//print(add.preconditions[.opa]!)
+//var s = 5
+//regular(s) in add.preconditions[.opa]!
+//.regular(s) = add.preconditions[.opa]!
+//  print(s)
+//guard case .regular(Int) = add.preconditions[.opa]!
+//  else { preconditionFailure() }
+
+//print(Int)
 print("Transition 'add' is \(add.isFireable(from: initialMarking) ? "" : "not ")fireable.")
 
 // Computes the marking obtained after firing 'add' from the initial marking.
@@ -65,3 +75,59 @@ let states = net.computeMarkingGraph(from: initialMarking)
 let sinks = states.filter { $0.successors.isEmpty }
 assert(sinks.count == 1)
 print("\(a) x \(b) = \(sinks.first!.marking[.res]!) (\(states.count) states)")
+
+
+
+ enum DividerPlaceSet: CaseIterable {
+
+  /// The first operand.
+  case opa
+  /// The second operand
+  case opb
+  /// The result of `opa * opb`.
+  case res
+
+  // Add your additional places here, if any.
+  case ena
+  /// Store the tokens to refill in `opb`.
+  case sto
+
+}
+
+
+  // Write your code here.
+
+  /// The structure of the model. opa/opb   opa--
+  let net2 = InhibitorNet(
+    places: Set(DividerPlaceSet.allCases),
+    transitions: [
+      // Add tokens in `res` as long as there are some to consume in `opa` and `opb`.1 opa--
+      InhibitorNet.Transition(
+        name: "minus", pre: [.opa: 1, .opb: 1, .ena: .inhibitor], post: [.sto: 1]),
+      // Refills the tokens of `opb`.3
+      InhibitorNet.Transition(
+        name: "rfl", pre: [.ena: 1, .sto: 1], post: [.ena: 1, .opb: 1]),
+      // Activates the refilling of `opb`.2 opb-
+      InhibitorNet.Transition(
+        name: "ch1", pre: [.opb: .inhibitor, .ena: .inhibitor], post: [.ena: 1, .res:1]),
+      // Deactivates the refilling of `opa`.4
+      InhibitorNet.Transition(
+        name: "ch2", pre: [.ena: 1, .sto: .inhibitor], post: [:]),
+    ])
+
+let initialMarking2: [DividerPlaceSet: Int] = [.opa: a, .opb: b, .res: 0, .ena: 0, .sto: 0]
+
+let minus = net2.transitions.first { $0.name == "minus" }!
+
+print("Transition 'minus' is \(minus.isFireable(from: initialMarking2) ? "" : "not ")fireable.")
+
+if let m2 = minus.fire(from: initialMarking2) {
+  print(m2)
+}
+
+let states2 = net2.computeMarkingGraph(from: initialMarking2)
+print(states2.count)
+let sinks2 = states2.filter { $0.successors.isEmpty }
+print(sinks2.count)
+//assert(sinks2.count == 1)
+print("\(a) / \(b) = \(sinks2.first!.marking[.res]!) (\(states2.count) states)")

@@ -47,6 +47,7 @@ extension InhibitorNet {
     var unprocessed = [root]
 
     while let node = unprocessed.popLast() {
+
       for transition in transitions {
         guard let nextMarking = transition.fire(from: node.marking)
           else { continue }
