@@ -37,7 +37,6 @@ public enum DividerPlaceSet: CaseIterable {
 
   // Add your additional places here, if any.
   case ena
-      
   case sto
 
 }

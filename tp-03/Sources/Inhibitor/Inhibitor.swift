@@ -50,6 +50,7 @@ public struct InhibitorNet<Place> where Place: Hashable {
                   result[p.key]! -= val
               }
           }
+          
           for p in postconditions {
               switch postconditions[p.key]! {
               case .inhibitor :
