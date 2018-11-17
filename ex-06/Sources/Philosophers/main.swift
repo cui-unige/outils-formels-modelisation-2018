@@ -1,41 +1,48 @@
 import PhilosophersLib
 
 do {
-  enum C: CustomStringConvertible {
+  enum Term {
 
-    case b, v, o
+  case a, b
 
-    var description: String {
+    /*var description: String {
       switch self {
       case .b: return "b"
       case .v: return "v"
       case .o: return "o"
       }
-    }
+    }*/
   }
 
-  func g(binding: PredicateTransition<C>.Binding) -> C {
+  /*func g(binding: PredicateTransition<C>.Binding) -> C {
     switch binding["x"]! {
     case .b: return .v
     case .v: return .b
     case .o: return .o
     }
-  }
+  }*/
 
-  let t1 = PredicateTransition<C>(
+  let t1 = PredicateTransition<Term>(
     preconditions: [
-      PredicateArc(place: "p1", label: [.variable("x")]),
+      PredicateArc(place: "p1", label: [.variable("x"), .variable("y")]),
     ],
     postconditions: [
-      PredicateArc(place: "p2", label: [.function(g)]),
+      PredicateArc(place: "p2", label: [.variable("x"), .variable("y")]),
     ])
-
-  let m0: PredicateNet<C>.MarkingType = ["p1": [.b, .b, .v, .v, .b, .o], "p2": []]
-  guard let m1 = t1.fire(from: m0, with: ["x": .b]) else {
+  let t2 = PredicateTransition<Term>(
+    preconditions: [
+      PredicateArc(place: "p2", label: [.variable("x")]),
+    ],
+    postconditions: [
+      PredicateArc(place: "p1", label: [.variable("x")]),
+    ]
+  )
+  let m0: PredicateNet<Term>.MarkingType = ["p1": [.a, .b], "p2": []]
+  guard let m1 = t1.fire(from: m0, with: ["x": .a, "y" : .b]) else {
     fatalError("Failed to fire.")
   }
   print(m1)
-  guard let m2 = t1.fire(from: m1, with: ["x": .v]) else {
+  guard let m2 = t1.fire(from: m1, with: ["x": .a]) else {
     fatalError("Failed to fire.")
   }
   print(m2)
@@ -43,7 +50,7 @@ do {
 
 print()
 
-do {
+/*do {
   let philosophers = lockFreePhilosophers(n: 3)
   // let philosophers = lockablePhilosophers(n: 3)
   for m in philosophers.simulation(from: philosophers.initialMarking!).prefix(10) {
@@ -56,4 +63,4 @@ do {
   if let g = philosophers.markingGraph(from: philosophers.initialMarking!) {
     print(g.count)
   }
-}
+}*/
