@@ -20,8 +20,24 @@ public struct InhibitorNet<Place> where Place: Hashable {
 
     /// A method that returns whether a transition is fireable from a given marking.
     public func isFireable(from marking: [Place: Int]) -> Bool {
-      // Write your code here.
-      return false
+      return marking
+      .map({
+        place, value in
+        // M'(p) = M(p) - E(p,t) is positive or zero ?
+        // check inhibitors as well !
+        let e: Int;
+        let e_inhibit: Bool;
+        switch( preconditions[place] ) {
+          case .regular( let v )?: e = v; e_inhibit = false;
+          case .inhibitor?       : e = 0; e_inhibit = true;
+          case _                 : e = 0; e_inhibit = false;
+        }
+        if ( e_inhibit && (value != 0) ) {
+          return -1;
+        }
+        return value - e
+      })
+      .reduce( true, { into, element in (into && ( element >= 0 ) ) } )
     }
 
     /// A method that fires a transition from a given marking.
@@ -29,8 +45,27 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
     /// otherwise it returns the new marking.
     public func fire(from marking: [Place: Int]) -> [Place: Int]? {
-      // Write your code here.
-      return nil
+      if self.isFireable( from: marking ) {
+        return Dictionary(uniqueKeysWithValues: marking.map({
+          place, value in
+          // M'(p) = M(p) + (- E(p,t) + S(p,t))
+          let e: Int;
+          switch( preconditions[place] ) {
+            case .regular( let v )?: e = v
+            case .inhibitor?       : e = 0
+            case _                 : e = 0
+          }
+          let s: Int;
+          switch( postconditions[place] ) {
+            case .regular( let v )?: s = v
+            case .inhibitor?       : s = 0
+            case _                 : s = 0
+          }
+          return (place, value - e + s)
+        }))
+      } else {
+        return nil
+      }
     }
 
   }
