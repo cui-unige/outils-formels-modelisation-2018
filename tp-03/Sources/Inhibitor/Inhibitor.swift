@@ -23,9 +23,9 @@ public struct Transition: Hashable {
    public func isFireable(from marking: [Place: Int]) -> Bool {
      // Write your code here.
 
-       for (place, val) in self.preconditions{
+       for (place, arc) in self.preconditions{
 
-       switch(val){
+       switch(arc){
        case let .regular(Int: preVal):
                          guard marking[place]! >= preVal else { return false }
 
@@ -48,9 +48,9 @@ public struct Transition: Hashable {
      }
      else{
 
-           for (place, val) in self.preconditions{
+           for (place, arc) in self.preconditions{
 
-                 switch(val){
+                 switch(arc){
                  case let .regular(Int: preVal):
                                          newMarking[place] = newMarking[place]! - preVal
                        case .inhibitor :
@@ -59,9 +59,9 @@ public struct Transition: Hashable {
 
            }
 
-           for (place, val) in self.postconditions{
+           for (place, arc) in self.postconditions{
 
-                 switch(val){
+                 switch(arc){
                  case let .regular(Int: postVal):
                                          newMarking[place] = newMarking[place]! + postVal
                        case .inhibitor :
