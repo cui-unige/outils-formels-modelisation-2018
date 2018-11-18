@@ -1,7 +1,12 @@
 /// This function creates the model of a natural divider.
 public func createDividerModel() -> InhibitorNet<DividerPlaceSet> {
-  // Write your code here.
-  return InhibitorNet(places: [], transitions: [])
+
+  return InhibitorNet(
+      places: Set(PlaceSet.allCases),
+  transitions: [
+      
+
+  ])
 }
 
 /// This function returns the initial marking corresponding to the model of your divider, for two
