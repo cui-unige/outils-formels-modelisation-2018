@@ -7,13 +7,13 @@ public func createDividerModel() -> InhibitorNet<DividerPlaceSet> {
 let net = InhibitorNet(
   places: Set(DividerPlaceSet.allCases),
   transitions: [
-    // Add tokens in `res` as long as there are some to consume in `opa` and `opb`.1 opa--
+    // consume  `opa` and `opb`.1 tant que possible
     InhibitorNet.Transition(
       name: "minus", pre: [.opa: 1, .opb: 1, .ena: .inhibitor], post: [.sto: 1]),
     // Refills the tokens of `opb`.3
     InhibitorNet.Transition(
       name: "rfl", pre: [.ena: 1, .sto: 1], post: [.ena: 1, .opb: 1]),
-    // Activates the refilling of `opb`.2 opb-
+    // Activates the refilling of `opb`.2 opb- et incrementer res
     InhibitorNet.Transition(
       name: "ch1", pre: [.opb: .inhibitor, .ena: .inhibitor], post: [.ena: 1, .res:1]),
     // Deactivates the refilling of `opb`.4
