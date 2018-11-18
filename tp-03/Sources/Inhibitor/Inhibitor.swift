@@ -21,8 +21,21 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// A method that returns whether a transition is fireable from a given marking.
     public func isFireable(from marking: [Place: Int]) -> Bool {
       // Write your code here.
-      return false
+
+      for place in preconditions{ // Pour les places préconditions
+      switch preconditions[place.key]! {
+      case .regular(let value): //Si c'est un arc régulier
+          if marking[place.key]! < value { //Si le poids de l'arc et plus grand que le nombre de jetons de la place
+            return false // Alors c'est non tirable
+          }
+        case .inhibitor: // Si c'est un inhibiteur
+          if marking[place.key] != 0 { // Si une place est non vide
+            return false // Alors c'est non tirable
+          }
+      }
     }
+  return true
+}
 
     /// A method that fires a transition from a given marking.
     ///
@@ -30,10 +43,33 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// otherwise it returns the new marking.
     public func fire(from marking: [Place: Int]) -> [Place: Int]? {
       // Write your code here.
-      return nil
-    }
 
-  }
+     if isFireable(from: marking){ //Si c'est tirable
+       var newMarking = marking //On met le marquage reçu dans newmarking
+       //precondition
+       for place in preconditions { // Pour toutes les préconditions
+         switch preconditions[place.key]! {
+         case .regular(let value): // Si c'est un arc régulier
+           newMarking[place.key]! -= value // On enlève à la place le poids de l'arc
+         case .inhibitor: // Sauf si on a un inhibiteur
+             break
+         }
+       }
+
+       for place in postconditions{ // Pour toutes les postconditions
+         switch postconditions[place.key]! {
+         case .regular(let value): // Si c'est un arc régulier
+           newMarking[place.key]! += value // On ajoute à la place le poids de l'arc
+         case .inhibitor: // Sauf si on a un inhibiteur
+             break
+         }
+       }
+        return newMarking // Si c'est tirable on retourne le nouveau marquage
+     }
+     return nil //si ce n'est pas tirable on retourne nil
+   }
+ }
+
 
   /// Struct that represents an arc of a Petri net extended with inhibitor arcs.
   public enum Arc: Hashable {
