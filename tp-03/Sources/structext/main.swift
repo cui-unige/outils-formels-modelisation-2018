@@ -60,7 +60,7 @@ if let m1 = add.fire(from: initialMarking) {
   print(m1)
 }
 
-// There should be only a single sink state, representing the result of the multiplication.
+//There should be only a single sink state, representing the result of the multiplication.
 let states = net.computeMarkingGraph(from: initialMarking)
 let sinks = states.filter { $0.successors.isEmpty }
 assert(sinks.count == 1)
