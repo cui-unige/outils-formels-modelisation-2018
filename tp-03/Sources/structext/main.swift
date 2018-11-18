@@ -55,6 +55,7 @@ let initialMarking: [PlaceSet: Int] = [.opa: a, .opb: b, .res: 0, .ena: 0, .sto:
 let add = net.transitions.first { $0.name == "add" }!
 print("Transition 'add' is \(add.isFireable(from: initialMarking) ? "" : "not ")fireable.")
 
+
 // Computes the marking obtained after firing 'add' from the initial marking.
 if let m1 = add.fire(from: initialMarking) {
   print(m1)
