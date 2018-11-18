@@ -6,9 +6,9 @@ import Inhibitor
 // the place `res` once the model is blocked (i.e. no other transition is fireable).
 
 /// The first operand.
-let a = 6
+let a = 1
 /// The second operand.
-let b = 7
+let b = 2
 
 /// The set of places in the model.
 enum PlaceSet: CaseIterable, Hashable {
@@ -22,7 +22,7 @@ enum PlaceSet: CaseIterable, Hashable {
   /// A flag that enables the refilling of `opa`.
   case ena
   /// Store the tokens to refill in `opa`.
-  case sto
+case sto
 
 }
 

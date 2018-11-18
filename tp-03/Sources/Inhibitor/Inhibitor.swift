@@ -21,7 +21,20 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// A method that returns whether a transition is fireable from a given marking.
     public func isFireable(from marking: [Place: Int]) -> Bool {
       // Write your code here.
-      return false
+      for place in preconditions { // boucle sur les places des precondition
+        switch preconditions[place.key]! {//pre -> place->nombre
+        case .regular(let value)://si est valeur pour $arcs(pre)
+            if marking[place.key]! < value {// si le marquage de la place < valeur
+              return false
+            }
+          case .inhibitor: // si est une arcs inhibitor
+            if marking[place.key] != 0 {
+              return false
+            }
+           }
+        }
+      // si no -->franchisable
+      return true
     }
 
     /// A method that fires a transition from a given marking.
@@ -30,6 +43,33 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// otherwise it returns the new marking.
     public func fire(from marking: [Place: Int]) -> [Place: Int]? {
       // Write your code here.
+      if isFireable(from: marking) { // en premier tester si est tirable
+         var newMarking = marking
+         for place in preconditions { // boucle sur les places des precondition
+
+          switch preconditions[place.key]! {
+
+ 					case .regular(let value): //si est valeur pour $arcs(pre)
+            newMarking[place.key]! -= value    //tirer
+						break
+
+ 					case .inhibitor: // si est une arcs inhibitor
+            break
+           }
+        }
+         for place in postconditions { // boucle sur les places des postconditions
+          switch postconditions[place.key]! {
+   					case .regular(let value):
+              newMarking[place.key]! += value //ajouter tokens
+  						break
+   					case .inhibitor:
+              break
+          }
+         }
+        // renvoie le marcage resultant
+        return newMarking
+      }
+      //sino -->envoie nule
       return nil
     }
 
