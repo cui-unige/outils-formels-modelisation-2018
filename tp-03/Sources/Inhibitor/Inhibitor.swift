@@ -21,7 +21,20 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// A method that returns whether a transition is fireable from a given marking.
     public func isFireable(from marking: [Place: Int]) -> Bool {
       // Write your code here.
-      return false
+      // For all pairs of place and arcs in precondition.
+      for (p, a) in preconditions{
+            switch a {
+            case .inhibitor: // If the arc is inhibitor.
+                if(marking[p]! != 0){ // If the place is not worth 0 then the transition is not fireable.
+                    return false
+                }
+            case .regular(let v)://If the arc is not regular.
+                if !(marking[p]! >= v){// If all the places do not have a
+                    return false //number of tokens greater or equal to the weight of the arcs
+                } //then the transition is not fireable.
+            }
+        }
+        return true //Else it is fireable.
     }
 
     /// A method that fires a transition from a given marking.
@@ -30,7 +43,31 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// otherwise it returns the new marking.
     public func fire(from marking: [Place: Int]) -> [Place: Int]? {
       // Write your code here.
-      return nil
+      if isFireable(from: marking){ //If the transition is fireable, we can calculate the new marking.
+    var new = marking
+    for (p, a) in preconditions {
+        switch a{
+        case .regular(let v): //If the arc is not inhibitor.
+                new[p]! -= v //Subs to the marking.
+            case .inhibitor: //If it is.
+                break //Fires the transition.
+        }
+    }
+
+    for (p, a) in postconditions {// Same but for the postconditions.
+        switch a{
+        case .regular(let v):
+            new[p]! += v //This time it adds to the marking.
+        case .inhibitor:
+            break
+        }
+    }
+
+    return new //It returns the new marking.
+}
+else{
+    return nil
+}
     }
 
   }
