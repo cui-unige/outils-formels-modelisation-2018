@@ -20,8 +20,19 @@ public struct InhibitorNet<Place> where Place: Hashable {
 
     /// A method that returns whether a transition is fireable from a given marking.
     public func isFireable(from marking: [Place: Int]) -> Bool {
-      // Write your code here.
-      return false
+      for place in preconditions{ // loop through elements of preconditions
+        switch preconditions[place.key]!{ // check to see if it's a regular arc of an inhibitor arc
+        case .regular(let value):
+          if marking[place.key]! < value{ // false if marking is smaller than the precondition (value)
+            return false
+          }
+        case .inhibitor:
+          if marking[place.key] != 0{ // false if the marking is not 0
+            return false
+          }
+        }
+      }
+      return true
     }
 
     /// A method that fires a transition from a given marking.
@@ -29,11 +40,31 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
     /// otherwise it returns the new marking.
     public func fire(from marking: [Place: Int]) -> [Place: Int]? {
-      // Write your code here.
-      return nil
+      if isFireable(from: marking){ // Check if the marking is fireable
+        var newMarking = marking
+        for place in preconditions{ // loop through the preconditions
+          switch preconditions[place.key]!{
+          case .regular(let value): // substract the preconditions
+            newMarking[place.key]! -= value
+            break
+          case .inhibitor: // do nothing
+            break
+          }
+        }
+        for place in postconditions{
+          switch postconditions[place.key]!{
+          case .regular(let value): // add the postconditions
+            newMarking[place.key]! += value
+            break
+          case .inhibitor:
+            break
+          }
+        }
+      return newMarking
+      }
+    return nil
     }
-
-  }
+}
 
   /// Struct that represents an arc of a Petri net extended with inhibitor arcs.
   public enum Arc: Hashable {
