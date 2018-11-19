@@ -65,3 +65,17 @@ let states = net.computeMarkingGraph(from: initialMarking)
 let sinks = states.filter { $0.successors.isEmpty }
 assert(sinks.count == 1)
 print("\(a) x \(b) = \(sinks.first!.marking[.res]!) (\(states.count) states)")
+
+
+// let c = 51
+// let d = 2
+//
+// let divider = createDividerModel()
+// let initialMarking2 = createDividerInitialMarking(opa: c, opb: d)
+// let states2 = divider.computeMarkingGraph(from: initialMarking2)
+// let sinks2 = states2.filter { $0.successors.isEmpty }
+// //print(states2)
+// //print(sinks2)
+// //print(divider)
+// print(initialMarking2)
+// print("\(c) / \(d) = \(sinks2.first!.marking[.res]!) (\(states2.count) states)")
