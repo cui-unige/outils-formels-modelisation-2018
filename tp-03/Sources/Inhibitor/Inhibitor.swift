@@ -20,21 +20,50 @@ public struct InhibitorNet<Place> where Place: Hashable {
 
     /// A method that returns whether a transition is fireable from a given marking.
     public func isFireable(from marking: [Place: Int]) -> Bool {
-      // Write your code here.
-      return false
+        for (p,arc) in preconditions {
+            switch arc {
+            case .regular(let jetons):
+                if let m = marking[p], m < jetons { return false }
+            case .inhibitor:
+                if let m = marking[p], m != 0  { return false }
+            }
+        }
+        return true
     }
+
 
     /// A method that fires a transition from a given marking.
     ///
     /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
     /// otherwise it returns the new marking.
     public func fire(from marking: [Place: Int]) -> [Place: Int]? {
-      // Write your code here.
-      return nil
+        if(self.isFireable(from: marking)){
+            var newMarking = marking
+            for (place, arc) in preconditions {
+                switch arc{
+                    case .regular(let value):
+                        newMarking[place]! -= value
+                    case .inhibitor:
+                        break
+                }
+            }
+            
+            for (place, arc) in postconditions {
+                switch arc{
+                case .regular(let value):
+                    newMarking[place]! += value
+                case .inhibitor:
+                    break
+                }
+            }
+            
+            return newMarking
+        }
+        else{
+            return nil
+        }
     }
-
   }
-
   /// Struct that represents an arc of a Petri net extended with inhibitor arcs.
   public enum Arc: Hashable {
 
