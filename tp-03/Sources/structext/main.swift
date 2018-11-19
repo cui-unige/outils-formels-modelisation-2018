@@ -26,27 +26,28 @@ enum PlaceSet: CaseIterable, Hashable {
 
 }
 
-// /// The structure of the model.
-// let net = InhibitorNet(
-//   places: Set(PlaceSet.allCases),
-//   transitions: [
-//     // Add tokens in `res` as long as there are some to consume in `opa` and `opb`.
-//     InhibitorNet.Transition(
-//       name: "add", pre: [.opa: 1, .opb: 1, .ena: .inhibitor], post: [.opb: 1, .sto: 1, .res: 1]),
-//     // Refills the tokens of `opa`.
-//     InhibitorNet.Transition(
-//       name: "rfl", pre: [.ena: 1, .sto: 1], post: [.ena: 1, .opa: 1]),
-//     // Activates the refilling of `opa`.
-//     InhibitorNet.Transition(
-//       name: "ch1", pre: [.opb: 1, .opa: .inhibitor, .ena: .inhibitor], post: [.ena: 1]),
-//     // Deactivates the refilling of `opa`.
-//     InhibitorNet.Transition(
-//       name: "ch2", pre: [.ena: 1, .sto: .inhibitor], post: [:]),
-//   ])
-//
-//
-// /// The initial marking of the model.
-// let initialMarking: [PlaceSet: Int] = [.opa: a, .opb: b, .res: 0, .ena: 0, .sto: 0]
+// The structure of the model.
+let net = InhibitorNet(
+  places: Set(PlaceSet.allCases),
+  transitions: [
+    // Add tokens in `res` as long as there are some to consume in `opa` and `opb`.
+    InhibitorNet.Transition(
+      name: "add", pre: [.opa: 1, .opb: 1, .ena: .inhibitor], post: [.opb: 1, .sto: 1, .res: 1]),
+    // Refills the tokens of `opa`.
+    InhibitorNet.Transition(
+      name: "rfl", pre: [.ena: 1, .sto: 1], post: [.ena: 1, .opa: 1]),
+    // Activates the refilling of `opa`.
+    InhibitorNet.Transition(
+      name: "ch1", pre: [.opb: 1, .opa: .inhibitor, .ena: .inhibitor], post: [.ena: 1]),
+    // Deactivates the refilling of `opa`.
+    InhibitorNet.Transition(
+      name: "ch2", pre: [.ena: 1, .sto: .inhibitor], post: [:]),
+  ])
+
+
+/// The initial marking of the model.
+let initialMarking: [PlaceSet: Int] = [.opa: a, .opb: b, .res: 0, .ena: 0, .sto: 0]
+
 
 // ----- Note -------------------------------------------------------------------------------------
 // The remainder of this program will not produce the expected result unless you properly implement
@@ -55,38 +56,13 @@ enum PlaceSet: CaseIterable, Hashable {
 // Asks whether the transition `add' is fireable from the initial marking.
 // let add = net.transitions.first { $0.name == "add" }!
 // print("Transition 'add' is \(add.isFireable(from: initialMarking) ? "" : "not ")fireable.")
-//
-//
-// // Computes the marking obtained after firing 'add' from the initial marking.
+
+
+// Computes the marking obtained after firing 'add' from the initial marking.
+
 // if let m1 = add.fire(from: initialMarking) {
 //   print(m1)
 // }
-
-let c = 144
-let d = 10
-
-/// The structure of the model.
-let net = InhibitorNet(
-  places: Set(PlaceSet.allCases),
-  transitions: [
-    // Add tokens in `res` as long as there are some to consume in `opa` and `opb`.
-    InhibitorNet.Transition(
-      name: "sub", pre: [.opa: d], post: [.res: 1]),
-    // Refills the tokens of `opa`.
-    // InhibitorNet.Transition(
-    //   name: "rfl", pre: [.ena: 1, .sto: 1], post: [.ena: 1, .opa: 1]),
-    // // Activates the refilling of `opa`.
-    // InhibitorNet.Transition(
-    //   name: "ch1", pre: [.opb: 1, .opa: .inhibitor, .ena: .inhibitor], post: [.ena: 1]),
-    // // Deactivates the refilling of `opa`.
-    // InhibitorNet.Transition(
-    //   name: "ch2", pre: [.ena: 1, .sto: .inhibitor], post: [:]),
-  ])
-
-
-/// The initial marking of the model.
-// let initialMarking: [PlaceSet: Int] = [.opa: a, .opb: b, .res: 0, .ena: 0, .sto: 0]
-let initialMarking: [PlaceSet: Int] = [.opa: c, .opb: d, .res: 0, .ena: 0, .sto: 0]
 
 // There should be only a single sink state, representing the result of the multiplication.
 let states = net.computeMarkingGraph(from: initialMarking)
