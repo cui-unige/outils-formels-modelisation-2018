@@ -1,41 +1,44 @@
 /// This function creates the model of a natural divider.
 public func createDividerModel() -> InhibitorNet<DividerPlaceSet> {
-  // Write your code here.
-    let net = InhibitorNet(
-        places: Set(PlaceSet.allCases),
+    return InhibitorNet(
+        places: Set(DividerPlaceSet.allCases),
         transitions: [
-            // Add tokens in `res` as long as there are some to consume in `opa` and `opb`.
+            // Effectue opa-opb, n'est pas tirable si on effectue une recharge
             InhibitorNet.Transition(
-                name: "les", pre: [.opa: 1, .opb: 1], post: [.sto: 1,]),
-            // Refills the tokens of `opa`.
+                name: "les", pre: [.opa: 1, .opb: 1, .arf: .inhibitor], post: [.sto: 1,]),
+            // Recharge les jetons dans opb
             InhibitorNet.Transition(
-                name: "rfl", pre: [.ena: .inhibitor, .sto: 1], post: [.res: 1, .opb: 1]),
-            // Activates the refilling of `opa`.
+                name: "rfl", pre: [.arf: 1, .sto: 1], post: [.arf: 1, .opb: 1]),
+            // ajoute 1 au résultas, et prépare la recharge de opb
             InhibitorNet.Transition(
-                name: "ch1", pre: [.sto: 1], post: [.opb: 1]),
+                name: "atr", pre: [.opb: .inhibitor, .arf: .inhibitor], post: [.res: 1, .arf: 1]),
+            //Finis la recharge
+            InhibitorNet.Transition(
+                name: "eof", pre: [.sto: .inhibitor, .arf: 1], post: [:]),
             ])
-  return InhibitorNet(places: [], transitions: [])
+    
 }
 
 /// This function returns the initial marking corresponding to the model of your divider, for two
 /// operands `lhs` and `rhs` such that the model will compute `lhs / rhs`.
 public func createDividerInitialMarking(opa: Int, opb: Int) -> [DividerPlaceSet: Int] {
   // Write your code here.
-    let initialMarking: [PlaceSet: Int] = [.opa: a, .opb: b, .res: 0, .sto: 0]
-  return [:]
+    return [.opa: opa, .opb: opb, .res: 0, .sto: 0, .arf:0]
 }
 
 /// This enumeration represents the different places of your natural divider.
 public enum DividerPlaceSet: CaseIterable {
 
-    /// The first operand.
+    // Premier operand.
     case opa
-    /// The second operand
+    // Second operand
     case opb
-    /// The result of `opa / opb`.
+    // Résultat de `opa / opb`.
     case res
-    /// Store the tokens to refill in `opb`.
+    // Stock les jetos de opb pour le recharger
     case sto
+    // arf est une place qui à un token quand on recharge opb
+    case arf
 
   // Add your additional places here, if any.
 

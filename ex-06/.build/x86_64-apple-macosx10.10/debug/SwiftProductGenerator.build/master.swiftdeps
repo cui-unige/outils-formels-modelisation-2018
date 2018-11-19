@@ -1,0 +1,5 @@
+version: "Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)"
+options: "0ea6a132a41ea91b9107f80e0b114705"
+build_time: [1542366927, 499879000]
+inputs:
+  "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/SwiftProductGenerator.git-8862800510771222938/Sources/SwiftProductGenerator/SwiftProductGenerator.swift": [1542366926, 0]
