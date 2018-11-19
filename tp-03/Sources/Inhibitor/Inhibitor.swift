@@ -18,16 +18,16 @@ public struct InhibitorNet<Place> where Place: Hashable {
     public let preconditions: [Place: Arc]
     public let postconditions: [Place: Arc]
 
-    /// A method that returns whether a transition is fireable from a given marking.
+          /// A method that returns whether a transition is fireable from a given marking.
     public func isFireable(from marking: [Place: Int]) -> Bool {
-      // Write your code here.
-    for place in preconditions { // loop on places of preconditions
+          // Write your code here.
+    for place in preconditions {    // loop on places of preconditions
         switch preconditions[place.key]! {
 
           case .regular(let value): // case of regular arc
-            // value == regular arc precondition value
+                      // value == regular arc precondition value
             if marking[place.key]! < value {
-              // regular arc precondition value > marking of precondition place
+                        // regular arc precondition value > marking of precondition place
               return false
             }
 
@@ -88,7 +88,7 @@ public struct InhibitorNet<Place> where Place: Hashable {
 
   }
 
-  /// Struct that represents an arc of a Petri net extended with inhibitor arcs.
+        /// Struct that represents an arc of a Petri net extended with inhibitor arcs.
   public enum Arc: Hashable {
 
     case inhibitor
