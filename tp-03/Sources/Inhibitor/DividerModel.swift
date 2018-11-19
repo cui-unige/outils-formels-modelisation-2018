@@ -4,20 +4,20 @@ public func createDividerModel() -> InhibitorNet<DividerPlaceSet> {
   return InhibitorNet(places: Set(DividerPlaceSet.allCases) , transitions: [
     InhibitorNet.Transition(
         // take coins from opa and opb until one of both is empty and fullfill the coins
-        name: "retirer", pre: [ .opa: 1, .opb: 1, .enable: .inhibitor ], post: [ .coins: 1 ]
+        name: "pop", pre: [ .opa: 1, .opb: 1, .enable: .inhibitor ], post: [ .coins: 1 ]
     ),
     InhibitorNet.Transition(
         // fullfill opb, take and add one coin into enable for setting the transision fireable
-        name: "remplit", pre: [ .enable: 1, .coins: 1 ], post: [.opb: 1, .enable: 1 ]
+        name: "add", pre: [ .enable: 1, .coins: 1 ], post: [.opb: 1, .enable: 1 ]
     ),
     InhibitorNet.Transition(
-        // add coin into enable and make add 'remplis' fireable
-        name: "enable remplit", pre: [ .opb: .inhibitor, .enable: .inhibitor], post: [.enable: 1]
+        // add coin into enable and make add fireable
+        name: "enable", pre: [ .opb: .inhibitor, .enable: .inhibitor], post: [.enable: 1]
     ),
     InhibitorNet.Transition(
-        // process the result, remove enable coin and make "retirer" fireable
+        // process the result, remove enable coin and make pop fireable
         // number of coins into result represent the number of opb into opa
-        name: "remplit res", pre: [.enable: 1, .coins: .inhibitor], post: [.res: 1]
+        name: "add into res", pre: [.enable: 1, .coins: .inhibitor], post: [.res: 1]
     )
   ]);
 }
