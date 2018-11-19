@@ -45,7 +45,7 @@ public struct InhibitorNet<Place> where Place: Hashable {
 
     for place in preconditions { // loop on places of preconditions
         switch preconditions[place.key]! {
-          
+
           case .regular(let value): // case of regular arc
             // value == regular arc precondition value
             if marking[place.key]! < value {
@@ -87,15 +87,15 @@ public struct InhibitorNet<Place> where Place: Hashable {
         for place in preconditions { // loop on places of preconditions
           switch preconditions[place.key]! {
 
-					case .regular(let value): // case of regular arc
-            // value == regular arc precondition value
-            // fire transition : substract regular arc precondition value from marking of precondition place
-            newMarking[place.key]! -= value
-						break // exit loop
+            case .regular(let value): // case of regular arc
+              // value == regular arc precondition value
+              // fire transition : substract regular arc precondition value from marking of precondition place
+              newMarking[place.key]! -= value
+              break // exit loop
 
-					case .inhibitor: // case of inhibitor arc
-            // fire
-            break // exit loop
+            case .inhibitor: // case of inhibitor arc
+              // fire
+              break // exit loop
 
           }
         }
