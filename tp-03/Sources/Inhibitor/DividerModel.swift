@@ -1,6 +1,6 @@
 /// This function creates the model of a natural divider.
 public func createDividerModel() -> InhibitorNet<DividerPlaceSet> {
-  // Créer un PetriNet pour faire la division avec opa/opb :
+  // Créer un processus pour faire la division avec opa/opb :
 
   return InhibitorNet(
     places: Set( DividerPlaceSet.allCases ),
