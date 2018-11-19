@@ -21,7 +21,23 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// A method that returns whether a transition is fireable from a given marking.
     public func isFireable(from marking: [Place: Int]) -> Bool {
       // Write your code here.
-      return false
+      for place in preconditions
+      { // On prend chaque place des preconditions
+        switch preconditions[place.key]!
+        { // S'il s'agit d'une place normal, on vérifie que le marquage soit suffisant
+        case .regular (let value):
+
+          if marking[place.key]! < value {
+          return false }
+          // S'il s'agit d'un inibiteur, on vérifie que la place soit bien vide.
+        case .inhibitor:
+
+          if marking[place.key] != 0 {
+          return false }
+
+        }
+      }
+      return true
     }
 
     /// A method that fires a transition from a given marking.
@@ -30,6 +46,35 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// otherwise it returns the new marking.
     public func fire(from marking: [Place: Int]) -> [Place: Int]? {
       // Write your code here.
+      if isFireable(from: marking)
+      { // On vérifie que le marquage actuel est tirable
+        var newMarking = marking // On associe le marquage actuel
+        for place in preconditions
+        { // On parcourt les places des préconditions
+          switch preconditions[place.key]!
+          { // S'il s'agit d'une place normal, on enlève la valeur de l'arc
+          case .regular (let value):
+            newMarking[place.key]! -= value
+            break
+            // S'il s'agit d'un arc inibiteur, il n'y a rien à enlever
+          case .inhibitor:
+            break
+          }
+        }
+        for place in postconditions
+        { // On parcourt les places des postconditions
+          switch postconditions[place.key]!
+          { // S'il s'agit d'une place normal, on y ajoute la valeur de l'arc
+            case .regular (let value):
+              newMarking[place.key]! += value
+              break
+              // S'il s'agit d'un arc inibiteur, il n'y a rien à ajouter.
+            case .inhibitor:
+              break
+          }
+        }
+        return newMarking // On return le nouveau marquage
+      }
       return nil
     }
 
