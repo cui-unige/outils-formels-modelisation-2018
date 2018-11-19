@@ -1,5 +1,38 @@
 import PhilosophersLib
 
+
+enum Term{
+case a, b
+
+
+}
+let t1 = PredicateTransition<Term>(
+preconditions: [
+  PredicateArc(place:"p1",label:[.variable("x"), .variable("y")]),
+],
+postconditions:[
+PredicateArc(place:"p2",label:[.variable("x"), .variable("y")]),
+
+
+])
+let t2 = PredicateTransition<Term>(
+  preconditions:[
+    PredicateArc(place:"p2",label:[.variable("x")]),
+  ],
+  postconditions:[
+    PredicateArc(place:"p1",label:[.variable("x")]),
+  ])
+  let m0:PredicateNet<Term>.MarkingType = ["p1":[.a,.b],"p2":[]]
+  if let m1 = t1.fire(from:m0,with:["x": .a, "y": .b]){
+    if let m2 = t2.fire(from:m1,with:["x":.a]){
+      print(m2)
+    }
+  }
+
+
+
+
+/*
 do {
   enum C: CustomStringConvertible {
 
@@ -57,3 +90,4 @@ do {
     print(g.count)
   }
 }
+*/

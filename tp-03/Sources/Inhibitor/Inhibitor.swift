@@ -18,21 +18,58 @@ public struct InhibitorNet<Place> where Place: Hashable {
     public let preconditions: [Place: Arc]
     public let postconditions: [Place: Arc]
 
+
     /// A method that returns whether a transition is fireable from a given marking.
     public func isFireable(from marking: [Place: Int]) -> Bool {
-      // Write your code here.
-      return false
-    }
+
+        for place in preconditions {
+          switch preconditions[place.key]! {
+          case .regular(let ValueArc):
+              if marking[place.key]! < ValueArc { // nombre de jetons ds place < poids de l'arc
+                print(" Arc non tirable")
+                return false
+              }
+            case .inhibitor:
+              if marking[place.key] != 0 { // !
+                print(" Arc non tirable")
+                return false
+              }
+          }
+        }
+        return true
+      }
 
     /// A method that fires a transition from a given marking.
     ///
     /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
     /// otherwise it returns the new marking.
     public func fire(from marking: [Place: Int]) -> [Place: Int]? {
-      // Write your code here.
-      return nil
-    }
 
+       if isFireable(from: marking){
+         var nextMarking = marking
+
+         //Les préconditions
+         for place in preconditions {
+           switch preconditions[place.key]! {
+             case .inhibitor:
+               break
+             case .regular(let arcValue):
+               nextMarking[place.key]! -= arcValue
+           }
+         }
+         //Les postconditions
+         for place in postconditions{
+           switch postconditions[place.key]! {
+             case .regular(let arcValue):
+               nextMarking[place.key]! += arcValue
+             case .inhibitor:
+               break
+             }
+         }
+         return nextMarking
+       }
+       return nil
+     }
   }
 
   /// Struct that represents an arc of a Petri net extended with inhibitor arcs.
