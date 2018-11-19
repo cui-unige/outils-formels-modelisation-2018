@@ -1,7 +1,6 @@
 /// This function creates the model of a natural divider.
 public func createDividerModel() -> InhibitorNet<DividerPlaceSet> {
   // Write your code here.
-  //return InhibitorNet(places: [], transitions: [])
   let naturalDivider = InhibitorNet(
     places: Set(DividerPlaceSet.allCases),
     transitions: [
@@ -16,12 +15,7 @@ public func createDividerModel() -> InhibitorNet<DividerPlaceSet> {
       ),
       InhibitorNet.Transition(
         name: "t2", pre: [.ena: 1, .sto: .inhibitor], post: [.res: 1]
-      ),
-      /*
-      InhibitorNet.Transition(
-        name: "", pre: [], post: []
-      ),
-      */
+      )
     ]
   )
   return naturalDivider
@@ -33,7 +27,6 @@ public func createDividerInitialMarking(opa: Int, opb: Int) -> [DividerPlaceSet:
   // Write your code here.
   let initialMarking : [DividerPlaceSet: Int] = [.opa: opa, .opb: opb, .res: 0, .ena: 0, .sto: 0]
   return initialMarking
-  //return [:]
 }
 
 /// This enumeration represents the different places of your natural divider.
@@ -46,7 +39,6 @@ public enum DividerPlaceSet: CaseIterable {
   /// The result of `opa * opb`.
   case res
 
-  // Add your additional places here, if any.
   case ena
 
   case sto

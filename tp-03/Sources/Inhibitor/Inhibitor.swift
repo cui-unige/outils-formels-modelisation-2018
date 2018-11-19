@@ -79,7 +79,6 @@ public struct InhibitorNet<Place> where Place: Hashable {
         return nil
       }
     }
-
   }
 
   /// Struct that represents an arc of a Petri net extended with inhibitor arcs.
