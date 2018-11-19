@@ -21,8 +21,23 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// A method that returns whether a transition is fireable from a given marking.
     public func isFireable(from marking: [Place: Int]) -> Bool {
       // Write your code here.
-      return false
-    }
+      for place in preconditions { // on parcours pour tous les places des preconditions
+
+			 switch preconditions[place.key]! {
+			 case .regular(let value): // dans le cas d'un arc regulier
+					 if marking[place.key]! < value { //si le marquage est plus petit que la prècondition alors ce n'est pas tirable
+						 return false
+					 }
+				 case .inhibitor: // dans le cas d'un arc inhibiteur
+					 if marking[place.key] != 0 { //si le marquage est different de 0 alors le marquage n'est pas tirable
+						 return false
+					 }
+			 }
+		 }
+     // on renvoie true car la transition est franchissable depuis le marquage
+		 return true
+}
+
 
     /// A method that fires a transition from a given marking.
     ///
@@ -30,10 +45,43 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// otherwise it returns the new marking.
     public func fire(from marking: [Place: Int]) -> [Place: Int]? {
       // Write your code here.
-      return nil
-    }
+      if isFireable(from: marking) { // on teste si le marquage est tirable depuis le marquage
+             var newMarking = marking // on recupere le marquage dans une variable (newMarking)
+             for place in preconditions { // on parcours les preconditions
+               switch preconditions[place.key]! {
 
-  }
+                 case .regular(let value): // dans le cas d'un arc regulier
+
+                   newMarking[place.key]! -= value // on retire au marquage le valeur necessaire au tirage
+                   break // on quitte la boucle
+                 case .inhibitor: // si c'est un arc inhibiteur
+
+                   break // on tire et on quitte la boucle
+               }
+             }
+
+             for place in postconditions { // on parcours les postconditions
+               switch postconditions[place.key]! {
+
+       					case .regular(let value): // pour un arc regulier
+                   // on a ajoute le nombre de jetons du tirage au marquage
+                   newMarking[place.key]! += value
+       						break // on quitte la boucle
+       					case .inhibitor: // pour un arc inhibiteur
+
+                   break // on quitte la boucle
+               }
+
+             }
+             // on renvoie le newMarking comme nouveau marquage
+             return newMarking
+           }
+           // on revoie rien
+           return nil
+         }
+
+     }
+  
 
   /// Struct that represents an arc of a Petri net extended with inhibitor arcs.
   public enum Arc: Hashable {
