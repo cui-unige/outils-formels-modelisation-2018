@@ -1,4 +1,5 @@
 public struct InhibitorNet<Place> where Place: Hashable {
+  
 
   /// Struct that represents an transition of a Petri net extended with inhibitor arcs.
   public struct Transition: Hashable {
