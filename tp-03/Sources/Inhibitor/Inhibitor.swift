@@ -23,11 +23,11 @@ public struct InhibitorNet<Place> where Place: Hashable {
         for (place, arc) in preconditions {
             switch arc {
             case .regular(let value):
-                if marking[place]! >= value {
+                if (marking[place]! >= value) {
                     return true
                 }
             case .inhibitor:
-                if marking[place]! == 0 {
+                if (marking[place]! == 0) {
                     return true
                 }
             }
@@ -40,9 +40,9 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// otherwise it returns the new marking.
     public func fire(from marking: [Place: Int]) -> [Place: Int]? {
         var NextMarking = marking
-        if isFireable(from: marking) {
+        if self.isFireable(from: marking) {
             for (place, arc) in postconditions {
-                switch postconditions[place]! {
+                switch arc {
                 case .regular(let value):
                     NextMarking[place]! = NextMarking[place]! + value
                 case .inhibitor:
@@ -50,7 +50,7 @@ public struct InhibitorNet<Place> where Place: Hashable {
                 }
             }
             for (place, arc) in preconditions {
-                switch preconditions[place]! {
+                switch arc {
                 case .regular(let value):
                     NextMarking[place]! = NextMarking[place]! - value
                 case .inhibitor:
@@ -60,9 +60,9 @@ public struct InhibitorNet<Place> where Place: Hashable {
             }
             return NextMarking
         }
-        return nil
-
-
+        else{
+            return nil
+        }
   }
 }
 
