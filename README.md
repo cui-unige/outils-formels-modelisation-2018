@@ -28,7 +28,24 @@ The best way to do so is to [register your SSH keys](https://help.github.com/art
 2. Add your SSH key to the ssh-agent
 3. Add your SSH key to your GitHub account
 
-### Get and submit homeworks
+### Troubleshooting
+
+If you get any error regarding the setup of your work environment,
+make sure to follow these steps to try solving your problem:
+
+1. Read the error message,
+   there's a good chance it'll give you a **very** accurate explanation of the problem.
+2. Search information about your error message.
+   On Google, you can surround terms with double quotes (`"`) to search their exact occurence.
+   There's a good chance someone else already got the problem.
+3. Ask your classmates/friends about your problem.
+   There's a good chance they also met similar issues.
+4. Check or even ask on [https://stackoverflow.com](StackOverflow).
+   There's a good chance someone have answered (or will) your question.
+4. Post an issue on this repository,
+   detailing *all* the things you have tried and that failed.
+
+## Get and submit homeworks
 
 In order to get the necessary files for your homeworks, and also to submit them,
 you will have to fork this repository.
