@@ -1,0 +1,10 @@
+version: "Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)"
+options: "36a2e60d6b980d5a70eaec7a0d158f8f"
+build_time: [1542366927, 499700000]
+inputs:
+  "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/Group.swift": [1542366926, 0]
+  "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/Marking.swift": [1542366926, 0]
+  "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/PTNet.swift": [1542366926, 0]
+  "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/PetriKit.swift": [1542366926, 0]
+  "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/PetriNet+Dot.swift": [1542366926, 0]
+  "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/Random.swift": [1542366926, 0]

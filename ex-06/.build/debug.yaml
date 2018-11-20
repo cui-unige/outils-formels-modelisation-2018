@@ -1,0 +1,144 @@
+client:
+  name: swift-build
+tools: {}
+targets:
+  "main": ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.swiftmodule","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers.swiftmodule","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.swiftmodule","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.swiftmodule","<PetriKit.module>","<Philosophers.exe>","<Philosophers.module>","<PhilosophersLib.module>","<SwiftProductGenerator.module>"]
+  "test": ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.swiftmodule","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers.swiftmodule","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.swiftmodule","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLibTests.swiftmodule","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersPackageTests.xctest/Contents/MacOS/PhilosophersPackageTests","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.swiftmodule","<PetriKit.module>","<Philosophers.exe>","<Philosophers.module>","<PhilosophersLib.module>","<PhilosophersLibTests.module>","<PhilosophersPackageTests.test>","<SwiftProductGenerator.module>"]
+  "PetriKit.module": ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.swiftmodule","<PetriKit.module>"]
+  "Philosophers.exe": ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers","<Philosophers.exe>"]
+  "Philosophers.module": ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers.swiftmodule","<Philosophers.module>"]
+  "PhilosophersLib.module": ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.swiftmodule","<PhilosophersLib.module>"]
+  "PhilosophersLibTests.module": ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLibTests.swiftmodule","<PhilosophersLibTests.module>"]
+  "PhilosophersPackageTests.test": ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersPackageTests.xctest/Contents/MacOS/PhilosophersPackageTests","<PhilosophersPackageTests.test>"]
+  "SwiftProductGenerator.module": ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.swiftmodule","<SwiftProductGenerator.module>"]
+default: "main"
+commands: 
+  "<C.PetriKit.module>":
+    tool: phony
+    inputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.swiftmodule"]
+    outputs: ["<PetriKit.module>"]
+
+  "<C.Philosophers.exe>":
+    tool: phony
+    inputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers"]
+    outputs: ["<Philosophers.exe>"]
+
+  "<C.Philosophers.module>":
+    tool: phony
+    inputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers.swiftmodule"]
+    outputs: ["<Philosophers.module>"]
+
+  "<C.PhilosophersLib.module>":
+    tool: phony
+    inputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.swiftmodule"]
+    outputs: ["<PhilosophersLib.module>"]
+
+  "<C.PhilosophersLibTests.module>":
+    tool: phony
+    inputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLibTests.swiftmodule"]
+    outputs: ["<PhilosophersLibTests.module>"]
+
+  "<C.PhilosophersPackageTests.test>":
+    tool: phony
+    inputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersPackageTests.xctest/Contents/MacOS/PhilosophersPackageTests"]
+    outputs: ["<PhilosophersPackageTests.test>"]
+
+  "<C.SwiftProductGenerator.module>":
+    tool: phony
+    inputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.swiftmodule"]
+    outputs: ["<SwiftProductGenerator.module>"]
+
+  "C.PetriKit.module":
+    tool: swift-compiler
+    executable: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    module-name: "PetriKit"
+    module-output-path: "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.swiftmodule"
+    inputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/Group.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/Marking.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/PTNet.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/PetriKit.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/PetriNet+Dot.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/Random.swift"]
+    outputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Group.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Marking.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PTNet.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriKit.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriNet+Dot.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Random.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.swiftmodule"]
+    import-paths: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug"]
+    temps-path: "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build"
+    objects: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Group.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Marking.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PTNet.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriKit.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriNet+Dot.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Random.swift.o"]
+    other-args: ["-swift-version","4.2","-enable-batch-mode","-target","x86_64-apple-macosx10.10","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Onone","-g","-enable-testing","-j4","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/ModuleCache","-Xfrontend","-color-diagnostics"]
+    sources: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/Group.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/Marking.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/PTNet.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/PetriKit.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/PetriNet+Dot.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git-5019133554151343337/Sources/PetriKit/Random.swift"]
+    is-library: true
+    enable-whole-module-optimization: false
+    num-threads: "4"
+
+  "C.Philosophers.exe":
+    tool: shell
+    description: "Linking ./.build/x86_64-apple-macosx10.10/debug/Philosophers"
+    inputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Group.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Marking.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PTNet.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriKit.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriNet+Dot.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Random.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers.build/main.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Collection+Extensions.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Philosophers.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+MarkingGraph.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+Simulation.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.build/SwiftProductGenerator.swift.o"]
+    outputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers"]
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-target","x86_64-apple-macosx10.10","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-g","-L","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug","-o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers","-module-name","Philosophers","-emit-executable","@/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers.product/Objects.LinkFileList"]
+
+  "C.Philosophers.module":
+    tool: swift-compiler
+    executable: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    module-name: "Philosophers"
+    module-output-path: "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers.swiftmodule"
+    inputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.swiftmodule","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Sources/Philosophers/main.swift"]
+    outputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers.build/main.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers.swiftmodule"]
+    import-paths: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug"]
+    temps-path: "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers.build"
+    objects: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/Philosophers.build/main.swift.o"]
+    other-args: ["-swift-version","4.2","-enable-batch-mode","-target","x86_64-apple-macosx10.10","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Onone","-g","-enable-testing","-j4","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/ModuleCache","-Xfrontend","-color-diagnostics"]
+    sources: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Sources/Philosophers/main.swift"]
+    is-library: false
+    enable-whole-module-optimization: false
+    num-threads: "4"
+
+  "C.PhilosophersLib.module":
+    tool: swift-compiler
+    executable: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    module-name: "PhilosophersLib"
+    module-output-path: "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.swiftmodule"
+    inputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.swiftmodule","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.swiftmodule","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/Collection+Extensions.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/Philosophers.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/PredicateNet+MarkingGraph.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/PredicateNet+Simulation.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/PredicateNet.swift"]
+    outputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Collection+Extensions.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Philosophers.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+MarkingGraph.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+Simulation.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.swiftmodule"]
+    import-paths: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug"]
+    temps-path: "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build"
+    objects: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Collection+Extensions.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Philosophers.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+MarkingGraph.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+Simulation.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet.swift.o"]
+    other-args: ["-swift-version","4.2","-enable-batch-mode","-target","x86_64-apple-macosx10.10","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Onone","-g","-enable-testing","-j4","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/ModuleCache","-Xfrontend","-color-diagnostics"]
+    sources: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/Collection+Extensions.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/Philosophers.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/PredicateNet+MarkingGraph.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/PredicateNet+Simulation.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/PredicateNet.swift"]
+    is-library: true
+    enable-whole-module-optimization: false
+    num-threads: "4"
+
+  "C.PhilosophersLibTests.module":
+    tool: swift-compiler
+    executable: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    module-name: "PhilosophersLibTests"
+    module-output-path: "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLibTests.swiftmodule"
+    inputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.swiftmodule","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Tests/PhilosophersLibTests/PredicateMarkingGraphTests.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Tests/PhilosophersLibTests/PredicateNetTests.swift"]
+    outputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLibTests.build/PredicateMarkingGraphTests.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLibTests.build/PredicateNetTests.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLibTests.swiftmodule"]
+    import-paths: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug"]
+    temps-path: "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLibTests.build"
+    objects: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLibTests.build/PredicateMarkingGraphTests.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLibTests.build/PredicateNetTests.swift.o"]
+    other-args: ["-swift-version","4.2","-enable-batch-mode","-target","x86_64-apple-macosx10.10","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Onone","-g","-enable-testing","-j4","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/ModuleCache","-Xfrontend","-color-diagnostics"]
+    sources: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Tests/PhilosophersLibTests/PredicateMarkingGraphTests.swift","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Tests/PhilosophersLibTests/PredicateNetTests.swift"]
+    is-library: true
+    enable-whole-module-optimization: false
+    num-threads: "4"
+
+  "C.PhilosophersPackageTests.test":
+    tool: shell
+    description: "Linking ./.build/x86_64-apple-macosx10.10/debug/PhilosophersPackageTests.xctest/Contents/MacOS/PhilosophersPackageTests"
+    inputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Group.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Marking.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PTNet.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriKit.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriNet+Dot.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Random.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Collection+Extensions.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Philosophers.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+MarkingGraph.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+Simulation.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLibTests.build/PredicateMarkingGraphTests.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLibTests.build/PredicateNetTests.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.build/SwiftProductGenerator.swift.o"]
+    outputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersPackageTests.xctest/Contents/MacOS/PhilosophersPackageTests"]
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-target","x86_64-apple-macosx10.10","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-g","-L","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug","-o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersPackageTests.xctest/Contents/MacOS/PhilosophersPackageTests","-module-name","PhilosophersPackageTests","-Xlinker","-bundle","@/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersPackageTests.product/Objects.LinkFileList"]
+
+  "C.SwiftProductGenerator.module":
+    tool: swift-compiler
+    executable: "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    module-name: "SwiftProductGenerator"
+    module-output-path: "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.swiftmodule"
+    inputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/SwiftProductGenerator.git-8862800510771222938/Sources/SwiftProductGenerator/SwiftProductGenerator.swift"]
+    outputs: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.build/SwiftProductGenerator.swift.o","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.swiftmodule"]
+    import-paths: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug"]
+    temps-path: "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.build"
+    objects: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.build/SwiftProductGenerator.swift.o"]
+    other-args: ["-swift-version","4","-enable-batch-mode","-target","x86_64-apple-macosx10.10","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Onone","-g","-enable-testing","-j4","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/ModuleCache","-Xfrontend","-color-diagnostics"]
+    sources: ["/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/.build/checkouts/SwiftProductGenerator.git-8862800510771222938/Sources/SwiftProductGenerator/SwiftProductGenerator.swift"]
+    is-library: true
+    enable-whole-module-optimization: false
+    num-threads: "4"
+

@@ -1,0 +1,5 @@
+version: "Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)"
+options: "b5fadf760bc9090aeee5f0e762a601f6"
+build_time: [1542372178, 333389000]
+inputs:
+  "/Users/bawa/Documents/outils-formels-modelisation-2018/ex-06/Sources/Philosophers/main.swift": !dirty [1542372176, 0]
