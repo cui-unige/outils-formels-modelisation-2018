@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "PetriKit",
+        "repositoryURL": "https://github.com/kyouko-taiga/PetriKit.git",
+        "state": {
+          "branch": null,
+          "revision": "49eefef58d070f17b0c5aeb9fd785a35b7ae97f2",
+          "version": "2.0.0"
+        }
+      },
+      {
+        "package": "SwiftProductGenerator",
+        "repositoryURL": "https://github.com/kyouko-taiga/SwiftProductGenerator.git",
+        "state": {
+          "branch": null,
+          "revision": "b092ccf72736c8c45bc600b781bc510d8388e96b",
+          "version": "1.0.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
