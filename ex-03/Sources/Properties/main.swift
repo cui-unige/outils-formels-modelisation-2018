@@ -63,3 +63,26 @@ let pn2 = PTNet(transitions: [a2, b, c])
 if computeGraph(of: pn2, from: [.p1: 1, .p2: 0, .p3: 0]) == nil {
   print("The petri net is unbounded")
 }
+
+
+do{
+  let m0: Marking<Place, UInt> = [.p1: 0, .p2: 0, .p3: 0]
+  if let states = computeGraph(of: pn, from: m0) {
+    // Print all the reachable states.
+    //let haveOneTokenInP2 = states.filter { state in state.marking[.p2] == 20 }
+  /*  let haveOneTokenInP2 = states.filter { state in fireable(state.marking[.p2],a2)}
+    for state in haveOneTokenInP2{
+      //print("there are \(Array(states).count) states")
+      print(state.marking)
+  }*/
+  let hasBlockingState = states.contains{state in
+  for transition in pn.transitions{
+    if transition.isFireable(from: state.marking){
+      return false
+    }
+    return true
+  }
+}
+  print(hasBlockingState)
+  }
+}
