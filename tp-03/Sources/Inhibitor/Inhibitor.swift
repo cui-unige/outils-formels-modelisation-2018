@@ -20,8 +20,38 @@ public struct InhibitorNet<Place> where Place: Hashable {
 
     /// A method that returns whether a transition is fireable from a given marking.
     public func isFireable(from marking: [Place: Int]) -> Bool {
-      // Write your code here.
-      return false
+
+	var retour = true // return value
+
+      for p in marking.keys 
+	{	// test all Place from marking
+
+		let m : Int! = marking[p]// m is the marking of place p. Dont repeat marking[p] in code
+
+		switch preconditions[p]
+		{
+			case .regular(let a)?:
+			if m < a
+				{
+					retour = false
+				}
+			
+		
+			case .inhibitor?:
+			if m != 0
+			{
+				retour = false
+			}		
+			else
+			{ 
+				retour=false
+			}
+			default:
+			retour=false
+		}		 
+
+	}
+      return retour
     }
 
     /// A method that fires a transition from a given marking.
@@ -29,8 +59,45 @@ public struct InhibitorNet<Place> where Place: Hashable {
     /// If the transition isn't fireable from the given marking, the method returns a `nil` value.
     /// otherwise it returns the new marking.
     public func fire(from marking: [Place: Int]) -> [Place: Int]? {
-      // Write your code here.
+
+      if isFireable( from: marking){
+	var retour = [Place: Int]()
+
+	for p in marking.keys 
+	{
+		let m : Int! = marking[p]
+		var b : Int
+		
+		switch postconditions[p]
+		{
+			case .inhibitor?:
+			b=0
+			case .regular(let c)?:
+			b=c
+			default:
+			return nil
+		
+		}
+
+		switch preconditions[p] 
+		{
+			case .inhibitor?:
+			retour[p] = m + b
+		
+			case .regular(let a)?:
+			retour[p] = m + b - a
+			
+			default:
+			return nil
+		}
+	}
+	
+	return retour
+      }	
+
+     else{
       return nil
+	}
     }
 
   }
