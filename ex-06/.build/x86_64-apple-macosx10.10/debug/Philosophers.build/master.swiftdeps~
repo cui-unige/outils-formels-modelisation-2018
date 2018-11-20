@@ -1,0 +1,5 @@
+version: "Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)"
+options: "c50e3c4ada91f0993ee1c616a3299c0a"
+build_time: [1542371271, 692258000]
+inputs:
+  "/Users/Ikam6/Desktop/github-unige/outils-formels-modelisation-2018/ex-06/Sources/Philosophers/main.swift": [1542371268, 0]

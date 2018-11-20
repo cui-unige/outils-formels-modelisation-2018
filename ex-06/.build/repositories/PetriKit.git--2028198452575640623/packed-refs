@@ -1,0 +1,11 @@
+# pack-refs with: peeled fully-peeled sorted 
+4ea95b39e0f67a4a121f56018ab79ed046e7ec81 refs/heads/features/predicate-nets
+49eefef58d070f17b0c5aeb9fd785a35b7ae97f2 refs/heads/master
+187f5ffe1a40ef61fed56ca44d05db227e2bba9d refs/pull/3/head
+87645f93335ec2b1997205b2460ab7814051c713 refs/pull/3/merge
+b3dc86bdf411c3ac934cb260c6c44e0406bacac1 refs/pull/5/head
+c41ba943dee8dda904b098c7747ed6bf08964e7b refs/pull/6/head
+597397630dc85b9a03fcba23aac70ab18e1c0e15 refs/tags/1.0.0
+d48602076b5ad2e0bd9663f2eeaa209bd5827bb8 refs/tags/1.0.1
+e1af5fe9d0599c1a24506f63bfd1804b50f9cf65 refs/tags/2.0.0
+^49eefef58d070f17b0c5aeb9fd785a35b7ae97f2
