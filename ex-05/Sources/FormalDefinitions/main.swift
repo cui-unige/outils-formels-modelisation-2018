@@ -53,7 +53,7 @@ do {
   // let m0: PTNet<Place>.MarkingType = [ ...
 
   // assert(model.isAlive(withInitialMarking: m0))
-  // assert(model.isReversible(withInitialMarking: m0))
+  // assert(model.isReversible(withInitialMarkin g: m0))
   // assert(!model.isDeadlockFree(withInitialMarking: m0))
 }
 
