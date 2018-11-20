@@ -2,17 +2,44 @@ extension PredicateNet {
 
   /// Returns the marking graph of a bounded predicate net.
   public func markingGraph(from marking: MarkingType) -> PredicateMarkingNode<T>? {
-    // Write your code here ...
-    return nil
 
-    // Note that I created the two static methods `equals(_:_:)` and `greater(_:_:)` to help you
-    // compare predicate markings. You can use them as the following:
+        // Note that I created the two static methods `equals(_:_:)` and `greater(_:_:)` to help you
+        // compare predicate markings. You can use them as the following:
+        //
+        //     PredicateNet.equals(someMarking, someOtherMarking)
+        //     PredicateNet.greater(someMarking, someOtherMarking)
+        //
+        // You may use these methods to check if you've already visited a marking, or if the model is
+        // unbounded.
+
     //
-    //     PredicateNet.equals(someMarking, someOtherMarking)
-    //     PredicateNet.greater(someMarking, someOtherMarking)
-    //
-    // You may use these methods to check if you've already visited a marking, or if the model is
-    // unbounded.
+    let root = PredicateMarkingNode(marking: marking)
+    let created = [root] //noeud créé
+    let unprocessed = [root] // à visiter
+
+    while let node = unprocessed.popLast(){
+      for transition in transitions{
+        let successorMap: PredicateBindingMap<T> = [:]
+        let bindings = transition.fireableBingings(from: node.marking)
+        bindingLoop: for binding in bindings{
+          if let successor = transition.fire(from: node.marking, with: binding){
+            //Poss de créer un label pour une loop
+            for other in created{
+              if PredicateNet.equals(other.marking, successor){
+                successorMap[binding] = other
+                continue bindingLoop
+              }
+            }
+            let nextNode = PredicateMarkingNode(marking: successor)
+            successorMap[binding]= nextNode
+            created.append(nextNode)
+            unprocessed.append(nextNode)
+          }
+        }
+        node.successors[transition] = successorMap
+      }
+    }
+    return root
   }
 
   // MARK: Internals
