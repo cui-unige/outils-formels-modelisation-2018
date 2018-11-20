@@ -1,0 +1,9 @@
+version: "Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)"
+options: "87930e0c86129e4a60e2bc3f9d780686"
+build_time: [1542368886, 581548000]
+inputs:
+  "/Users/bouzerdasamy/Desktop/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/Collection+Extensions.swift": [1542368270, 0]
+  "/Users/bouzerdasamy/Desktop/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/Philosophers.swift": [1542368270, 0]
+  "/Users/bouzerdasamy/Desktop/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/PredicateNet+MarkingGraph.swift": [1542368270, 0]
+  "/Users/bouzerdasamy/Desktop/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/PredicateNet+Simulation.swift": [1542368270, 0]
+  "/Users/bouzerdasamy/Desktop/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/PredicateNet.swift": [1542368270, 0]

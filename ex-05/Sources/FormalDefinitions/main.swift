@@ -23,7 +23,7 @@ do {
    case pulpFiction, reservoirDogs
    }
 
-   let model = PTNet<Place>(transitions: 
+   let model = PTNet<Place>(transitions:
    let m0: PTNet<Place>.MarkingType = [ ...
 
   // assert(model.isAlive(withInitialMarking: m0))
