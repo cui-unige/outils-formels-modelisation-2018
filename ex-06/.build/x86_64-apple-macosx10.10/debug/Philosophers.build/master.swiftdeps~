@@ -1,0 +1,5 @@
+version: "Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)"
+options: "5d88dbe5e649a0f7bc8956b102fa45a5"
+build_time: [1542370192, 782161000]
+inputs:
+  "/Users/marc/Documents/Perso/E\u0301cole/Universite\u0301/2018 Automne/outils-formels-modelisation-2018/ex-06/Sources/Philosophers/main.swift": [1542370186, 0]

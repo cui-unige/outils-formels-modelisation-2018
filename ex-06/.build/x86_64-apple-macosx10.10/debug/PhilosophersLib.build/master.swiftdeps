@@ -1,0 +1,9 @@
+version: "Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)"
+options: "0f4a5cec6596f2a87a16ae2bed7d8d71"
+build_time: [1542368858, 610898000]
+inputs:
+  "/Users/marc/Documents/Perso/E\u0301cole/Universite\u0301/2018 Automne/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/Collection+Extensions.swift": [1542368332, 0]
+  "/Users/marc/Documents/Perso/E\u0301cole/Universite\u0301/2018 Automne/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/Philosophers.swift": [1542368332, 0]
+  "/Users/marc/Documents/Perso/E\u0301cole/Universite\u0301/2018 Automne/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/PredicateNet+MarkingGraph.swift": [1542368332, 0]
+  "/Users/marc/Documents/Perso/E\u0301cole/Universite\u0301/2018 Automne/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/PredicateNet+Simulation.swift": [1542368332, 0]
+  "/Users/marc/Documents/Perso/E\u0301cole/Universite\u0301/2018 Automne/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/PredicateNet.swift": [1542368332, 0]

@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.build/master.swiftdeps"
+  },
+  "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/checkouts/SwiftProductGenerator.git--2671851500004220493/Sources/SwiftProductGenerator/SwiftProductGenerator.swift": {
+    "dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.build/SwiftProductGenerator.d",
+    "object": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.build/SwiftProductGenerator.swift.o",
+    "swiftmodule": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.build/SwiftProductGenerator~partial.swiftmodule",
+    "swift-dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.build/SwiftProductGenerator.swiftdeps"
+  }
+}
