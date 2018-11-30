@@ -1,0 +1,10 @@
+version: "Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)"
+options: "263a159385a8710faeb531efb9048619"
+build_time: [1542368711, 839527000]
+inputs:
+  "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git--2190918536625381607/Sources/PetriKit/Group.swift": [1542368711, 0]
+  "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git--2190918536625381607/Sources/PetriKit/Marking.swift": [1542368711, 0]
+  "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git--2190918536625381607/Sources/PetriKit/PTNet.swift": [1542368711, 0]
+  "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git--2190918536625381607/Sources/PetriKit/PetriKit.swift": [1542368711, 0]
+  "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git--2190918536625381607/Sources/PetriKit/PetriNet+Dot.swift": [1542368711, 0]
+  "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git--2190918536625381607/Sources/PetriKit/Random.swift": [1542368711, 0]

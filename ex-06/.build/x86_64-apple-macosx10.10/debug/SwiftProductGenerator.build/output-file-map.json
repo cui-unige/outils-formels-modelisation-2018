@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.build/master.swiftdeps"
+  },
+  "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/checkouts/SwiftProductGenerator.git-6289498354932019878/Sources/SwiftProductGenerator/SwiftProductGenerator.swift": {
+    "dependencies": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.build/SwiftProductGenerator.d",
+    "object": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.build/SwiftProductGenerator.swift.o",
+    "swiftmodule": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.build/SwiftProductGenerator~partial.swiftmodule",
+    "swift-dependencies": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.build/SwiftProductGenerator.swiftdeps"
+  }
+}

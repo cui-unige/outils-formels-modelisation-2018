@@ -1,0 +1,5 @@
+version: "Apple Swift version 4.2.1 (swiftlang-1000.11.42 clang-1000.11.45.1)"
+options: "6f52699b9e388a7d720d38a5f5863d03"
+build_time: [1542368720, 171797000]
+inputs:
+  "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/Sources/Philosophers/main.swift": [1542368674, 0]
