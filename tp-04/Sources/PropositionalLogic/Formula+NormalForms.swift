@@ -4,7 +4,7 @@ extension Formula {
   public var nnf: Formula {
     // Write your code here.
     switch self {
-    case .negation(let a):
+    case .negation(let a)://In case of negation
       switch a {
       case .constant(let b):
         return Formula.constant(!b)
