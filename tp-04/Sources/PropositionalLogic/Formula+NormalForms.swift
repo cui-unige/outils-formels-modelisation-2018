@@ -1,3 +1,4 @@
+//Ceci est un test
 extension Formula {
 
   /// The negation normal form of the formula.
