@@ -33,7 +33,7 @@ public struct InhibitorNet<Place> where Place: Hashable {
                 }
                }
             }
-          
+
           return true
         }
 
