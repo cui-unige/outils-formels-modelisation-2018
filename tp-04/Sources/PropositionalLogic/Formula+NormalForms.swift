@@ -2,7 +2,7 @@ extension Formula {
 
   /// The negation normal form of the formula.
   public var nnf: Formula {
-    // Write your code here.
+
     switch self{
                case .constant(let p):
                    return p ? true : false
@@ -110,7 +110,7 @@ extension Formula {
                res = res! || op
              }
              else {
-               res = op 
+               res = op
              }
            }
          res = (a.cnf || res!.cnf) && (b.cnf || res!.cnf)
@@ -118,16 +118,16 @@ extension Formula {
          }
      }
      return self.nnf
-   case .conjunction: // and
+   case .conjunction: // AND
      var operands = self.nnf.conjunctionOperands
      for op in operands {
        for op1 in operands {
          if op.disjunctionOperands.isSubset(of:op1.disjunctionOperands) && op1 != op {
-           operands.remove(op1) //On les remove
+           operands.remove(op1)
          }
        }
      }
-   var res : Formula? // comme ci-dessus on fait le résultat
+   var res : Formula?
      for op in operands {
        if res != nil  {
          res = res! && op
@@ -136,7 +136,7 @@ extension Formula {
          res = op
        }
      }
-     return res! // On retourne le contraire de notre res
+     return res! // lE résultat retourné est le contraire de res
    default :
      return self.nnf
    }
@@ -144,10 +144,10 @@ extension Formula {
 
   /// The minterms of a formula in disjunctive normal form.
   public var minterms: Set<Set<Formula>> {
-    // Write your code here.
+
     var output = Set<Set<Formula>>()
           switch self {
-          case .disjunction(_, _): // On utilise la disjonction (or)
+          case .disjunction(_, _): // OR
               for operand in self.disjunctionOperands {
                   output.insert(operand.conjunctionOperands)
               }
@@ -159,10 +159,10 @@ extension Formula {
 
   /// The maxterms of a formula in conjunctive normal form.
   public var maxterms: Set<Set<Formula>> {
-    // Write your code here.
+
     var output = Set<Set<Formula>>()
          switch self {
-         case .conjunction(_, _): // On utilise la conjonction (and)
+         case .conjunction(_, _): // conjonction AND
              for operand in self.conjunctionOperands {
                  output.insert(operand.disjunctionOperands)
              }
