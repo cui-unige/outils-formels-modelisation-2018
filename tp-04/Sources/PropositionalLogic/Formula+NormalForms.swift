@@ -150,7 +150,16 @@ extension Formula {
   /// The maxterms of a formula in conjunctive normal form.
   public var maxterms: Set<Set<Formula>> {
     // Write your code here.
-    return []
+    var output = Set<Set<Formula>>()
+      switch self {
+      case .conjunction(_, _): // On utilise la conjonction (and)
+          for operand in self.conjunctionOperands {
+              output.insert(operand.disjunctionOperands)
+          }
+          return output
+      default:
+          return output
+      }
   }
 
   /// Unfold a tree of binary disjunctions into a set of operands.
