@@ -3,7 +3,33 @@ extension Formula {
   /// The negation normal form of the formula.
   public var nnf: Formula {
     // Write your code here.
-    return self
+    switch self{
+            case .constant(let p):
+                return p ? true : false
+            case .proposition(_):
+                return self
+            case .disjunction(let p, let q): // or
+                return (p).nnf || (q).nnf // il faut retourner cette forme
+            case .conjunction(let p, let q): // and
+                return (p).nnf && (q).nnf // il faut retourner cette forme
+            case .implication(let p, let q): // not p or q
+                return (!p).nnf || (q).nnf // il faut retourner cette forme
+            case .negation(let p): // not
+            switch p{
+                    case .constant(let t):
+                          return t ? false : true
+                    case .disjunction(let t, let q): // t or q
+                          return (!t).nnf && (!q).nnf // il faut retourner cette forme
+                    case .conjunction(let t, let q): // t and q
+                        return (!t).nnf || (!q).nnf // il faut retourner cette forme
+                    case .implication(let t, let q): // not (t or nit q)
+                          return (t).nnf && (!q).nnf // il faut retourner cette forme
+                    case .negation(let t): // not
+                          return t.nnf // il faut retourner cette forme
+                    case .proposition(_):
+                        return self
+            }
+       }
   }
 
   /// The disjunctive normal form (DNF) of the formula.
