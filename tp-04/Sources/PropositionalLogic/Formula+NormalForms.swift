@@ -34,25 +34,6 @@ extension Formula {
   public var dnf: Formula {
     // Write your code here.
     switch self.nnf {
-    case .disjunction:
-      var tempOperands = self.disjunctionOperands
-      for operatorA in tempOperands {
-        for operatorSUP in tempOperands {
-          if operatorA.conjunctionOperands.isSubset(of:operatorSUP.conjunctionOperands) && operatorSUP != operatorA {
-            tempOperands.remove(operatorSUP)
-          }
-        }
-      }
-      var reponse : Formula?
-      for operatorA in tempOperands {
-        if reponse != nil  {
-          reponse = reponse! || operatorA
-        }
-        else {
-          reponse = operatorA
-        }
-      }
-      return reponse!
     case Formula.conjunction:
       var  tempOperands = self.nnf.conjunctionOperands
       if let origine = tempOperands.first(where: { if case  .disjunction = $0 {
@@ -75,6 +56,26 @@ extension Formula {
           }
       }
       return self.nnf
+
+    case .disjunction:
+      var tempOperands = self.disjunctionOperands
+      for operatorA in tempOperands {
+        for operatorSUP in tempOperands {
+          if operatorA.conjunctionOperands.isSubset(of:operatorSUP.conjunctionOperands) && operatorSUP != operatorA {
+            tempOperands.remove(operatorSUP)
+          }
+        }
+      }
+      var reponse : Formula?
+      for operatorA in tempOperands {
+        if reponse != nil  {
+          reponse = reponse! || operatorA
+        }
+        else {
+          reponse = operatorA
+        }
+      }
+      return reponse!
     default :
       return self.nnf
     }
