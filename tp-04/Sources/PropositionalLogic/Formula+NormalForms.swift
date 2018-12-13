@@ -130,12 +130,21 @@ extension Formula {
  default :
    return self.nnf
   }
-}
+  }
 
   /// The minterms of a formula in disjunctive normal form.
   public var minterms: Set<Set<Formula>> {
     // Write your code here.
-    return []
+    var output = Set<Set<Formula>>()
+        switch self {
+        case .disjunction(_, _): // On utilise la disjonction (or)
+            for operand in self.disjunctionOperands {
+                output.insert(operand.conjunctionOperands)
+            }
+            return output
+        default:
+            return output
+        }
   }
 
   /// The maxterms of a formula in conjunctive normal form.
