@@ -5,5 +5,5 @@ let q: Formula = "q"
 let r: Formula = "r"
 let s: Formula = "s"
 
-let formula = (p || q || r) && (!p || q)
+let formula = (p || q || r) && (!p || q) && (p || !s)
 print("formula : \(formula)")
