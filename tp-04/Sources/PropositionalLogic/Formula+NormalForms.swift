@@ -85,8 +85,52 @@ extension Formula {
   /// The conjunctive normal form (CNF) of the formula.
   public var cnf: Formula {
     // Write your code here.
-    return self
+    switch self.nnf {
+ case .disjunction:
+   var operands = self.nnf.disjunctionOperands
+   if let firstConjunction = operands.first(where: { if case  .conjunction = $0 {
+     return true
+   }
+   return false }) {
+       if case let .conjunction(a, b) = firstConjunction {
+         operands.remove(firstConjunction)
+         var res : Formula?
+         for op in operands {
+           if res != nil  {
+             res = res! || op
+           }
+           else {
+             res = op // seulement si res est nil
+           }
+         }
+       res = (a.cnf || res!.cnf) && (b.cnf || res!.cnf)
+       if res != nil { return res!.cnf}
+       }
+   }
+   return self.nnf
+ case .conjunction: // and
+   var operands = self.nnf.conjunctionOperands
+   for op in operands {
+     for op1 in operands {
+       if op.disjunctionOperands.isSubset(of:op1.disjunctionOperands) && op1 != op {
+         operands.remove(op1) //On les remove
+       }
+     }
+   }
+ var res : Formula? // comme ci-dessus on fait le résultat
+   for op in operands {
+     if res != nil  {
+       res = res! && op
+     }
+     else {
+       res = op
+     }
+   }
+   return res! // On retourne le contraire de notre res
+ default :
+   return self.nnf
   }
+}
 
   /// The minterms of a formula in disjunctive normal form.
   public var minterms: Set<Set<Formula>> {
