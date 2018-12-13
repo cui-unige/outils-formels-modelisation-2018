@@ -38,7 +38,7 @@ extension Formula {
       var tempOperands = self.disjunctionOperands
       for operatorA in tempOperands {
         for operatorSUP in tempOperands {
-          if operatorA.conjunctionOperands.isSubset(of:operatorSUP.conjunctionOperands) && operatorSUP != operatorA { //Si les opérandes de conjonction de op sont sous-ensembles des opérandes de conjonction de op1
+          if operatorA.conjunctionOperands.isSubset(of:operatorSUP.conjunctionOperands) && operatorSUP != operatorA {
             tempOperands.remove(operatorSUP)
           }
         }
