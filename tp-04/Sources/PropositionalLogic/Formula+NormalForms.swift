@@ -132,7 +132,7 @@ extension Formula {
       return self.nnf
     case .conjunction(let a, let b):
 
-      var operands = (a.cnf && b.cnf).nnf.conjunctionOperands
+      var operands = (a.cnf && b.cnf).conjunctionOperands
       // absorbtion
       for op in operands {
         for op1 in operands {
