@@ -35,7 +35,51 @@ extension Formula {
   /// The disjunctive normal form (DNF) of the formula.
   public var dnf: Formula {
     // Write your code here.
-    return self
+    switch self.nnf {
+     case .conjunction:
+       var operands = self.nnf.conjunctionOperands
+       if let firstDisjunction = operands.first(where: { if case  .disjunction = $0 {
+         return true
+       }
+       return false }) {
+           if case let .disjunction(a, b) = firstDisjunction {
+             operands.remove(firstDisjunction)
+             var res : Formula?
+             for op in operands {
+               if res != nil  {
+                 res = res! && op
+               }
+               else {
+                 res = op // si le res est nil
+               }
+             }
+           res = (a.dnf && res!.dnf) || (b.dnf && res!.dnf) // or
+           if res != nil { return res!.dnf}
+           }
+       }
+       return self.nnf
+     case .disjunction:
+       var operands = self.disjunctionOperands
+       for op in operands {
+         for op1 in operands {
+           if op.conjunctionOperands.isSubset(of:op1.conjunctionOperands) && op1 != op { //Si ce sont des sous-ensembles de op1
+             operands.remove(op1) //On remove op1
+           }
+         }
+       }
+       var res : Formula?
+       for op in operands {
+         if res != nil  {
+           res = res! || op
+         }
+         else {
+           res = op
+         }
+       }
+       return res!
+     default :
+       return self.nnf
+     }
   }
 
   /// The conjunctive normal form (CNF) of the formula.
