@@ -71,8 +71,8 @@ extension Formula {
 
       }
       return self.nnf
-    case .disjunction:
-      var operands = self.disjunctionOperands
+    case .disjunction(let a, let b):
+      var operands = (a.dnf || b.dnf).disjunctionOperands
       // absorbtion
       for op in operands {
         for op1 in operands {
@@ -130,8 +130,9 @@ extension Formula {
 
       }
       return self.nnf
-    case .conjunction:
-      var operands = self.nnf.conjunctionOperands
+    case .conjunction(let a, let b):
+
+      var operands = (a.cnf && b.cnf).nnf.conjunctionOperands
       // absorbtion
       for op in operands {
         for op1 in operands {
