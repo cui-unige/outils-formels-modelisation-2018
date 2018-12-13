@@ -66,20 +66,15 @@ extension Formula {
             }
             if checkDisjunction {
                 if lhs1 == rhs1 {
-                    // return .disjunction(lhs1!.dnf, .conjunction(lhs2!.dnf, rhs2!.dnf))
-                    return (lhs1!.dnf || (lhs2!.dnf && rhs2!.dnf))
+                    return .disjunction(lhs1!.dnf, .conjunction(lhs2!.dnf, rhs2!.dnf))
                 } else if lhs1 == rhs2 {
-                    // return .disjunction(lhs1!.dnf, .conjunction(lhs2!.dnf, rhs1!.dnf))
-                    return (lhs1!.dnf || (lhs2!.dnf && rhs1!.dnf))
+                    return .disjunction(lhs1!.dnf, .conjunction(lhs2!.dnf, rhs1!.dnf))
                 } else if lhs2 == rhs1 {
-                    // return .disjunction(lhs2!.dnf, .conjunction(lhs2!.dnf, rhs1!.dnf))
-                    return (lhs2!.dnf || (lhs2!.dnf && rhs1!.dnf))
+                    return .disjunction(lhs2!.dnf, .conjunction(lhs2!.dnf, rhs1!.dnf))
                 } else if lhs2 == rhs2 {
-                    // return .disjunction(lhs2!.dnf, .conjunction(lhs2!.dnf, rhs2!.dnf))
-                    return (lhs2!.dnf || (lhs2!.dnf && rhs2!.dnf))
+                    return .disjunction(lhs2!.dnf, .conjunction(lhs2!.dnf, rhs2!.dnf))
                 } else { // If all are different
-                    // return .disjunction(Formula.disjunction(.conjunction(lhs1!, rhs1!), .conjunction(lhs1!, rhs2!)).dnf, Formula.disjunction(.conjunction(lhs2!, rhs1!), .conjunction(lhs2!, rhs2!)).dnf)
-                    return (((lhs1! && rhs1!) || (lhs1! && rhs2!)).dnf || ((lhs2! && rhs1!) || (lhs2! && rhs2!)).dnf)
+                    return .disjunction(Formula.disjunction(.conjunction(lhs1!, rhs1!), .conjunction(lhs1!, rhs2!)).dnf, Formula.disjunction(.conjunction(lhs2!, rhs1!), .conjunction(lhs2!, rhs2!)).dnf)
                 }
             }
         case .disjunction(let lhs, let rhs):
@@ -119,8 +114,7 @@ extension Formula {
                 break
             }
             if (lhsConstant && rhsDisjunction) || (lhsDisjunction && rhsConstant) {
-                // return .disjunction(.conjunction(a!.dnf, c!.dnf), .conjunction(c!.dnf, b!.dnf))
-                return ((a!.dnf && c!.dnf) || (c!.dnf && b!.dnf))
+                return .disjunction(.conjunction(a!.dnf, c!.dnf), .conjunction(c!.dnf, b!.dnf))
             }
         default:
             return self.nnf
