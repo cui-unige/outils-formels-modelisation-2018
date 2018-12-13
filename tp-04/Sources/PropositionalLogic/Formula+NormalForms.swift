@@ -20,9 +20,9 @@ extension Formula {
                           return t ? false : true
                     case .disjunction(let t, let q): // t or q
                           return (!t).nnf && (!q).nnf // il faut retourner cette forme
-                    case .conjunction(let t, let q): // t and q
+                    case .conjunction(let t, let q): // t and q  ou alors  not t or not q
                         return (!t).nnf || (!q).nnf // il faut retourner cette forme
-                    case .implication(let t, let q): // not (t or nit q)
+                    case .implication(let t, let q): //  t and  not q
                           return (t).nnf && (!q).nnf // il faut retourner cette forme
                     case .negation(let t): // not
                           return t.nnf // il faut retourner cette forme
