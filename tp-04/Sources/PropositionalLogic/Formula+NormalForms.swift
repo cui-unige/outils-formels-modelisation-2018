@@ -9,11 +9,11 @@ extension Formula {
             case .proposition(_):
                 return self
             case .disjunction(let p, let q): // or
-                return (p).nnf || (q).nnf // il faut retourner cette forme
+                return (p).nnf || (q).nnf // il faut retourner cette forme p or q
             case .conjunction(let p, let q): // and
-                return (p).nnf && (q).nnf // il faut retourner cette forme
-            case .implication(let p, let q): // not p or q
-                return (!p).nnf || (q).nnf // il faut retourner cette forme
+                return (p).nnf && (q).nnf // il faut retourner cette forme p and q
+            case .implication(let p, let q): // implique
+                return (!p).nnf || (q).nnf // il faut retourner cette forme not p or q
             case .negation(let p): // not
             switch p{
                     case .constant(let t):
