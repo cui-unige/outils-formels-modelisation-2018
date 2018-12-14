@@ -38,9 +38,7 @@ extension Formula {
         }
     }
     
-    /// The disjunctive normal form (DNF) of the formula.
-    public var dnf: Formula {
-        // Write your code here.
+    public var dnfHelper: Formula {
         // conjunction : && ∧
         // Disjunction : || ∨
         switch self.nnf {
@@ -66,15 +64,15 @@ extension Formula {
             }
             if checkDisjunction {
                 if lhs1 == rhs1 {
-                    return .disjunction(lhs1!.dnf, .conjunction(lhs2!.dnf, rhs2!.dnf))
+                    return .disjunction(lhs1!.dnfHelper, .conjunction(lhs2!.dnfHelper, rhs2!.dnfHelper))
                 } else if lhs1 == rhs2 {
-                    return .disjunction(lhs1!.dnf, .conjunction(lhs2!.dnf, rhs1!.dnf))
+                    return .disjunction(lhs1!.dnfHelper, .conjunction(lhs2!.dnfHelper, rhs1!.dnfHelper))
                 } else if lhs2 == rhs1 {
-                    return .disjunction(lhs2!.dnf, .conjunction(lhs2!.dnf, rhs1!.dnf))
+                    return .disjunction(lhs2!.dnfHelper, .conjunction(lhs2!.dnfHelper, rhs1!.dnfHelper))
                 } else if lhs2 == rhs2 {
-                    return .disjunction(lhs2!.dnf, .conjunction(lhs2!.dnf, rhs2!.dnf))
+                    return .disjunction(lhs2!.dnfHelper, .conjunction(lhs2!.dnfHelper, rhs2!.dnfHelper))
                 } else { // If all are different
-                    return .disjunction(Formula.disjunction(.conjunction(lhs1!, rhs1!), .conjunction(lhs1!, rhs2!)).dnf, Formula.disjunction(.conjunction(lhs2!, rhs1!), .conjunction(lhs2!, rhs2!)).dnf)
+                    return .disjunction(Formula.disjunction(.conjunction(lhs1!, rhs1!), .conjunction(lhs1!, rhs2!)).dnfHelper, Formula.disjunction(.conjunction(lhs2!, rhs1!), .conjunction(lhs2!, rhs2!)).dnfHelper)
                 }
             }
         case .disjunction(let lhs, let rhs):
@@ -114,7 +112,7 @@ extension Formula {
                 break
             }
             if (lhsConstant && rhsDisjunction) || (lhsDisjunction && rhsConstant) {
-                return .disjunction(.conjunction(a!.dnf, c!.dnf), .conjunction(c!.dnf, b!.dnf))
+                return .disjunction(.conjunction(a!.dnfHelper, c!.dnfHelper), .conjunction(c!.dnfHelper, b!.dnfHelper))
             }
         default:
             return self.nnf
@@ -122,8 +120,59 @@ extension Formula {
         return self.nnf
     }
     
-    /// The conjunctive normal form (CNF) of the formula.
-    public var cnf: Formula {
+    /// The disjunctive normal form (DNF) of the formula.
+    public var dnf: Formula {
+        // Write your code here.
+        //print(self.dnfHelper)
+        var minterms = self.dnfHelper.minterms
+        //print(minterms)
+        var output: Formula
+        // Reduce formula using minterms
+        var mintermToRemove : Set<Set<Formula>> = []
+        
+       var count = minterms.count
+        for var i in  0..<count{
+            for var j in 0..<count{
+                if (i != j){
+                    if minterms[minterms.index(minterms.startIndex, offsetBy: i)].isSubset(of: minterms[minterms.index(minterms.startIndex, offsetBy: j)]) {
+                       mintermToRemove.insert(minterms[minterms.index(minterms.startIndex, offsetBy: j)])
+                    }
+                }
+            }
+        }
+        
+        for element in mintermToRemove{
+            minterms.remove(element)
+        }
+       // print(minterms)
+        // Convert Set in Formula
+        func dnfReduce(mintermsReduce: Set<Set<Formula>>) -> Formula {
+            var minterms = mintermsReduce
+           
+            if minterms.count == 1 {
+                if minterms.first!.count == 1 {
+                    return minterms.first!.first!
+                } else {
+                    var firstElement : Set<Formula> = minterms[minterms.index(minterms.startIndex, offsetBy: 0)]
+                    let firstEBis : Formula = firstElement[firstElement.index(firstElement.startIndex, offsetBy: 0)]
+                    firstElement.remove(firstEBis)
+                    let first: Set<Set<Formula>> = [firstElement]
+                    
+                    return .conjunction(minterms.first!.first!, dnfReduce(mintermsReduce: first))
+                }
+            } else {
+                return .disjunction(dnfReduce(mintermsReduce: [minterms.popFirst()!]), dnfReduce(mintermsReduce: minterms))
+            }
+        }
+        if(minterms.count < 2){
+            return self.dnfHelper
+        }else {
+        return .disjunction(dnfReduce(mintermsReduce: [minterms.popFirst()!]), dnfReduce(mintermsReduce: minterms))
+        }
+    }
+    
+    
+     public var cnfHelper: Formula {
         // Write your code here.
         switch self.nnf {
         case .disjunction(let a, let b):
@@ -148,15 +197,15 @@ extension Formula {
             }
             if checkConjunction {
                 if lhs1 == rhs1 {
-                    return .conjunction(lhs1!.dnf, .disjunction(lhs2!.dnf, rhs2!.dnf))
+                    return .conjunction(lhs1!.cnfHelper, .disjunction(lhs2!.cnfHelper, rhs2!.cnfHelper))
                 } else if lhs1 == rhs2 {
-                    return .conjunction(lhs1!.dnf, .disjunction(lhs2!.dnf, rhs1!.dnf))
+                    return .conjunction(lhs1!.cnfHelper, .disjunction(lhs2!.cnfHelper, rhs1!.cnfHelper))
                 } else if lhs2 == rhs1 {
-                    return .conjunction(lhs2!.dnf, .disjunction(lhs2!.dnf, rhs1!.dnf))
+                    return .conjunction(lhs2!.cnfHelper, .disjunction(lhs2!.cnfHelper, rhs1!.cnfHelper))
                 } else if lhs2 == rhs2 {
-                    return .conjunction(lhs2!.dnf, .disjunction(lhs2!.dnf, rhs2!.dnf))
+                    return .conjunction(lhs2!.cnfHelper, .disjunction(lhs2!.cnfHelper, rhs2!.cnfHelper))
                 } else { // If all are different
-                    return .conjunction(Formula.conjunction(.disjunction(lhs1!, rhs1!), .disjunction(lhs1!, rhs2!)).dnf, Formula.conjunction(.disjunction(lhs2!, rhs1!), .disjunction(lhs2!, rhs2!)).dnf)
+                    return .conjunction(Formula.conjunction(.disjunction(lhs1!, rhs1!), .disjunction(lhs1!, rhs2!)).cnfHelper, Formula.conjunction(.disjunction(lhs2!, rhs1!), .disjunction(lhs2!, rhs2!)).cnfHelper)
                 }
             }
         case .conjunction(let lhs, let rhs):
@@ -196,12 +245,65 @@ extension Formula {
                 break
             }
             if (lhsConstant && rhsConjunction) || (lhsConjunction && rhsConstant) {
-                return .conjunction(.disjunction(a!.dnf, c!.dnf), .disjunction(c!.dnf, b!.dnf))
+                return .conjunction(.disjunction(a!.cnfHelper, c!.cnfHelper), .disjunction(c!.cnfHelper, b!.cnfHelper))
             }
         default:
             return self.nnf
         }
         return self.nnf
+    }
+    
+    /// The conjunctive normal form (CNF) of the formula.
+    public var cnf: Formula {
+        
+        // Write your code here.
+        //print(self.dnfHelper)
+        var maxterms = self.dnfHelper.maxterms
+      //  print(maxterms)
+        var output: Formula
+        // Reduce formula using minterms
+        var maxtermToRemove : Set<Set<Formula>> = []
+        
+        var count = maxterms.count
+        for var i in  0..<count{
+            for var j in 0..<count{
+                if (i != j){
+                    if maxterms[maxterms.index(maxterms.startIndex, offsetBy: i)].isSubset(of: maxterms[maxterms.index(maxterms.startIndex, offsetBy: j)]) {
+                        maxtermToRemove.insert(maxterms[maxterms.index(maxterms.startIndex, offsetBy: j)])
+                    }
+                }
+            }
+        }
+        
+        for element in maxtermToRemove{
+            maxterms.remove(element)
+        }
+       // print(maxterms)
+        // Convert Set in Formula
+        func cnfReduce(maxtermsReduce: Set<Set<Formula>>) -> Formula {
+            var maxterms = maxtermsReduce
+            
+            if maxterms.count == 1 {
+                if maxterms.first!.count == 1 {
+                    return maxterms.first!.first!
+                } else {
+                    var firstElement : Set<Formula> = maxterms[maxterms.index(maxterms.startIndex, offsetBy: 0)]
+                    let firstEBis : Formula = firstElement[firstElement.index(firstElement.startIndex, offsetBy: 0)]
+                    firstElement.remove(firstEBis)
+                    let first: Set<Set<Formula>> = [firstElement]
+                    
+                    return .disjunction(maxterms.first!.first!, cnfReduce(maxtermsReduce: first))
+                }
+            } else {
+                return .conjunction(cnfReduce(maxtermsReduce: [maxterms.popFirst()!]), cnfReduce(maxtermsReduce: maxterms))
+            }
+        }
+        if(maxterms.count < 2){
+            return self.cnfHelper
+        }else {
+            return .conjunction(cnfReduce(maxtermsReduce: [maxterms.popFirst()!]), cnfReduce(maxtermsReduce: maxterms))
+        }
+        
     }
     
     /// The minterms of a formula in disjunctive normal form.
