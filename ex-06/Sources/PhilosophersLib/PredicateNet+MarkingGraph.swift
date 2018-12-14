@@ -3,6 +3,21 @@ extension PredicateNet {
   /// Returns the marking graph of a bounded predicate net.
   public func markingGraph(from marking: MarkingType) -> PredicateMarkingNode<T>? {
     // Write your code here ...
+        let root = PredicateMarkingNode(marking: Marking)
+        var created = [root]
+        var unprocessed = [root]
+        while let node = unprocessed.popLast(){
+            for transition in transitions {
+                let sucessorsMap: PredicateBindingMap<T> = [:]
+                let bindings = transition.fireableBindings(from : node.marking){
+                    for binding in bindings {
+                        let successor = transition.fire(from: node.matking, with: binding)
+                        let nextNode= PredicateMarkingNode(marking: successor)
+                        node.successors[transition][binding]= nextNode
+                        for other in created {
+                            if PredicateNet.PredicateNet.equals(other.marking, successor){
+                                
+                            }
     return nil
 
     // Note that I created the two static methods `equals(_:_:)` and `greater(_:_:)` to help you
