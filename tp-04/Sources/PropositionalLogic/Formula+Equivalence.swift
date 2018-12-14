@@ -24,8 +24,9 @@ extension Formula {
   ///     let value = f.eval(with: ["p": true, "q": false])
   ///     // 'value' == true
   ///
-  /// - Warning: The provided valuation should be defined for each proposition name the formula
-  ///   contains. A call to `eval` might fail with an unrecoverable error otherwise.
+  /// - Warning: The provided valuation should be defined for each
+  ///   proposition name the formula contains. A call to `eval` might
+  ///   fail with an unrecoverable error otherwise.
   ///
   /// - Parameters:
   ///   - valuation: A function that maps proposition names to a boolean value.
