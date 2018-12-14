@@ -1,5 +1,8 @@
 extension Formula {
 
+// First commit
+
+
   /// The negation normal form of the formula.
   public var nnf: Formula {
     // Write your code here.
