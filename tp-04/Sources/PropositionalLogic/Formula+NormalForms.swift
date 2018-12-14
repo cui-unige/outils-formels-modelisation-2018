@@ -47,9 +47,9 @@ extension Formula {
     switch goodSelf {
     case .conjunction(let opa, let opb):
         if case let .disjunction(opc, opd) = opa {
-            return (opc.dnf && opb.dnf) || (opd.dnf && opb.dnf)
+            return (opc.dnf && opb.dnf) || (opd.dnf && opb.dnf) // if the first one is a disjunction, we use distributivity
         } else if case let .disjunction(opc, opd) = opb {
-            return (opa.dnf && opc.dnf) || (opa.dnf && opd.dnf)
+            return (opa.dnf && opc.dnf) || (opa.dnf && opd.dnf) // if the second one is a disjunction, we use distributivity
         } else {
             return goodSelf
         }
@@ -84,10 +84,9 @@ extension Formula {
     case .disjunction(let opa, let opb):
 
         if case let .conjunction(opc, opd) = opa {
-            return (opc.dnf || opb.dnf) && (opd.dnf || opb.dnf)
+            return (opc.dnf || opb.dnf) && (opd.dnf || opb.dnf) // if the first one is a conjunction, we use distributivity
         } else if case let .disjunction(opc, opd) = opb {
-
-            return (opa.dnf || opc.dnf) && (opa.dnf || opd.dnf)
+            return (opa.dnf || opc.dnf) && (opa.dnf || opd.dnf) // if the second one is a conjunction, we use distributivity
         } else {
             return goodSelf
         }
