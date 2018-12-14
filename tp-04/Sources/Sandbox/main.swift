@@ -13,7 +13,8 @@ let b: Formula = "b"
 let c: Formula = "c"
 
 let formula = ((a && a) || (a && b) || (a && c) || (b && c) || (a && b && c)).dnf
+
 print("Formula : \(formula)")
-// Output :   (((((a ∧ a) ∨ (a ∧ b)) ∨ (a ∧ c)) ∨ (b ∧ c)) ∨ ((a ∧ b) ∧ c))
-// Output 2 : ((((a ∨ (a ∧ b)) ∨ (a ∧ c)) ∨ (b ∧ c)) ∨ ((a ∧ b) ∧ c))
-// Output 3 : ((((a ∨ (a ∧ b)) ∨ (a ∧ c)) ∨ (b ∧ c)) ∨ ((a ∧ b) ∧ c))
+print("Formula minterms : \(formula.minterms)")
+print("Formula maxterms : \(formula.maxterms)")
+// a || (b && c)

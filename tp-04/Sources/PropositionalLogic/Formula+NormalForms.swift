@@ -38,9 +38,7 @@ extension Formula {
         }
     }
     
-    /// The disjunctive normal form (DNF) of the formula.
-    public var dnf: Formula {
-        // Write your code here.
+    public var dnfHelper: Formula {
         // conjunction : && ∧
         // Disjunction : || ∨
         switch self.nnf {
@@ -66,15 +64,15 @@ extension Formula {
             }
             if checkDisjunction {
                 if lhs1 == rhs1 {
-                     return .disjunction(lhs1!.dnf, .conjunction(lhs2!.dnf, rhs2!.dnf))
+                    return .disjunction(lhs1!.dnfHelper, .conjunction(lhs2!.dnfHelper, rhs2!.dnfHelper))
                 } else if lhs1 == rhs2 {
-                     return .disjunction(lhs1!.dnf, .conjunction(lhs2!.dnf, rhs1!.dnf))
+                    return .disjunction(lhs1!.dnfHelper, .conjunction(lhs2!.dnfHelper, rhs1!.dnfHelper))
                 } else if lhs2 == rhs1 {
-                     return .disjunction(lhs2!.dnf, .conjunction(lhs2!.dnf, rhs1!.dnf))
+                    return .disjunction(lhs2!.dnfHelper, .conjunction(lhs2!.dnfHelper, rhs1!.dnfHelper))
                 } else if lhs2 == rhs2 {
-                     return .disjunction(lhs2!.dnf, .conjunction(lhs2!.dnf, rhs2!.dnf))
+                    return .disjunction(lhs2!.dnfHelper, .conjunction(lhs2!.dnfHelper, rhs2!.dnfHelper))
                 } else { // If all are different
-                     return .disjunction(Formula.disjunction(.conjunction(lhs1!, rhs1!), .conjunction(lhs1!, rhs2!)).dnf, Formula.disjunction(.conjunction(lhs2!, rhs1!), .conjunction(lhs2!, rhs2!)).dnf)
+                    return .disjunction(Formula.disjunction(.conjunction(lhs1!, rhs1!), .conjunction(lhs1!, rhs2!)).dnfHelper, Formula.disjunction(.conjunction(lhs2!, rhs1!), .conjunction(lhs2!, rhs2!)).dnfHelper)
                 }
             }
         case .disjunction(let lhs, let rhs):
@@ -114,7 +112,7 @@ extension Formula {
                 break
             }
             if (lhsConstant && rhsDisjunction) || (lhsDisjunction && rhsConstant) {
-                 return .disjunction(.conjunction(a!.dnf, c!.dnf), .conjunction(c!.dnf, b!.dnf))
+                return .disjunction(.conjunction(a!.dnfHelper, c!.dnfHelper), .conjunction(c!.dnfHelper, b!.dnfHelper))
             }
         default:
             return self.nnf
@@ -122,9 +120,51 @@ extension Formula {
         return self.nnf
     }
     
-    /// The conjunctive normal form (CNF) of the formula.
-    public var cnf: Formula {
+    /// The disjunctive normal form (DNF) of the formula.
+    public var dnf: Formula {
         // Write your code here.
+        var minterms = self.dnfHelper.minterms
+        // Reduce formula using minterms
+        var mintermNew : Set<Set<Formula>> = []
+        var count = minterms.count
+        for var i in  minterms {
+            for var j in minterms {
+                if (i != j) {
+                    if i.isSubset(of: j) {
+                        mintermNew.insert(j)
+                    }
+                }
+            }
+        }
+        for element in mintermNew {
+            minterms.remove(element)
+        }
+        // Convert Set in Formula
+        func dnfReduce(mintermsReduce: Set<Set<Formula>>) -> Formula {
+            var minterms = mintermsReduce
+            if minterms.count == 1 {
+                if minterms.first!.count == 1 {
+                    return minterms.first!.first!
+                } else {
+                    var firstE : Set<Formula> = minterms.first!
+                    let firstEBis : Formula = firstE.first!
+                    firstE.remove(firstEBis)
+                    let afterFirst: Set<Set<Formula>> = [firstE]
+                    return .conjunction(minterms.first!.first!, dnfReduce(mintermsReduce: afterFirst))
+                }
+            } else {
+                return .disjunction(dnfReduce(mintermsReduce: [minterms.popFirst()!]), dnfReduce(mintermsReduce: minterms))
+            }
+        }
+        if minterms.count < 2 {
+            return self.dnfHelper
+        } else {
+            return .disjunction(dnfReduce(mintermsReduce: [minterms.popFirst()!]), dnfReduce(mintermsReduce: minterms))
+        }
+    }
+    
+    /// The conjunctive normal form (CNF) of the formula.
+    public var cnfHelper: Formula {
         switch self.nnf {
         case .disjunction(let a, let b):
             var checkConjunction = true
@@ -202,6 +242,49 @@ extension Formula {
             return self.nnf
         }
         return self.nnf
+    }
+    
+    /// The conjunctive normal form (CNF) of the formula.
+    public var cnf: Formula {
+        // Write your code here.
+        var maxterms = self.cnfHelper.maxterms
+        // Reduce formula using maxterms
+        var maxtermsNew : Set<Set<Formula>> = []
+        var count = maxterms.count
+        for var i in  maxterms {
+            for var j in maxterms {
+                if (i != j) {
+                    if i.isSubset(of: j) {
+                        maxtermsNew.insert(j)
+                    }
+                }
+            }
+        }
+        for element in maxtermsNew {
+            maxterms.remove(element)
+        }
+        // Convert Set in Formula
+        func cnfReduce(maxtermsReduce: Set<Set<Formula>>) -> Formula {
+            var maxterms = maxtermsReduce
+            if maxterms.count == 1 {
+                if maxterms.first!.count == 1 {
+                    return maxterms.first!.first!
+                } else {
+                    var firstE : Set<Formula> = maxterms.first!
+                    let firstEBis : Formula = firstE.first!
+                    firstE.remove(firstEBis)
+                    let afterFirst: Set<Set<Formula>> = [firstE]
+                    return .disjunction(maxterms.first!.first!, cnfReduce(maxtermsReduce: afterFirst))
+                }
+            } else {
+                return .conjunction(cnfReduce(maxtermsReduce: [maxterms.popFirst()!]), cnfReduce(maxtermsReduce: maxterms))
+            }
+        }
+        if maxterms.count < 2 {
+            return self.cnfHelper
+        } else {
+            return .conjunction(cnfReduce(maxtermsReduce: [maxterms.popFirst()!]), cnfReduce(maxtermsReduce: maxterms))
+        }
     }
     
     /// The minterms of a formula in disjunctive normal form.
