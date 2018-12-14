@@ -111,7 +111,7 @@ extension Formula {
         /* A_CNF == CNF FORMULA | B_CNF == CNF FORMULA */
         switch (A_CNF, B_CNF) {
           case (.conjunction(let A, let B),_) : // (A ∧ B) ∨ B_CNF
-            return (A || B_CNF) && (B || B_CNF) // (A ∨ B_CNF) ∧ (B ∨ C_DNF)
+            return (A || B_CNF) && (B || B_CNF) // (A ∨ B_CNF) ∧ (B ∨ B_CNF)
           case (_,.conjunction(let A, let B)) : // A_CNF ∨ (A ∧ B)
             return (A_CNF || A) && (A_CNF || B) // (A_CNF ∨ A) ∧ (A_CNF ∨ B)
           default : // case : only propositions
@@ -128,6 +128,7 @@ extension Formula {
     case .disjunction(_,_) : // C[1] ∨ ... ∨ C[n]
         var result : Set<Set<Formula>> = [] // empty list of disjunctive operands
         // loop on C[1], ..., C[n]
+        // C[i] = l[1] ∧ ... ∧ l[m]
         for operand in self.disjunctionOperands {
           // add disjunctive operands to result list
           // l[1] ∧ ... ∧ l[n]
@@ -148,6 +149,7 @@ extension Formula {
         // C[i] = l[1] ∨ ... ∨ l[m]
         for operand in self.conjunctionOperands {
           // add conjunctive operands to result list
+          // l[1] ∨ ... ∨ l[m]
           result.insert(operand.disjunctionOperands)
         }
         return result // list of conjunctive operands
