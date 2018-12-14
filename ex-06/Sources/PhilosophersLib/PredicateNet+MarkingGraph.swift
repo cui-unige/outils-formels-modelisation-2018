@@ -5,6 +5,25 @@ extension PredicateNet {
     // Write your code here ...
     return nil
 
+    let root = PredicateMarkingNode(marking: marking) // the root = initial marking
+        var created = [root]
+        var unprocessed : [(PredicateMarkingNode<T>,[PredicateMarkingNode<T>])] = [(root,[])] // unprocessed markings
+        while let (node, predecessors) = unprocessed.popLast() { // while there are still unprocessed markings
+            for transition in transitions { // loop transitions
+                guard let nextmarking = transition.fire(from : node.marking) else {continue}
+                if let successor = created.first(where: {other in PredicateNet.equals(other.marking, nextmarking)})  { // if the marking already exists, then no need to look at it
+                    node.successors[transition] = successor
+                } else if predecessors.contains(where : {other in PredicateNet.greater(nextmarking > other.marking)}) { // check if we have unborned, next is greater than other
+                    return  nil
+                } else { // add new markings
+                    let successor = PredicateMarkingNode(marking: nextmarking) // create node
+                    created.append(successor) // add created node to list which is used to see if alredy created
+                    unprocessed.append((successor, predecessors + [node])) // add to unprocessed
+                    node.successors[transition] = successor // add successor
+                }
+            }
+        }
+    return root
     // Note that I created the two static methods `equals(_:_:)` and `greater(_:_:)` to help you
     // compare predicate markings. You can use them as the following:
     //
@@ -49,9 +68,9 @@ extension PredicateNet {
 /// The type of nodes in the marking graph of predicate nets.
 public class PredicateMarkingNode<T: Equatable>: Sequence {
 
-  public init(
+  public init( // Map to a map
     marking   : PredicateNet<T>.MarkingType,
-  successors: [PredicateTransition<T>: PredicateBindingMap<T>] = [:])
+    successors: [PredicateTransition<T>: PredicateBindingMap<T>] = [:])
   {
     self.marking    = marking
     self.successors = successors
