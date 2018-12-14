@@ -20,15 +20,38 @@ extension Formula {
 
   /// The minterms of a formula in disjunctive normal form.
   public var minterms: Set<Set<Formula>> {
-    // Write your code here.
-    return []
-  }
+        // Write your code here.
+        //
+
+        var minterme_retour = Set<Set<Formula>>()
+
+        switch self { // on controle dans un switch  si on a une conjonction (and) qui separe nos operandes dans self
+        case .disjunction(_, _): // On utilise la disjonction (or)
+            for operand in self.disjunctionOperands { //si on a une disjonction pour self
+                minterme_retour.insert(operand.conjunctionOperands) //on insert les operandes dans notre variabe de retour minterme_retour
+            }
+            return minterme_retour // on renvoie notre variable de sortie
+        default:
+            return minterme_retour // dans le cas ou on est pas face a une disjonctions on fait rien et on renvoie notre variable de sortie
+        }
+}
 
   /// The maxterms of a formula in conjunctive normal form.
   public var maxterms: Set<Set<Formula>> {
-    // Write your code here.
-    return []
-  }
+    // idée similaire a minterme mais avec les conjonctions au lieux des disjonctions
+
+       var maxterme_retour = Set<Set<Formula>>() // on initialise notre set qu'on renvoie
+
+       switch self { // on controle dans un switch  si on a une conjonction (and) qui separe nos operandes dans self
+       case .conjunction(_, _): // si on a une conjonction pour self
+           for operand in self.conjunctionOperands { // on parcours les operandes du self
+               maxterme_retour.insert(operand.disjunctionOperands) //on insert dans notre variable qu'on renvoie  maxterme_retour les operandes
+           }
+           return maxterme_retour // on renvoie notre variable de sortie
+       default: // dans le cas ou on est pas face a une conjunction on fait rien et on renvoie notre variable de sortie
+           return maxterme_retour
+       }
+}
 
   /// Unfold a tree of binary disjunctions into a set of operands.
   ///
