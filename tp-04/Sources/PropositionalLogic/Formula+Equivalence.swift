@@ -32,18 +32,18 @@ extension Formula {
   /// - Returns: The evaluation of the formula for the given valuation.
   public func eval(with valuation: [String: Bool]) -> Bool {
     switch self {
-    case .constant(let c):
-      return c
-    case .proposition(let p):
-      return valuation[p]!
-    case .negation(let a):
-      return !a.eval(with: valuation)
-    case .disjunction(let a, let b):
-      return a.eval(with: valuation) || b.eval(with: valuation)
-    case .conjunction(let a, let b):
-      return a.eval(with: valuation) && b.eval(with: valuation)
-    case .implication(let a, let b):
-      return !a.eval(with: valuation) || b.eval(with: valuation)
+      case .constant(let c):
+        return c
+      case .proposition(let p):
+        return valuation[p]!
+      case .negation(let a):
+        return !a.eval(with: valuation)
+      case .disjunction(let a, let b):
+        return a.eval(with: valuation) || b.eval(with: valuation)
+      case .conjunction(let a, let b):
+        return a.eval(with: valuation) && b.eval(with: valuation)
+      case .implication(let a, let b):
+        return !a.eval(with: valuation) || b.eval(with: valuation)
     }
   }
 
@@ -55,20 +55,80 @@ extension Formula {
   ///
   private var propositions: Set<String> {
     switch self {
-    case .constant:
-      return []
-    case .proposition(let p):
-      return [p]
-    case .negation(let a):
-      return a.propositions
-    case .disjunction(let a, let b):
-      return a.propositions.union(b.propositions)
-    case .conjunction(let a, let b):
-      return a.propositions.union(b.propositions)
-    case .implication(let a, let b):
-      return a.propositions.union(b.propositions)
+      case .constant:
+        return []
+      case .proposition(let p):
+        return [p]
+      case .negation(let a):
+        return a.propositions
+      case .disjunction(let a, let b):
+        return a.propositions.union(b.propositions)
+      case .conjunction(let a, let b):
+        return a.propositions.union(b.propositions)
+      case .implication(let a, let b):
+        return a.propositions.union(b.propositions)
     }
   }
+
+  /// The negation normal form of the formula.
+  public var nnf: Formula {
+    switch self {
+      case .constant: // true/false
+          return self
+      case .proposition(_): //  a
+          return self
+      case .negation(let a): //  ¬a
+          switch a {
+            case .constant: // ¬(true/false) -> false/true
+              return !self
+            case .proposition(_): //  ¬p
+                return self
+            case .negation(let b): //  (¬¬b) -> (b)
+                return b.nnf
+            case .disjunction(let b, let c): //  ¬(b || c) -> (¬b && ¬c)
+                return (!b).nnf && (!c).nnf
+            case .conjunction(let b, let c): //  ¬(b && c) -> (¬b || ¬c)
+                return (!b).nnf || (!c).nnf
+            case .implication(let b, let c): //  ¬a -> ¬(b -> c).nnf -> ¬(¬b || c)
+                return (!(a.nnf)).nnf
+          }
+      case .disjunction(let b, let c): //  (b || c)
+          return b.nnf || c.nnf
+      case .conjunction(let b, let c): //  (b && c)
+          return b.nnf && c.nnf
+      case .implication(let b, let c): //  (b -> c) -> (¬b || c)
+          return (!b).nnf || c.nnf
+  }
+
+  /// The disjunctive normal form of the formula.
+  public var dnf: Formula {
+    switch self {
+      case .constant: // true/false
+          return self
+      case .proposition(_): //  a
+          return self
+      case .negation(let a): //  ¬a
+          return (a.nnf).dnf
+      case .disjunction(let b, let c): //  (b || c)
+          return b.nnf || c.nnf
+      case .conjunction(let b, let c): //  (b && c)
+          switch b {
+            case .disjunction(let d, let e): // (d || e) && c ..
+              switch c {
+                case .disjunction(let f, let g): // (d||e)&&(f||g) -> (d&&f)||(d&&g)||(e&&f)||(e&&g)
+                  return (d.dnf && f.dnf)||(d.dnf && g.dnf)
+                       ||(e.dnf && f.dnf)||(e.dnf && g.dnf)
+                default: // (d || e) && c -> (d && c) || (e && c)
+                  return (d.dnf && c.dnf) || (e.dnf && c.dnf)
+              }
+            default:
+              return (b.dnf && c.dnf)
+          }
+      case .implication(let b, let c): //  (b -> c) -> (¬b || c)
+          return (!b).nnf || c.nnf
+  }
+}
+
 
 }
 
