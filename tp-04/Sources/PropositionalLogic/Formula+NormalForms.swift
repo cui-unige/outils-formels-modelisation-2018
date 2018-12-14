@@ -176,7 +176,7 @@ extension Formula {
     }
   }
 
-  /// Unfold a tree of binary disjunctions into a set of operands.
+  /// Unfold a tree of binary disjunctions into a set of operand.
   ///
   ///     let f: Formula = .disjunction("a", .disjunction("b", .negation("c")))
   ///     print(disjunctionOperands)
