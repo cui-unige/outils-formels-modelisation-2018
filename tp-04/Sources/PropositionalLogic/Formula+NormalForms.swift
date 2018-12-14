@@ -46,38 +46,38 @@ extension Formula {
     var resultInter: Formula? = nil
 
     switch self.nnf { //On enlève les implications
-    case .conjunction:
-      var clauses = self.nnf.conjunctionOperands //Toutes les clauses disjonctives
-      if let first = clauses.first{ //On prend la première clause disjonctive
-        if case let .disjunction(a, b) = first{ //On "casse" la clause first pour la séparer en clause a et et clause b
-          clauses.remove(first) //On enlève la clause car on l'a "cassé"
-          let next = clauses.first //On prend la nouvelle première clause
+      case .conjunction:
+        var clauses = self.nnf.conjunctionOperands //Toutes les clauses disjonctives
+        if let first = clauses.first{ //On prend la première clause disjonctive
+          if case let .disjunction(a, b) = first{ //On "casse" la clause first pour la séparer en clause a et et clause b
+            clauses.remove(first) //On enlève la clause car on l'a "cassé"
+            let next = clauses.first //On prend la nouvelle première clause
 
-          return (a.dnf && next!.dnf) || (b.dnf && next!.dnf) //On retourne de manière récursive les formules (même a et b car il est possible que toutes les clauses à l'intérieur ne soient pas en fnd)
-        }
-      }
-    return self.nnf
-
-    case .disjunction:
-      var clauses = self.nnf.disjunctionOperands
-      for clause in clauses{
-          for clause2 in clauses{
-            if clause != clause2 && clause.conjunctionOperands.isSubset(of: clause2.conjunctionOperands){
-
-              clauses.remove(clause2)
-            }
+            return (a.dnf && next!.dnf) || (b.dnf && next!.dnf) //On retourne de manière récursive les formules (même a et b car il est possible que toutes les clauses à l'intérieur ne soient pas en fnd)
           }
-      }
-      resultInter = clauses.first
-      clauses.remove(resultInter!)
+        }
+        return self.nnf
 
-      for clause in clauses{
-        resultInter = resultInter! || clause
-      }
-      return resultInter!
+      case .disjunction: //Pour la réduction d'une clause disjonctive
+        var clauses = self.nnf.disjunctionOperands //Toutes les clauses conjonctives
+        for clause in clauses{
+            for clause2 in clauses{
+              //Comparaison de toutes les clauses entre elles pour pouvoir supprimer celles qui sont équivalentes
+              if clause != clause2 && clause.conjunctionOperands.isSubset(of: clause2.conjunctionOperands){
+                clauses.remove(clause2)
+              }
+            }
+        }
+        resultInter = clauses.first //
+        clauses.remove(resultInter!) //On supprime pour ne pas avoir de redondances
 
-    default:
-      return self.nnf
+        for clause in clauses{
+          resultInter = resultInter! || clause //disjonction
+        }
+        return resultInter!
+
+      default:
+        return self.nnf
     }
 
 
