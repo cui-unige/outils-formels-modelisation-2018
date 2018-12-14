@@ -37,12 +37,16 @@ extension Formula {
     case .proposition(let p):
       return valuation[p]!
     case .negation(let a):
+    // !a
       return !a.eval(with: valuation)
     case .disjunction(let a, let b):
+    // (a || b)
       return a.eval(with: valuation) || b.eval(with: valuation)
     case .conjunction(let a, let b):
+    // (a && b)
       return a.eval(with: valuation) && b.eval(with: valuation)
     case .implication(let a, let b):
+    // (!a || b)
       return !a.eval(with: valuation) || b.eval(with: valuation)
     }
   }
