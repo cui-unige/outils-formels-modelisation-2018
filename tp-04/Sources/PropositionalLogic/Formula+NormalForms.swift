@@ -1,95 +1,81 @@
 extension Formula {
-
   /// The negation normal form of the formula.
+	// une formule est dite être en forme normale négative (abrégé FNN) si l'opérateur de la négation
+	// est appliqué uniquement aux variables, et les seuls opérateurs booléens autorisés sont la conjonction  et la disjonction .
   public var nnf: Formula {
-
     switch self {
+			// CAS OU ON A UNE NEGATION à "DISTRIBUER", pour avoir l'opérateur de négation appliqué uniquement aux variables
     case .negation(let a):
-      switch a { // On boucle sur différents types de a (p.ex a=c->d)
+      switch a {
       case .constant(let b):
-        return Formula.constant(!b)
+        return Formula.constant(!b) // si b est une constante, on envoie la négation  (true->false et false->true)
       case .proposition:
-        return self
+        return self // on retourne lui même car négation de négation
       case .negation(let b):
-        return b.nnf // C'est récursif
-      case .conjunction(let b, let c):
+        return b.nnf // si b est une négation, on traite simplement b tel quel
+      case .conjunction(let b, let c): // si on a:  a ∧ b, on transforme en !a ∨ !b
         return !b.nnf || !c.nnf
-      case .disjunction(let b, let c):
+      case .disjunction(let b, let c): // si on a: a ∨ b, on transforme en !a ∧ !b
         return !b.nnf && !c.nnf
-      case .implication(let b, let c):
+      case .implication(let b, let c):  // a → b = !a ∨ b, on transforme en a ∧ !b
         return b.nnf && !c.nnf
       }
-    case .implication(let a, let b):
-      return !a.nnf || b.nnf
-    case .conjunction(let a, let b):
-      if a == b {
-        return a.nnf
-      }
-      else {
+			// CAS OU PAS D'OPERATEUR NEGATION GLOBAL-TOTAL
+    case .implication(let a, let b): // si on a une implication a → b = !a ∨ b,
+      return !a.nnf || b.nnf // .nnf car à vérifier la forme de a et b (récursivement, à l'aide d'au-dessus)
+    case .conjunction(let a, let b): // si on a une conjonction  a ∧ b
         return a.nnf && b.nnf
-    }
-    case .disjunction(let a, let b):
-      if a == b {
-        return a.nnf
-      }
-      else {
+	  case .disjunction(let a, let b): // si on a une disjonction a ∨ b
       return a.nnf || b.nnf
-      }
     default :
       return self
     }
   }
-
   /// The disjunctive normal form (DNF) of the formula.
   public var dnf: Formula {
-
-    switch self.nnf { // on commence avec nnf
-    case .conjunction:
-      var operands = self.nnf.conjunctionOperands
-      if let firstDisjunction = operands.first(where: { if case  .disjunction = $0 {
-        return true
+    switch self.nnf { // pour pouvoir une forme normale conjonctive, il faut obligatoirment que les négations soient sur les variables (distribués)
+    case .conjunction: // ∧
+      var variables = self.nnf.conjunctionOperands // on sépare les opérandes
+      if let disjonctionTrouvee = variables.first(where: {
+				if case  .disjunction = $0 { // on itère sur les opérandes et on récupère la première qui a une disjonction
+        	return true // ok assignation de variable
       }
-      return false }) {
-          if case let .disjunction(a, b) = firstDisjunction {
-            // enlève firstDisjunction de l'ensemble
-            operands.remove(firstDisjunction)
-            // declare res comme un optionnel (on ne peut pas utiliser des variables non déclarées)
-            var res : Formula?
-            // Construction du résultat
-            for op in operands {
-              if res != nil  {
-                res = res! && op
+		return false } ) {
+          if case let .disjunction(a, b) = disjonctionTrouvee {
+            variables.remove(disjonctionTrouvee) // on l'enlève du set, car pas besoin de la traiter car sous la bonne forme
+            var resultat : Formula? // initialisation de la variable de type Formula (ok à NULL)
+            for operande in variables { // on itère sur les opérandes des variables restantes (qui ne sont donc pas des disjonctions)
+              if resultat != nil  { // (boucles 2..)
+                resultat = resultat! && operande // on concatène par AND les opérandes
               }
               else {
-                res = op
+                resultat = operande // (première boucle, première opérande)
               }
             }
-          res = (a.dnf && res!.dnf) || (b.dnf && res!.dnf)
-          if res != nil { return res!.dnf} // Récurrence
+          resultat = (a.dnf && resultat!.dnf) || (b.dnf && resultat!.dnf) // développement en forme normale conjonctive (distribution)
+          if resultat != nil { return resultat!.dnf}
           }
       }
       return self.nnf
-    case .disjunction:
-      var operands = self.disjunctionOperands
-      // absorption
-      for op in operands {
-        for op1 in operands {
-          if op.conjunctionOperands.isSubset(of:op1.conjunctionOperands) && op1 != op { //Si les opérandes de conjonction de op sont sous-ensembles des opérandes de conjonction de op1
-            operands.remove(op1) //On supprime op1
+    case .disjunction: // ∨
+      var variables = self.disjunctionOperands // on récupère les opérandes dans le cas d'une disjonction
+      for operandeA in variables { // première opérande
+        for operandeB in variables { // deuxième opérande
+          if operandeA.conjunctionOperands.isSubset(of:operandeB.conjunctionOperands) && operandeB != operandeA { // si sous-ensembles et différents
+            variables.remove(operandeB) // on peut l'enlever des variables à traiter car sous la bonne forme
           }
         }
       }
-      // build result
-      var res : Formula?
-      for op in operands {
-        if res != nil  {
-          res = res! || op
+      var resultat : Formula?
+      for operandeA in variables {
+        if resultat != nil  {
+          resultat = resultat! || operandeA // on concatène les opérandes avec des OU
         }
         else {
-          res = op
+          resultat = operandeA
         }
       }
-      return res!
+      return resultat!
     default :
       return self.nnf
     }
@@ -97,54 +83,49 @@ extension Formula {
 
   /// The conjunctive normal form (CNF) of the formula.
   public var cnf: Formula {
-
-    switch self.nnf { // On commence avec nnf
+    // Write your code here.
+    switch self.nnf {
     case .disjunction:
-      var operands = self.nnf.disjunctionOperands
-      if let firstConjunction = operands.first(where: { if case  .conjunction = $0 {
+      var variables = self.nnf.disjunctionOperands
+      if let firstConjunction = variables.first(where: { if case  .conjunction = $0 {
         return true
       }
       return false }) {
           if case let .conjunction(a, b) = firstConjunction {
-            //On enlève firstconjonction de l'ensemble
-            operands.remove(firstConjunction)
-            // declare res comme un optionnel (on ne peut pas utiliser des variables non déclarées)
-            var res : Formula?
-            // Construction du résultat
-            for op in operands {
-              if res != nil  {
-                res = res! || op
+            variables.remove(firstConjunction)
+            var resultat : Formula?
+            for operandeA in variables {
+              if resultat != nil  {
+                resultat = resultat! || operandeA
               }
               else {
-                res = op
+                resultat = operandeA
               }
             }
-          res = (a.cnf || res!.cnf) && (b.cnf || res!.cnf)
-          if res != nil { return res!.cnf}
+          resultat = (a.cnf || resultat!.cnf) && (b.cnf || resultat!.cnf)
+          if resultat != nil { return resultat!.cnf}
           }
       }
       return self.nnf
     case .conjunction:
-      var operands = self.nnf.conjunctionOperands
-      // absorption
-      for op in operands {
-        for op1 in operands {
-          if op.disjunctionOperands.isSubset(of:op1.disjunctionOperands) && op1 != op {
-            operands.remove(op1)
+      var variables = self.nnf.conjunctionOperands
+      for operandeA in variables {
+        for operandeB in variables {
+          if operandeA.disjunctionOperands.isSubset(of:operandeB.disjunctionOperands) && operandeB != operandeA {
+            variables.remove(operandeB)
           }
         }
       }
-      // Construction du résultat
-      var res : Formula?
-      for op in operands {
-        if res != nil  {
-          res = res! && op
+      var resultat : Formula?
+      for operandeA in variables {
+        if resultat != nil  {
+          resultat = resultat! && operandeA
         }
         else {
-          res = op
+          resultat = operandeA
         }
       }
-      return res!
+      return resultat!
     default :
       return self.nnf
     }
@@ -152,38 +133,36 @@ extension Formula {
 
   /// The minterms of a formula in disjunctive normal form.
   public var minterms: Set<Set<Formula>> {
-
+    // Write your code here.
     switch self {
+			// on doit récupérer les opérandes séparées par des ∨
     case .disjunction:
       let operands = self.disjunctionOperands
-      // On initialise l'ensemble résultat
-      var result : Set<Set<Formula>> = []
-      for op in operands {
-        result.insert(op.conjunctionOperands)
+      var resultat : Set<Set<Formula>> = [] // initialisation du set que l'on retournera
+      for operande in operands {
+        resultat.insert(operande.conjunctionOperands) // on boucle sur les opérandes (séparées donc pas des disjonctions de base) et on les ajoute au résultat final 
       }
-      return result
+      return resultat
     default:
       return []
     }
   }
-
   /// The maxterms of a formula in conjunctive normal form.
   public var maxterms: Set<Set<Formula>> {
-
+    // Write your code here.
     switch self {
+			// on doit récupérer les opérandes séparées par des ∧
     case .conjunction:
       let operands = self.conjunctionOperands
-      // On initialise l'ensemble résultat
-      var result : Set<Set<Formula>> = []
-      for op in operands {
-        result.insert(op.disjunctionOperands)
+      var resultat : Set<Set<Formula>> = [] // initialisation du set que l'on retournera
+      for operande in operands {
+        resultat.insert(operande.disjunctionOperands)
       }
-      return result
+      return resultat
     default:
       return []
     }
   }
-
   /// Unfold a tree of binary disjunctions into a set of operands.
   ///
   ///     let f: Formula = .disjunction("a", .disjunction("b", .negation("c")))
@@ -198,7 +177,6 @@ extension Formula {
       return [self]
     }
   }
-
   /// Unfold a tree of binary conjunctions into a set of operands.
   ///
   ///     let f: Formula = .conjunction("a", .conjunction("b", .negation("c")))
@@ -213,5 +191,4 @@ extension Formula {
       return [self]
     }
   }
-
 }
