@@ -1,0 +1,109 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "PredicateNetSimulation"
+provides-nominal:
+- "15PhilosophersLib22PredicateNetSimulationV"
+provides-member:
+- ["15PhilosophersLib22PredicateNetSimulationV", ""]
+- ["15PhilosophersLib12PredicateNetV", ""]
+- ["15PhilosophersLib12PredicateNetV", "simulation"]
+provides-dynamic-lookup:
+depends-top-level:
+- "AnyIterator"
+- !private "AssignmentPrecedence"
+- "Equatable"
+- "FloatLiteralType"
+- "IntegerLiteralType"
+- "PredicateNet"
+- "PredicateNetSimulation"
+- "Sequence"
+depends-member:
+- !private ["s11AnyIteratorV", "init"]
+- !private ["St", "init"]
+- ["15PhilosophersLib12PredicateNetV", "MarkingType"]
+- ["15PhilosophersLib12PredicateNetV", "PredicateNetSimulation"]
+- ["15PhilosophersLib12PredicateNetV", "T"]
+- !private ["15PhilosophersLib12PredicateNetV", "initialMarking"]
+- !private ["15PhilosophersLib12PredicateNetV", "simulate"]
+- ["15PhilosophersLib12PredicateNetV", "simulation"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "AnyIterator"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "Element"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "Iterator"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "PredicateNet"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "SubSequence"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "T"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "_Default_Element"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "_Default_Iterator"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "_Default_SubSequence"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "_copyContents"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "_copyToContiguousArray"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "_customContainsEquatableElement"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "_preprocessingPass"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "deinit"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "drop"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "dropFirst"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "dropLast"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "filter"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "forEach"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "init"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "initialMarking"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "makeIterator"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "map"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "net"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "prefix"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "split"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "suffix"]
+- ["15PhilosophersLib22PredicateNetSimulationV", "underestimatedCount"]
+- !private ["ST", "AnyIterator"]
+- ["ST", "Element"]
+- ["ST", "Iterator"]
+- ["ST", "SubSequence"]
+- ["ST", ""]
+- ["ST", "_Default_Element"]
+- ["ST", "_Default_Iterator"]
+- ["ST", "_Default_SubSequence"]
+- ["ST", "_copyContents"]
+- ["ST", "_copyToContiguousArray"]
+- ["ST", "_customContainsEquatableElement"]
+- ["ST", "_preprocessingPass"]
+- ["ST", "drop"]
+- ["ST", "dropFirst"]
+- ["ST", "dropLast"]
+- ["ST", "filter"]
+- ["ST", "forEach"]
+- !private ["ST", "init"]
+- ["ST", "makeIterator"]
+- ["ST", "map"]
+- !private ["ST", "net"]
+- ["ST", "prefix"]
+- ["ST", "split"]
+- ["ST", "suffix"]
+- ["ST", "underestimatedCount"]
+depends-nominal:
+- !private "s11AnyIteratorV"
+- !private "St"
+- "15PhilosophersLib12PredicateNetV"
+- "15PhilosophersLib22PredicateNetSimulationV"
+- "ST"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreFoundation.swiftmodule"
+- "/Users/marc/Documents/Perso/E\u0301cole/Universite\u0301/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/SwiftProductGenerator.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/IOKit.swiftmodule"
+- "/Users/marc/Documents/Perso/E\u0301cole/Universite\u0301/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/x86_64/SwiftOnoneSupport.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include/objc/ObjectiveC.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/usr/include/Darwin.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CoreGraphics.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/ApplicationServices.framework/Headers/ApplicationServices.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/CoreText.framework/Headers/CoreText.apinotes"
+- "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Security.framework/Headers/Security.apinotes"
+interface-hash: "dff08d132eb17759bb5b85cf639ea527"

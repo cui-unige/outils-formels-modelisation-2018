@@ -1,0 +1,41 @@
+{
+  "": {
+    "swift-dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/master.swiftdeps"
+  },
+  "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git--5418430850239137677/Sources/PetriKit/Group.swift": {
+    "dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Group.d",
+    "object": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Group.swift.o",
+    "swiftmodule": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Group~partial.swiftmodule",
+    "swift-dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Group.swiftdeps"
+  },
+  "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git--5418430850239137677/Sources/PetriKit/Marking.swift": {
+    "dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Marking.d",
+    "object": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Marking.swift.o",
+    "swiftmodule": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Marking~partial.swiftmodule",
+    "swift-dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Marking.swiftdeps"
+  },
+  "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git--5418430850239137677/Sources/PetriKit/PTNet.swift": {
+    "dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PTNet.d",
+    "object": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PTNet.swift.o",
+    "swiftmodule": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PTNet~partial.swiftmodule",
+    "swift-dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PTNet.swiftdeps"
+  },
+  "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git--5418430850239137677/Sources/PetriKit/PetriKit.swift": {
+    "dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriKit.d",
+    "object": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriKit.swift.o",
+    "swiftmodule": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriKit~partial.swiftmodule",
+    "swift-dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriKit.swiftdeps"
+  },
+  "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git--5418430850239137677/Sources/PetriKit/PetriNet+Dot.swift": {
+    "dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriNet+Dot.d",
+    "object": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriNet+Dot.swift.o",
+    "swiftmodule": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriNet+Dot~partial.swiftmodule",
+    "swift-dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/PetriNet+Dot.swiftdeps"
+  },
+  "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/checkouts/PetriKit.git--5418430850239137677/Sources/PetriKit/Random.swift": {
+    "dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Random.d",
+    "object": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Random.swift.o",
+    "swiftmodule": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Random~partial.swiftmodule",
+    "swift-dependencies": "/Users/marc/Documents/Perso/École/Université/2018 Automne/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PetriKit.build/Random.swiftdeps"
+  }
+}
