@@ -1,0 +1,35 @@
+{
+  "": {
+    "swift-dependencies": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/master.swiftdeps"
+  },
+  "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/Collection+Extensions.swift": {
+    "dependencies": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Collection+Extensions.d",
+    "object": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Collection+Extensions.swift.o",
+    "swiftmodule": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Collection+Extensions~partial.swiftmodule",
+    "swift-dependencies": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Collection+Extensions.swiftdeps"
+  },
+  "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/Philosophers.swift": {
+    "dependencies": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Philosophers.d",
+    "object": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Philosophers.swift.o",
+    "swiftmodule": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Philosophers~partial.swiftmodule",
+    "swift-dependencies": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/Philosophers.swiftdeps"
+  },
+  "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/PredicateNet+MarkingGraph.swift": {
+    "dependencies": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+MarkingGraph.d",
+    "object": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+MarkingGraph.swift.o",
+    "swiftmodule": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+MarkingGraph~partial.swiftmodule",
+    "swift-dependencies": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+MarkingGraph.swiftdeps"
+  },
+  "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/PredicateNet+Simulation.swift": {
+    "dependencies": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+Simulation.d",
+    "object": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+Simulation.swift.o",
+    "swiftmodule": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+Simulation~partial.swiftmodule",
+    "swift-dependencies": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet+Simulation.swiftdeps"
+  },
+  "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/Sources/PhilosophersLib/PredicateNet.swift": {
+    "dependencies": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet.d",
+    "object": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet.swift.o",
+    "swiftmodule": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet~partial.swiftmodule",
+    "swift-dependencies": "/Users/ella/Desktop/UNI2/outils-formels-modelisation-2018/ex-06/.build/x86_64-apple-macosx10.10/debug/PhilosophersLib.build/PredicateNet.swiftdeps"
+  }
+}
