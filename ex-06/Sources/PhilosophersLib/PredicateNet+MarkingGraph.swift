@@ -2,9 +2,8 @@ extension PredicateNet {
 
   /// Returns the marking graph of a bounded predicate net.
   public func markingGraph(from marking: MarkingType) -> PredicateMarkingNode<T>? {
-      for place in places{
-          if (isfirebleBinding(p1)
-      }
+      for(place, tokens) in
+
     return nil
 
     // Note that I created the two static methods `equals(_:_:)` and `greater(_:_:)` to help you
